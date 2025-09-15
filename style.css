@@ -13,14 +13,17 @@ body {
     line-height: 1.6;
 }
 
+.top-bar {
+    height: 400px; /* << SUBSTITUA PELA ALTURA EXATA DA SUA IMAGEM DA BARRA */
+    background-image: url('imagens/padrao-barra.png');
+    background-repeat: repeat-x;
+    background-position: center top;
+    background-size: auto 100%; /* Garante que a imagem não seja ampliada na vertical */
+}
+
 /* --- CABEÇALHO --- */
 .main-header {
-    /* Aplicando o "papel de parede" (a barra) que se repete */
-    background-image: url('imagens/BarraSuperior.png'); /* << Sua nova imagem de padrão */
-    background-repeat: repeat-x; /* Faz a imagem repetir na horizontal */
-    background-position: center top; /* Alinha o padrão */
-    
-    /* Um espaçamento para a logo não ficar colada na barra */
+    /* Removemos o background daqui. Apenas damos um espaçamento. */
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -35,9 +38,8 @@ body {
 
 /* O "quadro" (a logo) com seu tamanho fixo */
 .main-header .logo {
-    width: 450px; /* << SUBSTITUA AQUI PELA LARGURA REAL DA SUA LOGO */
-    max-width: none; /* << COMANDO MÁGICO que impede a imagem de encolher */
-    height: auto;
+    /* Removemos as regras de width e max-width */
+    height: auto; 
 }
 
 /* Estilo para a imagem FIXA do RODAPÉ */
