@@ -21,7 +21,7 @@ body {
 /* Estilo para a imagem única do cabeçalho */
 .header-image,
 .main-footer .decorative-bar {
-    width: 1920px; /* << Defina a largura original da sua imagem em pixels */
+    width: 3600px; /* << Defina a largura original da sua imagem em pixels */
     max-width: none; /* << Remove o limite de largura máxima */
     height: auto;
 }
