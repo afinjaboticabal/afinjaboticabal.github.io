@@ -185,7 +185,7 @@ body {
 /* --- RODAPÉ --- */
 .main-footer {
     /* Aplicando a barra repetitiva no fundo do rodapé */
-    background-image: url('imagens/padrao-rodape.png'); /* << Sua nova imagem de padrão do rodapé */
+    background-image: url('imagens/BarraInferior.png'); /* << Sua nova imagem de padrão do rodapé */
     background-repeat: repeat-x;
     background-position: center bottom; /* Alinha o padrão na parte de baixo */
     height: 180px; /* << SUBSTITUA PELA ALTURA EXATA da sua imagem padrao-rodape.png */
