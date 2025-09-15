@@ -19,24 +19,11 @@ body {
     padding: 20px 0 10px 0;
 }
 
-.decorative-bar {
-    width: 100%;
-    height: auto;
-}
-
-.logo {
-    max-width: 300px;
-    margin: 20px auto;
-}
-
-.social-icons-header a {
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-.social-icons-header img {
-    width: 32px;
-    height: 32px;
+/* Estilo para a imagem única do cabeçalho */
+.header-image {
+    width: 100%; /* Faz a imagem ocupar toda a largura da tela */
+    height: auto; /* Mantém a proporção correta da imagem */
+    display: block; /* Garante que a imagem se comporte bem no layout */
 }
 
 /* --- MENU DE NAVEGAÇÃO (SEU CÓDIGO ADAPTADO) --- */
