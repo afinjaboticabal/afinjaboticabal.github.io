@@ -1,0 +1,248 @@
+/* --- CONFIGURAÇÕES GLOBAIS E FONTES --- */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Comic+Sans+MS&family=Montserrat:wght@700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ffffff;
+    font-family: 'Comfortaa', sans-serif;
+    line-height: 1.6;
+}
+
+/* --- CABEÇALHO --- */
+.main-header {
+    text-align: center;
+    padding: 20px 0 10px 0;
+}
+
+.decorative-bar {
+    width: 100%;
+    height: auto;
+}
+
+.logo {
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.social-icons-header a {
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.social-icons-header img {
+    width: 32px;
+    height: 32px;
+}
+
+/* --- MENU DE NAVEGAÇÃO (SEU CÓDIGO ADAPTADO) --- */
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px 5%;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+}
+
+.menu a {
+    flex-grow: 1;
+    flex-basis: 180px;
+    text-align: center;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1), 0 0 12px 2px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.menu a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.menu a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* --- SEÇÕES DE CONTEÚDO --- */
+.content-section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.text-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.content-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.content-section p {
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* --- SEÇÕES COM IMAGEM DE FUNDO --- */
+.background-section {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efeito parallax */
+    position: relative;
+    color: white;
+}
+/* Overlay para escurecer a imagem de fundo e melhorar a leitura */
+.background-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.background-section .text-container {
+    position: relative; /* Garante que o texto fique acima do overlay */
+    z-index: 2;
+}
+.background-section h2, .background-section p {
+    color: white;
+}
+
+/* IMAGENS: Coloque os caminhos para suas imagens de fundo aqui */
+#queremos-conhecer { background-image: url('imagens/Site01.jpeg'); }
+#rede-cuidado { background-image: url('imagens/Site02.jpeg'); }
+#denuncia { background-image: url('imagens/Site03.jpeg'); }
+
+/* --- BOTÃO DE CHAMADA PARA AÇÃO (SEM BORDA DEGRADÊ) --- */
+.cta-button {
+    display: inline-block;
+    padding: 15px 35px;
+    background-color: #007bff;
+    color: white;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 12px;
+    border: 2px solid #0056b3;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* --- ANIMAÇÃO DE SCROLL --- */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 1s ease-out, transform 0.8s ease-out;
+}
+.reveal-on-scroll.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* --- RODAPÉ --- */
+.main-footer {
+    text-align: center;
+}
+.footer-social {
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.social-text {
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 16px;
+}
+.footer-social img {
+    width: 28px;
+    height: 28px;
+}
+
+
+/* --- POP-UP DE COOKIES --- */
+#cookie-popup {
+    position: fixed;
+    bottom: -100%; /* Começa escondido */
+    left: 0;
+    width: 100%;
+    background-color: rgba(30, 30, 30, 0.95);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 1000;
+    transition: bottom 0.5s ease-in-out;
+}
+#cookie-popup.show {
+    bottom: 0; /* Aparece */
+}
+#cookie-popup p {
+    margin: 0;
+    font-size: 14px;
+}
+#cookie-popup a {
+    color: #00aaff;
+    text-decoration: underline;
+}
+#accept-cookie {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* --- AJUSTES PARA CELULAR (RESPONSIVIDADE) --- */
+@media (max-width: 768px) {
+    .content-section h2 {
+        font-size: 28px; /* Diminui o título no celular */
+    }
+    .menu {
+        padding: 20px 10%;
+    }
+    #cookie-popup {
+        flex-direction: column;
+        text-align: center;
+    }
+}
