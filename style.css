@@ -15,22 +15,36 @@ body {
 
 /* --- CABEÇALHO --- */
 .main-header {
-    text-align: center;
+    /* Aplicando o "papel de parede" (a barra) que se repete */
+    background-image: url('imagens/BarraSuperior.png'); /* << Sua nova imagem de padrão */
+    background-repeat: repeat-x; /* Faz a imagem repetir na horizontal */
+    background-position: center top; /* Alinha o padrão */
+    
+    /* Um espaçamento para a logo não ficar colada na barra */
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-/* Estilo para a imagem única do cabeçalho */
-.header-image,
-.main-footer .decorative-bar {
-    width: 1400px; /* << Defina a largura original da sua imagem em pixels */
-    max-width: none; /* << Remove o limite de largura máxima */
+/* A "moldura" que centraliza e corta o que vaza (se necessário) */
+.fixed-image-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+/* O "quadro" (a logo) com seu tamanho fixo */
+.main-header .logo {
+    width: 450px; /* << SUBSTITUA AQUI PELA LARGURA REAL DA SUA LOGO */
+    max-width: none; /* << COMANDO MÁGICO que impede a imagem de encolher */
     height: auto;
 }
 
-.fixed-image-container {
-    width: 100%;
-    overflow: hidden; /* Isso esconde o que vaza para os lados */
-    display: flex;
-    justify-content: center; /* Isso mantém a imagem de dentro centralizada */
+/* Estilo para a imagem FIXA do RODAPÉ */
+.main-footer .decorative-bar {
+    width: 1400px; /* << Defina a largura original da imagem do rodapé */
+    max-width: none; /* << Remove o limite de largura máxima */
+    height: auto;
 }
 
 /* --- MENU DE NAVEGAÇÃO (SEU CÓDIGO ADAPTADO) --- */
