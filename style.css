@@ -148,7 +148,7 @@ body {
 .background-section {
     background-size: auto; /* << MUDANÇA AQUI: Usa o tamanho real da imagem */
     background-position: center center; /* Garante que o centro sempre apareça */
-    background-attachment: fixed;
+    background-attachment: scroll;
     /* ... */
 }
 
@@ -157,13 +157,14 @@ body {
     z-index: 2;
 }
 .background-section h2, .background-section p {
-    color: white;
+    color: #000000;
 }
 
 /* IMAGENS: Coloque os caminhos para suas imagens de fundo aqui */
-#queremos-conhecer { background-image: url('imagens/Site01.jpeg'); }
-#rede-cuidado { background-image: url('imagens/Site02.jpeg'); }
-#denuncia { background-image: url('imagens/Site03.jpeg'); }
+#quem-somos { background-image: url('imagens/Site01.jpeg'); } /* << LINHA ADICIONADA */
+#queremos-conhecer { background-image: url('imagens/Site02.jpeg'); } /* << AJUSTE O NOME DESTA IMAGEM SE NECESSÁRIO */
+#rede-cuidado { background-image: url('imagens/Site03.jpeg'); }
+#denuncia { background-image: url('imagens/Site04.jpeg'); } /* << E ASSIM POR DIANTE */
 
 /* --- BOTÃO DE CHAMADA PARA AÇÃO (SEM BORDA DEGRADÊ) --- */
 .cta-button {
