@@ -123,6 +123,11 @@ body {
     text-align: center;
 }
 
+.section-divider {
+    height: 60px; /* << Altere este valor para aumentar ou diminuir o espaço */
+    background-color: #ffffff; /* Garante que o fundo seja branco */
+}
+
 .text-container {
     max-width: 800px;
     margin: 0 auto;
