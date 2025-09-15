@@ -37,16 +37,26 @@ body {
 }
 
 .menu a {
-    flex-grow: 1;
-    flex-basis: 180px;
-    text-align: center;
-    padding: 15px 25px;
+    /* Ajustes de tamanho: não crescem mais para ter o mesmo tamanho */
+    flex-grow: 0;
+    flex-basis: auto;
+
+    /* Ajustes para centralizar o texto perfeitamente (vertical e horizontal) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 10px 25px; /* Padding ajustado para o alinhamento vertical */
     background: rgba(255, 255, 255, 0.9);
     color: #000;
     text-decoration: none;
     border-radius: 12px;
+
+    /* Ajuste de Fonte */
+    font-family: 'Comfortaa', sans-serif;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 700; /* Comfortaa fica melhor com um peso maior */
+
     box-shadow: 0 0 8px rgba(0,0,0,0.1), 0 0 12px 2px rgba(0,0,0,0.05);
     transition: transform 0.15s ease, box-shadow 0.3s ease;
     position: relative;
