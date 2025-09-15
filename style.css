@@ -39,7 +39,7 @@ body {
 
 /* O "quadro" (a logo) com seu tamanho fixo */
 .main-header .logo {
-    max-width: 800px; /* << Altere este valor para o tamanho que desejar */
+    max-width: 1400px; /* << Altere este valor para o tamanho que desejar */
     width: 90%;       /* Garante que a imagem encolha em telas de celular */
     height: auto; 
 }
