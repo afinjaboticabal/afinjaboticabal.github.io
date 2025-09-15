@@ -15,7 +15,7 @@ body {
 }
 
 .top-bar {
-    height: 150px; /* << SUBSTITUA PELA ALTURA EXATA DA SUA IMAGEM DA BARRA */
+    height: 170px; /* << SUBSTITUA PELA ALTURA EXATA DA SUA IMAGEM DA BARRA */
     background-image: url('imagens/BarraSuperior.png');
     background-repeat: repeat-x;
     background-position: center top;
@@ -39,8 +39,8 @@ body {
 
 /* O "quadro" (a logo) com seu tamanho fixo */
 .main-header .logo {
-    max-width: 1400px; /* << Altere este valor para o tamanho que desejar */
-    width: 90%;       /* Garante que a imagem encolha em telas de celular */
+    width: 1400px; /* << Altere este valor para o tamanho que desejar */
+    max-width: none;       /* Garante que a imagem encolha em telas de celular */
     height: auto; 
 }
 
@@ -106,7 +106,7 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* --- SEÇÕES DE CONTEÚDO --- */
+
 .content-section {
     padding: 60px 20px;
     text-align: center;
