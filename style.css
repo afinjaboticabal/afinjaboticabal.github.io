@@ -19,10 +19,18 @@ body {
 }
 
 /* Estilo para a imagem única do cabeçalho */
-.header-image {
-    width: 100%; /* Faz a imagem ocupar toda a largura da tela */
-    height: auto; /* Mantém a proporção correta da imagem */
-    display: block; /* Garante que a imagem se comporte bem no layout */
+.header-image,
+.main-footer .decorative-bar {
+    width: 1920px; /* << Defina a largura original da sua imagem em pixels */
+    max-width: none; /* << Remove o limite de largura máxima */
+    height: auto;
+}
+
+.fixed-image-container {
+    width: 100%;
+    overflow: hidden; /* Isso esconde o que vaza para os lados */
+    display: flex;
+    justify-content: center; /* Isso mantém a imagem de dentro centralizada */
 }
 
 /* --- MENU DE NAVEGAÇÃO (SEU CÓDIGO ADAPTADO) --- */
@@ -109,22 +117,12 @@ body {
 
 /* --- SEÇÕES COM IMAGEM DE FUNDO --- */
 .background-section {
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Efeito parallax */
-    position: relative;
-    color: white;
+    background-size: auto; /* << MUDANÇA AQUI: Usa o tamanho real da imagem */
+    background-position: center center; /* Garante que o centro sempre apareça */
+    background-attachment: fixed;
+    /* ... */
 }
-/* Overlay para escurecer a imagem de fundo e melhorar a leitura */
-.background-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+
 .background-section .text-container {
     position: relative; /* Garante que o texto fique acima do overlay */
     z-index: 2;
