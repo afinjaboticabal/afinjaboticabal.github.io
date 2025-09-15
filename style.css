@@ -42,7 +42,7 @@ body {
 /* --- CABEÇALHO --- */
 .main-header {
     /* Removemos o background daqui. Apenas damos um espaçamento. */
-    padding-top: 20px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
