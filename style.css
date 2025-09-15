@@ -119,7 +119,7 @@ body {
 
 
 .content-section {
-    padding: 60px 20px;
+    padding: 80px 20px;
     text-align: center;
 }
 
@@ -131,7 +131,7 @@ body {
 .content-section h2 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 34px;
+    font-size: 38px;
     margin-bottom: 20px;
     color: #333;
 }
@@ -139,7 +139,7 @@ body {
 .content-section p {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 18px;
     color: #555;
     margin-bottom: 30px;
 }
