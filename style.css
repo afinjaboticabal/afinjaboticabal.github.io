@@ -15,7 +15,7 @@ body {
 }
 
 .top-bar {
-    height: 200px; /* << SUBSTITUA PELA ALTURA EXATA DA SUA IMAGEM DA BARRA */
+    height: 150px; /* << SUBSTITUA PELA ALTURA EXATA DA SUA IMAGEM DA BARRA */
     background-image: url('imagens/BarraSuperior.png');
     background-repeat: repeat-x;
     background-position: center top;
@@ -39,7 +39,7 @@ body {
 
 /* O "quadro" (a logo) com seu tamanho fixo */
 .main-header .logo {
-    max-width: 450px; /* << Altere este valor para o tamanho que desejar */
+    max-width: 800px; /* << Altere este valor para o tamanho que desejar */
     width: 90%;       /* Garante que a imagem encolha em telas de celular */
     height: auto; 
 }
