@@ -1,5 +1,23 @@
 /* --- CONFIGURAÇÕES GLOBAIS E FONTES --- */
 
+/* Comfortaa normal (peso 400) */
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Comfortaa-Regular.ttf') format('truetype'); /* << Corrigido */
+}
+
+/* Comfortaa negrito (peso 700) */
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Comfortaa-Bold.ttf') format('truetype'); /* << Corrigido */
+}
+
+/* --- FIM DO CARREGAMENTO LOCAL --- */
+
 * {
     box-sizing: border-box;
     margin: 0;
