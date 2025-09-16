@@ -413,7 +413,9 @@ body {
     inset: 0;
     border-radius: 12px;
     padding: 2px;
-    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00);
+    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00, #007bff); /* << Repetimos a primeira cor no final */
+    background-size: 300% 300%; /* << Deixamos o fundo bem maior que o botão */
+    
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -568,4 +570,24 @@ body {
 /* Empurra a barra do topo para baixo do menu (SÓ na pág. de privacidade) */
 .page-privacidade .top-bar {
     margin-top: 52px; /* << Ajuste este valor se precisar, para colar perfeitamente */
+}
+
+/* =========================================================
+   ANIMAÇÃO DA BORDA DEGRADÊ
+   ========================================================= */
+
+/* Define a animação que move o fundo */
+@keyframes rotate-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Ativa a animação quando o mouse está em cima do botão */
+.menu a:hover::before,
+#menu-overlay a:hover::before {
+    animation: rotate-gradient 3s linear infinite;
 }
