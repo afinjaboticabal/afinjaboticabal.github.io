@@ -286,3 +286,102 @@ body {
         text-align: center;
     }
 }
+
+.page-cadastro .top-bar,
+.page-cadastro .bottom-bar {
+    background-image: url('imagens/padrao-barra-laranja.png'); /* << Sua nova imagem de barra */
+}
+
+/* Garante que o conteúdo não fique escondido atrás do menu fixo */
+.page-cadastro main {
+    padding-top: 60px; 
+}
+
+/* Container do formulário */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.form-container h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 34px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.form-container p {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* --- Estilos do Menu Retrátil Fixo (Sticky) --- */
+.sticky-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: orange; /* Cor da barra do menu */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000; /* Garante que o menu fique acima de tudo */
+    display: flex;
+    justify-content: flex-end; /* Alinha o botão "Menu" à direita */
+}
+
+#menu-toggle {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+    padding: 5px 15px;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* --- Estilos do Overlay (Tela Cheia) --- */
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000; /* Acima até do menu fixo */
+    
+    /* Centraliza os links */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    transition: opacity 0.3s ease;
+}
+
+#menu-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Impede cliques quando escondido */
+}
+
+#menu-overlay a {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    text-decoration: none;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+#close-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+}
