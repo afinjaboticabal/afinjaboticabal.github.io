@@ -32,7 +32,6 @@ body {
 }
 
 .top-bar {
-    margin-top: 60px;
     height: 180px; /* << SUBSTITUA PELA ALTURA EXATA DA SUA IMAGEM DA BARRA */
     background-image: url('imagens/BarraSuperiorCorrigido.png');
     background-repeat: repeat-x;
@@ -437,4 +436,8 @@ body {
 /* Ajuste de espaço específico para a página de cadastro */
 .page-cadastro .content-section {
     padding-top: 30px; /* Define um espaçamento SUPERIOR menor, SÓ NESTA PÁGINA */
+}
+
+.page-cadastro .top-bar {
+    margin-top: 50px;
 }
