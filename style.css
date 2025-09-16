@@ -112,6 +112,7 @@ body {
     /* Preparação para a animação */
     background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00, #007bff);
     background-size: 300% 300%;
+    background-position: center;
     
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
