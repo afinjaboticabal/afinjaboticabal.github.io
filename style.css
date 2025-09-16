@@ -101,13 +101,18 @@ body {
     position: relative;
 }
 
-.menu a::before {
+.menu a::before,
+#menu-overlay a::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 12px;
     padding: 2px;
-    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00);
+    
+    /* Preparação para a animação */
+    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00, #007bff);
+    background-size: 300% 300%;
+    
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -404,22 +409,6 @@ body {
     width: 80%;                   /* Largura do botão */
     max-width: 300px;             /* Largura máxima */
     transition: all 0.2s ease;    /* Transição suave para o hover */
-}
-
-/* Borda colorida em degradê (mantida como você pediu) */
-#menu-overlay a::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    padding: 2px;
-    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00, #007bff); /* << Repetimos a primeira cor no final */
-    background-size: 300% 300%; /* << Deixamos o fundo bem maior que o botão */
-    
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
 }
 
 /* Efeito ao passar o mouse */
