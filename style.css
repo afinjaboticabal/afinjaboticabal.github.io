@@ -327,7 +327,7 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 1000; /* Garante que o menu fique acima de tudo */
     display: flex;
-    justify-content: flex-end; /* Alinha o botão "Menu" à direita */
+    justify-content: flex-start; /* Alinha o botão "Menu" à direita */
 }
 
 #menu-toggle {
@@ -366,15 +366,6 @@ body {
     pointer-events: none; /* Impede cliques quando escondido */
 }
 
-#menu-overlay a {
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
-    text-decoration: none;
-    padding: 15px;
-    margin: 10px 0;
-}
-
 #close-menu {
     position: absolute;
     top: 20px;
@@ -394,4 +385,46 @@ body {
     border: none;
     display: block;
     margin: 0 auto; /* Centraliza o formulário */
+}
+
+/* =========================================================
+   ESTILO PARA OS BOTÕES DENTRO DO MENU RETRÁTIL
+   ========================================================= */
+
+/* Estilo principal do botão "Página Inicial" */
+#menu-overlay a {
+    background: transparent;      /* Fundo transparente */
+    border: 2px solid black;      /* Contorno preto de 2px */
+    color: white;                 /* Cor da fonte: branca */
+    font-family: 'Comfortaa', sans-serif; /* Fonte Comfortaa */
+    font-weight: 700;             /* Deixei em negrito para melhor leitura */
+    font-size: 1.2rem;            /* Tamanho da fonte */
+    text-decoration: none;        /* Remove o sublinhado do link */
+    padding: 15px 30px;           /* Espaçamento interno do botão */
+    border-radius: 12px;          /* Bordas arredondadas */
+    position: relative;           /* Necessário para a borda colorida funcionar */
+    text-align: center;
+    width: 80%;                   /* Largura do botão */
+    max-width: 300px;             /* Largura máxima */
+    transition: all 0.2s ease;    /* Transição suave para o hover */
+}
+
+/* Borda colorida em degradê (mantida como você pediu) */
+#menu-overlay a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Efeito ao passar o mouse */
+#menu-overlay a:hover {
+    background: rgba(255, 255, 255, 0.1); /* Leve brilho ao passar o mouse */
+    transform: translateY(-2px);
 }
