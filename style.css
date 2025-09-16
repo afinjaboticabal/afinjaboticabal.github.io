@@ -452,7 +452,7 @@ body {
 
 /* Muda a cor do Menu Fixo */
 .page-profissionais .sticky-menu {
-    background-color: #048000; /* << Verde escuro - ajuste a cor se precisar */
+    background-color: #05a300; /* << Verde escuro - ajuste a cor se precisar */
 }
 
 /* Muda a imagem da Barra Superior */
@@ -481,7 +481,7 @@ body {
 .google-form-short {
     width: 100%;
     max-width: 640px;
-    height: 2500px; /* << ALTURA MENOR - ajuste conforme o tamanho deste formulário */
+    height: 2000px; /* << ALTURA MENOR - ajuste conforme o tamanho deste formulário */
     border: none;
     display: block;
     margin: 0 auto;
