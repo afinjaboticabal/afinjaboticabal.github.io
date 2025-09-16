@@ -298,18 +298,6 @@ body {
 .page-cadastro .bottom-bar {
     background-image: url('imagens/BarraInferiorCadastro.png'); /* << Coloque o nome da sua outra imagem aqui */
 }
-
-/* Garante que o conteúdo não fique escondido atrás do menu fixo */
-.page-cadastro main {
-    padding-top: 60px; 
-}
-
-/* Container do formulário */
-.form-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
 .form-container h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 34px;
@@ -436,11 +424,24 @@ body {
     transform: translateY(-2px);
 }
 
-/* Ajuste de espaço específico para a página de cadastro */
-.page-cadastro .content-section {
-    padding-top: 0px; /* << Diminuímos o espaço superior para apenas 20px */
-}
-
 .page-cadastro .top-bar {
     margin-top: 50px;
+}
+
+/* Zera o espaçamento vertical para o formulário colar nas barras */
+.page-cadastro .content-section {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Garante que o container do formulário não adicione espaçamento extra */
+.page-cadastro .form-container {
+    padding: 0;
+    max-width: 100%; /* Permite que o formulário ocupe mais espaço */
+}
+
+/* Removemos os estilos dos textos que não existem mais */
+.form-container h2,
+.form-container p {
+    display: none; /* Esconde os textos caso eles existam por engano */
 }
