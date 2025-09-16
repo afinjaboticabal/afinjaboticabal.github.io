@@ -464,3 +464,16 @@ body {
 .page-profissionais .bottom-bar {
     background-image: url('imagens/padrao-barra-verde-inferior.png');
 }
+
+/* Empurra a barra do topo para baixo do menu (SÓ na pág. de profissionais) */
+.page-profissionais .top-bar {
+    margin-top: 60px; /* << Ajuste este valor para a altura exata do seu menu verde */
+}
+
+/* Zera o espaçamento vertical para o formulário nesta página */
+.page-profissionais .content-section,
+.page-profissionais .form-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
