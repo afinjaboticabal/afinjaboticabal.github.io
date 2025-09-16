@@ -554,3 +554,24 @@ body {
     margin-bottom: 15px;
     color: #333;
 }
+
+/* AJUSTES FINAIS PARA A PÁGINA DE PRIVACIDADE */
+
+/* Alinha todo o container de texto à esquerda */
+.page-privacidade .privacy-policy-container {
+    text-align: left;
+}
+
+/* Deixa o título principal e a lista de tópicos centralizados */
+.page-privacidade .privacy-policy-container h1,
+.page-privacidade .privacy-policy-container .topics-list {
+    text-align: center;
+}
+
+/* Muda a cor de todos os textos para preto */
+.page-privacidade .privacy-policy-container h1,
+.page-privacidade .privacy-policy-container h2,
+.page-privacidade .privacy-policy-container p,
+.page-privacidade .privacy-policy-container .topics-list {
+    color: black;
+}
