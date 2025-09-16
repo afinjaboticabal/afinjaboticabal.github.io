@@ -119,7 +119,10 @@ body {
 
 
 .content-section {
-    padding: 60px 20px;
+    padding-top: 60px; /* Espaçamento padrão no topo */
+    padding-bottom: 60px; /* Espaçamento padrão na base */
+    padding-left: 20px;
+    padding-right: 20px;
     text-align: center;
 }
 
@@ -435,7 +438,7 @@ body {
 
 /* Ajuste de espaço específico para a página de cadastro */
 .page-cadastro .content-section {
-    padding-top: 30px; /* Define um espaçamento SUPERIOR menor, SÓ NESTA PÁGINA */
+    padding-top: 0px; /* << Diminuímos o espaço superior para apenas 20px */
 }
 
 .page-cadastro .top-bar {
