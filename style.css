@@ -445,3 +445,22 @@ body {
 .form-container p {
     display: none; /* Esconde os textos caso eles existam por engano */
 }
+
+/* ===================================================================
+   ESTILOS ESPECÍFICOS PARA A PÁGINA DE PROFISSIONAIS
+   =================================================================== */
+
+/* Muda a cor do Menu Fixo */
+.page-profissionais .sticky-menu {
+    background-color: #006400; /* << Verde escuro - ajuste a cor se precisar */
+}
+
+/* Muda a imagem da Barra Superior */
+.page-profissionais .top-bar {
+    background-image: url('imagens/padrao-barra-verde-superior.png');
+}
+
+/* Muda a imagem da Barra Inferior */
+.page-profissionais .bottom-bar {
+    background-image: url('imagens/padrao-barra-verde-inferior.png');
+}
