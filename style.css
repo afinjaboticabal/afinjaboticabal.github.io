@@ -82,6 +82,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     
     padding: 10px 25px; /* Padding ajustado para o alinhamento vertical */
     background: rgba(255, 255, 255, 0.9);
@@ -231,7 +232,7 @@ body {
     gap: 15px;
 }
 .social-text {
-    font-family: 'Comic Sans MS', cursive;
+    font-family: 'Comfortaa', sans-serif;
     font-size: 22px;
 }
 .footer-social img {
