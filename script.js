@@ -40,3 +40,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 });
+
+const menuToggleButton = document.getElementById('menu-toggle');
+const closeMenuButton = document.getElementById('close-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+
+if (menuToggleButton && menuOverlay && closeMenuButton) {
+
+    // Abre o menu
+    menuToggleButton.addEventListener('click', () => {
+        menuOverlay.classList.remove('hidden');
+    });
+
+    // Fecha o menu
+    closeMenuButton.addEventListener('click', () => {
+        menuOverlay.classList.add('hidden');
+    });
+
+    // Opcional: Fecha o menu se clicar fora dos links
+    menuOverlay.addEventListener('click', (event) => {
+        if (event.target === menuOverlay) {
+            menuOverlay.classList.add('hidden');
+        }
+    });
+}
