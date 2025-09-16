@@ -390,7 +390,7 @@ body {
 .google-form {
     width: 100%; /* Ocupa 100% do container */
     max-width: 640px; /* Limita a largura máxima em telas grandes */
-    height: 1200px; /* Altura suficiente para a maioria dos formulários */
+    height: 2450px; /* Altura suficiente para a maioria dos formulários */
     border: none;
     display: block;
     margin: 0 auto; /* Centraliza o formulário */
