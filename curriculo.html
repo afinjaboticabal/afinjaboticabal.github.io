@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Currículo - AFIN Jaboticabal</title>
+    <link rel="icon" type="image/png" href="imagens/favicon.png">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="page-privacidade">
+
+    <nav class="sticky-menu">
+        <button id="menu-toggle">Menu</button>
+    </nav>
+
+    <div id="menu-overlay" class="hidden">
+        <button id="close-menu">&times;</button>
+        <a href="index.html">Página Inicial</a>
+        <a href="cadastro-afin.html">Cadastro AFIN</a>
+        <a href="cadastro-profissionais.html">Cadastro Profissionais e Apoiadores</a>
+        <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        <a href="curriculo.html">Gerador de Currículo</a>
+    </div>
+
+    <div class="top-bar"></div>
+
+    <main>
+        <section class="content-section">
+            <div class="curriculo-container">
+                <h1>Gerador de Currículo</h1>
+                
+                <div class="formulario">
+                    <label>Nome completo</label>
+                    <input type="text" id="nome" />
+                    <label>Data de nascimento</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="dia" placeholder="Dia" min="1" max="31" />
+                        <input type="number" id="mes" placeholder="Mês" min="1" max="12" />
+                        <input type="number" id="ano" placeholder="Ano" min="1900" max="2100" />
+                    </div>
+                    <label>Nacionalidade</label>
+                    <input type="text" id="nacionalidade" />
+                    <label>Endereço</label>
+                    <input type="text" id="endereco" />
+                    <label>Telefone</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="ddd" placeholder="DDD" min="10" max="99" style="width: 80px;" />
+                        <input type="text" id="telefone" placeholder="Número" style="flex: 1;" />
+                    </div>
+                    <label>Email</label>
+                    <input type="text" id="email" />
+                    <label>Foto 3x4</label>
+                    <input type="file" id="foto" accept="image/*" />
+                    <label>Objetivo</label>
+                    <textarea id="objetivo"></textarea>
+                    <label>Formação</label>
+                    <textarea id="formacao"></textarea>
+                    <label>Habilidades</label>
+                    <textarea id="habilidades"></textarea>
+                    <label>Cursos Complementares</label>
+                    <textarea id="cursos"></textarea>
+                    <label>Experiências</label>
+                    <textarea id="experiencias"></textarea>
+                    <label>Informações Complementares</label>
+                    <textarea id="info"></textarea>
+                    <button onclick="gerarPDF()">Baixar Currículo</button>
+                </div>
+
+                <div class="curriculo" id="preview">
+                    <div class="header">
+                        <img id="previewFoto" src="" alt="Foto 3x4" />
+                        <div>
+                            <h2 id="previewNome">Seu Nome Aqui</h2>
+                            <div class="dados-pessoais" id="previewDados"></div>
+                        </div>
+                    </div>
+                    <div id="secaoObjetivo" class="section"><h3 >Objetivo</h3><p id="previewObjetivo"></p></div>
+                    <div id="secaoFormacao" class="section"><h3 >Formação</h3><p id="previewFormacao"></p></div>
+                    <div id="secaoHabilidades" class="section"><h3 >Habilidades</h3><p id="previewHabilidades"></p></div>
+                    <div id="secaoCursos" class="section"><h3 >Cursos Complementares</h3><p id="previewCursos"></p></div>
+                    <div id="secaoExperiencias" class="section"><h3 >Experiências</h3><p id="previewExperiencias"></p></div>
+                    <div id="secaoInfo" class="section"><h3 >Informações Complementares</h3><p id="previewInfo"></p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="bottom-bar"></div>
+
+    <div id="cookie-popup">
+        <p>Este site utiliza cookies... <a href="politica-de-privacidade.html">Saiba mais.</a></p>
+        <button id="accept-cookie">Entendi</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
