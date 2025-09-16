@@ -151,10 +151,11 @@ body {
 
 /* --- SEÇÕES COM IMAGEM DE FUNDO --- */
 .background-section {
-    background-size: auto; /* << MUDANÇA AQUI: Usa o tamanho real da imagem */
-    background-position: center center; /* Garante que o centro sempre apareça */
+    background-repeat: no-repeat; /* << Adicione esta linha */
+    background-size: cover;       /* << Altere/adicione esta linha */
+    background-position: center center;
     background-attachment: scroll;
-    /* ... */
+    position: relative;
 }
 
 .background-section .text-container {
