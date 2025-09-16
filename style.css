@@ -289,7 +289,7 @@ body {
 
 .page-cadastro .top-bar,
 .page-cadastro .bottom-bar {
-    background-image: url('imagens/padrao-barra-laranja.png'); /* << Sua nova imagem de barra */
+    background-image: url('imagens/BarraSuperiorCadastro.png'); /* << Sua nova imagem de barra */
 }
 
 /* Garante que o conteúdo não fique escondido atrás do menu fixo */
