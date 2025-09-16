@@ -517,7 +517,7 @@ body {
 /* Título Principal: Arial, 23px */
 .privacy-policy-container h1 {
     font-family: Arial, sans-serif;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 40px;
@@ -527,28 +527,17 @@ body {
 /* Tópicos numerados (no corpo do texto): Arial, 17px */
 .privacy-policy-container h2 {
     font-family: Arial, sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     margin-top: 30px;
     margin-bottom: 10px;
     color: #000;
 }
 
-/* Lista de tópicos no início: Arial, 17px */
-.privacy-policy-container .topics-list {
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    font-weight: normal;
-    line-height: 1.8;
-    margin-bottom: 40px;
-    text-align: center;
-    color: #333;
-}
-
 /* Restante do texto: Arial, 11px */
 .privacy-policy-container p {
     font-family: Arial, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     line-height: 1.7;
     margin-bottom: 15px;
