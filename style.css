@@ -452,7 +452,7 @@ body {
 
 /* Muda a cor do Menu Fixo */
 .page-profissionais .sticky-menu {
-    background-color: #0bd604; /* << Verde escuro - ajuste a cor se precisar */
+    background-color: #048000; /* << Verde escuro - ajuste a cor se precisar */
 }
 
 /* Muda a imagem da Barra Superior */
@@ -467,7 +467,7 @@ body {
 
 /* Empurra a barra do topo para baixo do menu (SÓ na pág. de profissionais) */
 .page-profissionais .top-bar {
-    margin-top: 55px; /* << Ajuste este valor para a altura exata do seu menu verde */
+    margin-top: 52px; /* << Ajuste este valor para a altura exata do seu menu verde */
 }
 
 /* Zera o espaçamento vertical para o formulário nesta página */
