@@ -477,3 +477,12 @@ body {
     padding-bottom: 0;
 }
 
+/* Novo estilo para formulários mais curtos */
+.google-form-short {
+    width: 100%;
+    max-width: 640px;
+    height: 2133px; /* << ALTURA MENOR - ajuste conforme o tamanho deste formulário */
+    border: none;
+    display: block;
+    margin: 0 auto;
+}
