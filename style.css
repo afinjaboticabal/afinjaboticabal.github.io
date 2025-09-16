@@ -32,6 +32,7 @@ body {
 }
 
 .top-bar {
+    margin-top: 60px;
     height: 180px; /* << SUBSTITUA PELA ALTURA EXATA DA SUA IMAGEM DA BARRA */
     background-image: url('imagens/BarraSuperiorCorrigido.png');
     background-repeat: repeat-x;
@@ -287,9 +288,13 @@ body {
     }
 }
 
-.page-cadastro .top-bar,
+.page-cadastro .top-bar {
+    background-image: url('imagens/BarraSuperiorCadastro.png');
+}
+
+/* Define a imagem da barra INFERIOR da página de cadastro */
 .page-cadastro .bottom-bar {
-    background-image: url('imagens/BarraSuperiorCadastro.png'); /* << Sua nova imagem de barra */
+    background-image: url('imagens/BarraInferiorCadastro.png'); /* << Coloque o nome da sua outra imagem aqui */
 }
 
 /* Garante que o conteúdo não fique escondido atrás do menu fixo */
@@ -427,4 +432,9 @@ body {
 #menu-overlay a:hover {
     background: rgba(255, 255, 255, 0.1); /* Leve brilho ao passar o mouse */
     transform: translateY(-2px);
+}
+
+/* Ajuste de espaço específico para a página de cadastro */
+.page-cadastro .content-section {
+    padding-top: 30px; /* Define um espaçamento SUPERIOR menor, SÓ NESTA PÁGINA */
 }
