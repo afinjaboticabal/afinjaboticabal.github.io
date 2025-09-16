@@ -551,10 +551,9 @@ body {
     text-align: left;
 }
 
-/* Deixa o título principal e a lista de tópicos centralizados */
-.page-privacidade .privacy-policy-container h1,
-.page-privacidade .privacy-policy-container .topics-list {
-    text-align: center;
+/* Esta regra já existe e vai alinhar tudo à esquerda */
+.page-privacidade .privacy-policy-container {
+    text-align: left;
 }
 
 /* Muda a cor de todos os textos para preto */
