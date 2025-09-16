@@ -563,3 +563,8 @@ body {
 .page-privacidade .privacy-policy-container .topics-list {
     color: black;
 }
+
+/* Empurra a barra do topo para baixo do menu (SÓ na pág. de privacidade) */
+.page-privacidade .top-bar {
+    margin-top: 52px; /* << Ajuste este valor se precisar, para colar perfeitamente */
+}
