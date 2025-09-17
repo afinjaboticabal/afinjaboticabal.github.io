@@ -602,7 +602,7 @@ body {
 
 .curriculo-container .formulario {
     max-width: 700px;
-    margin-bottom: 30px;
+    margin: 0 auto 30px auto;
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
@@ -739,6 +739,7 @@ body {
     height: 30px;
     border: 1px solid #ccc;
     background-color: #fff;
+    color: black;
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
