@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("2. Biblioteca jsPDF carregada com sucesso.");
                 const preview = document.getElementById("preview");
                 console.log("3. Div de pré-visualização encontrada:", preview);
-                const canvas = await html2canvas(preview, { scale: 2 });
+               const canvas = await html2canvas(preview, { scale: 2, useCORS: true });
                 console.log("4. Captura da tela (canvas) criada com sucesso.");
                 const imgData = canvas.toDataURL("image/png");
                 console.log("5. Imagem convertida para dados (dataURL).");
