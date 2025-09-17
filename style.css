@@ -743,3 +743,12 @@ body {
     font-weight: bold;
     font-size: 1rem;
 }
+
+.curriculo-container .curriculo,
+.curriculo-container .curriculo h2,
+.curriculo-container .curriculo h3,
+.curriculo-container .curriculo p,
+.curriculo-container .curriculo strong {
+    font-family: Arial, sans-serif;
+    color: black;
+}
