@@ -146,49 +146,48 @@ document.addEventListener('DOMContentLoaded', function() {
         // SUBSTITUA SUA FUNÇÃO ANTIGA POR ESTA
 
 async function gerarPDF() {
-    console.log("1. Função gerarPDF (versão auto-ajustável) iniciada!");
+    console.log("1. Função gerarPDF (versão com cálculo CORRETO) iniciada!");
     try {
         const { jsPDF } = window.jspdf;
         const preview = document.getElementById("preview");
 
-        // --- NOVA LÓGICA DE AJUSTE AUTOMÁTICO ---
+        // --- LÓGICA DE AJUSTE AUTOMÁTICO CORRIGIDA ---
 
-        // 1. Medimos o tamanho real do preview na tela
         const previewWidth = preview.offsetWidth;
         const previewHeight = preview.offsetHeight;
+        const a4Ratio = 210 / 297; // Proporção de uma folha A4
 
-        // 2. Definimos a proporção de uma folha A4 (largura / altura)
-        const a4Ratio = 210 / 297;
+        // 1. Primeiro, calculamos qual seria a ALTURA MÁXIMA que o preview poderia ter para caber no A4
+        const targetHeight = previewWidth / a4Ratio;
 
-        // 3. Calculamos a proporção atual do preview
-        const previewRatio = previewWidth / previewHeight;
+        let scale = 1; // Começamos com a escala normal
 
-        let scale = 1; // Começamos com a escala normal (100%)
-
-        // 4. Comparamos as proporções. Se o preview for "mais comprido" que uma folha A4...
-        if (previewRatio < a4Ratio) {
-            // ...calculamos o fator de "encolhimento" necessário.
-            scale = a4Ratio / previewRatio;
-            console.log(`Preview é muito comprido. Aplicando escala: ${scale}`);
+        // 2. Comparamos a altura REAL com a altura MÁXIMA. Se for maior, precisamos encolher.
+        if (previewHeight > targetHeight) {
             
-            // 5. Aplicamos o "zoom out" no elemento ANTES de tirar a foto
+            // 3. Calculamos o fator de "encolhimento" (escala)
+            scale = targetHeight / previewHeight; // <<====== A FÓRMULA CORRETA ESTÁ AQUI
+            
+            console.log(`Preview é muito comprido. Altura real: ${previewHeight}, Altura ideal: ${Math.round(targetHeight)}. Aplicando escala: ${scale}`);
+            
+            // 4. Aplicamos o "zoom out" no elemento ANTES de tirar a foto
             preview.style.transformOrigin = 'top left';
             preview.style.transform = `scale(${scale})`;
         }
 
-        // 6. Tiramos a "foto" do elemento (agora já encolhido, se necessário)
+        // 5. Tiramos a "foto" do elemento (agora já encolhido, se necessário)
         const canvas = await html2canvas(preview, {
-            scale: 2, // Aumenta a resolução da captura
+            scale: 2,
             useCORS: true
         });
 
-        // 7. IMPORTANTE: Removemos o "zoom out" para a pré-visualização na tela voltar ao normal
-        if (scale < 1) {
+        // 6. IMPORTANTE: Removemos o "zoom out" para a pré-visualização na tela voltar ao normal
+        if (scale < 1) { // Só remove o transform se ele foi aplicado
             preview.style.transformOrigin = '';
             preview.style.transform = '';
         }
 
-        // --- FIM DA NOVA LÓGICA ---
+        // --- FIM DA LÓGICA CORRIGIDA ---
 
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF("p", "mm", "a4");
