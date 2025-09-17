@@ -168,7 +168,7 @@ async function gerarPDF() {
         // 4. Comparamos as proporções. Se o preview for "mais comprido" que uma folha A4...
         if (previewRatio < a4Ratio) {
             // ...calculamos o fator de "encolhimento" necessário.
-            scale = previewRatio / a4Ratio;
+            scale = a4Ratio / previewRatio;
             console.log(`Preview é muito comprido. Aplicando escala: ${scale}`);
             
             // 5. Aplicamos o "zoom out" no elemento ANTES de tirar a foto
