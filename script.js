@@ -52,12 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // --- LÓGICA DE ARRASTAR E SOLTAR (DRAG-AND-DROP) ---
         new Sortable(formContainer, {
             animation: 150,
-            handle: '.drag-handle', // Define o ícone como a "alça" para arrastar
-            onEnd: function (evt) { // Função chamada ao final de um arraste
+            handle: '.drag-handle',
+            onEnd: function (evt) {
                 const movedItemId = evt.item.dataset.sectionId;
                 const previewSectionToMove = document.getElementById(`secao${capitalizeFirstLetter(movedItemId)}`);
-                
-                // Reordena o preview para bater com a nova ordem do formulário
                 const targetSectionId = evt.nextSibling ? evt.nextSibling.dataset.sectionId : null;
                 if (targetSectionId) {
                     const targetPreviewElement = document.getElementById(`secao${capitalizeFirstLetter(targetSectionId)}`);
@@ -74,13 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const action = event.target.dataset.action;
                 const targetId = event.target.dataset.target;
                 const previewElement = document.getElementById(targetId);
-
                 if (previewElement) {
                     let currentSize = parseFloat(window.getComputedStyle(previewElement, null).getPropertyValue('font-size'));
                     if (action === 'increase') {
-                        currentSize += 1; // Aumenta em 1px
-                    } else if (action === 'decrease' && currentSize > 8) { // Não deixa a fonte ficar muito pequena
-                        currentSize -= 1; // Diminui em 1px
+                        currentSize += 1;
+                    } else if (action === 'decrease' && currentSize > 8) {
+                        currentSize -= 1;
                     }
                     previewElement.style.fontSize = `${currentSize}px`;
                 }
@@ -92,109 +89,133 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("foto").addEventListener("change", atualizarFoto);
         document.getElementById('baixar-pdf-btn').addEventListener('click', gerarPDF);
 
-        function atualizarFoto() { 
-            const file = document.getElementById("foto").files[0]; 
-            if (file) { 
-                const reader = new FileReader(); 
-                reader.onload = (e) => { 
-                    document.getElementById("previewFoto").src = e.target.result; 
-                }; 
-                reader.readAsDataURL(file); 
-            } 
+        function atualizarFoto() {
+            const file = document.getElementById("foto").files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById("previewFoto").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         }
-        function calcularIdade(dia, mes, ano) { 
-            const hoje = new Date(); 
-            const nascimento = new Date(ano, mes - 1, dia); 
-            let idade = hoje.getFullYear() - nascimento.getFullYear(); 
-            const m = hoje.getMonth() - nascimento.getMonth(); 
-            if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) { 
-                idade--; 
-            } 
-            return idade; 
+        function calcularIdade(dia, mes, ano) {
+            const hoje = new Date();
+            const nascimento = new Date(ano, mes - 1, dia);
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const m = hoje.getMonth() - nascimento.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+                idade--;
+            }
+            return idade;
         }
-        function formatarTelefone(ddd, numero) { 
-            numero = (numero || '').replace(/\D/g, ""); 
-            ddd = (ddd || '').toString().replace(/\D/g, ""); 
-            if (!ddd && !numero) return ""; 
-            if (!ddd) return numero; 
-            if (!numero) return ddd; 
-            if (numero.length === 9) { 
-                return `(${ddd}) ${numero.substring(0, 5)}-${numero.substring(5)}`; 
-            } else if (numero.length === 8) { 
-                return `(${ddd}) ${numero.substring(0, 4)}-${numero.substring(4)}`; 
-            } else { 
-                return `(${ddd}) ${numero}`; 
-            } 
+        function formatarTelefone(ddd, numero) {
+            numero = (numero || '').replace(/\D/g, "");
+            ddd = (ddd || '').toString().replace(/\D/g, "");
+            if (!ddd && !numero) return "";
+            if (!ddd) return numero;
+            if (!numero) return ddd;
+            if (numero.length === 9) {
+                return `(${ddd}) ${numero.substring(0, 5)}-${numero.substring(5)}`;
+            } else if (numero.length === 8) {
+                return `(${ddd}) ${numero.substring(0, 4)}-${numero.substring(4)}`;
+            } else {
+                return `(${ddd}) ${numero}`;
+            }
         }
-        function atualizarPreview() { 
-            document.getElementById("previewNome").innerText = document.getElementById("nome").value; 
-            const dia = document.getElementById("dia").value; 
-            const mes = document.getElementById("mes").value; 
-            const ano = document.getElementById("ano").value; 
-            let dadosHtml = ""; 
-            if (dia && mes && ano) { 
-                const idade = calcularIdade(dia, mes, ano); 
-                if (!Number.isNaN(idade)) { 
-                    dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`; 
-                } 
-            } 
-            const nacionalidade = document.getElementById("nacionalidade").value; 
-            if (nacionalidade) { 
-                dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; 
-            } 
-            const endereco = document.getElementById("endereco").value; 
-            if (endereco) { 
-                dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; 
-            } 
-            const ddd = document.getElementById("ddd").value; 
-            const tel = document.getElementById("telefone").value; 
-            const telFmt = formatarTelefone(ddd, tel); 
-            if (telFmt) { 
-                dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; 
-            } 
-            const email = document.getElementById("email").value; 
-            if (email) { 
-                dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; 
-            } 
-            document.getElementById("previewDados").innerHTML = dadosHtml; 
-            const formSections = formContainer.querySelectorAll('.form-section[data-section-id]'); 
-            formSections.forEach(section => { 
-                const sectionId = section.dataset.sectionId; 
-                const inputElement = document.getElementById(sectionId); 
-                const previewElement = document.getElementById(`preview${capitalizeFirstLetter(sectionId)}`); 
-                const sectionPreviewContainer = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`); 
-                if (inputElement.value.trim() === "") { 
-                    sectionPreviewContainer.style.display = "none"; 
-                } else { 
-                    sectionPreviewContainer.style.display = "block"; 
-                    previewElement.innerText = inputElement.value; 
-                } 
-            }); 
+        function atualizarPreview() {
+            document.getElementById("previewNome").innerText = document.getElementById("nome").value;
+            const dia = document.getElementById("dia").value;
+            const mes = document.getElementById("mes").value;
+            const ano = document.getElementById("ano").value;
+            let dadosHtml = "";
+            if (dia && mes && ano) {
+                const idade = calcularIdade(dia, mes, ano);
+                if (!Number.isNaN(idade)) {
+                    dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`;
+                }
+            }
+            const nacionalidade = document.getElementById("nacionalidade").value;
+            if (nacionalidade) {
+                dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`;
+            }
+            const endereco = document.getElementById("endereco").value;
+            if (endereco) {
+                dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`;
+            }
+            const ddd = document.getElementById("ddd").value;
+            const tel = document.getElementById("telefone").value;
+            const telFmt = formatarTelefone(ddd, tel);
+            if (telFmt) {
+                dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`;
+            }
+            const email = document.getElementById("email").value;
+            if (email) {
+                dadosHtml += `<p><strong>Email:</strong> ${email}</p>`;
+            }
+            document.getElementById("previewDados").innerHTML = dadosHtml;
+            const formSections = formContainer.querySelectorAll('.form-section[data-section-id]');
+            formSections.forEach(section => {
+                const sectionId = section.dataset.sectionId;
+                const inputElement = document.getElementById(sectionId);
+                const previewElement = document.getElementById(`preview${capitalizeFirstLetter(sectionId)}`);
+                const sectionPreviewContainer = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`);
+                if (inputElement.value.trim() === "") {
+                    sectionPreviewContainer.style.display = "none";
+                } else {
+                    sectionPreviewContainer.style.display = "block";
+                    previewElement.innerText = inputElement.value;
+                }
+            });
         }
         function capitalizeFirstLetter(string) {
+            if (!string) return '';
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
-        // --- NOVA FUNÇÃO DE GERAR PDF (MULTI-PÁGINA) ---
-        function gerarPDF() {
-            console.log("Gerando PDF multi-página...");
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const previewElement = document.getElementById('preview');
-            
-            // Usando o método .html() do jsPDF que lida com multi-página
-            pdf.html(previewElement, {
-                callback: function(pdf) {
-                    pdf.save('curriculo.pdf');
-                    console.log("PDF salvo!");
-                },
-                x: 15,
-                y: 15,
-                width: 180, // Largura do conteúdo no A4 (210mm - margens)
-                windowWidth: 700 // Largura do elemento original
-            });
-        }
+        // --- FUNÇÃO FINAL DE GERAR PDF (VISUAL PERFEITO + MÚLTIPLAS PÁGINAS) ---
+        async function gerarPDF() {
+            console.log("Iniciando geração de PDF com fatiamento de página...");
+            try {
+                const { jsPDF } = window.jspdf;
+                const preview = document.getElementById('preview');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const margin = 15;
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const usableWidth = pageWidth - (margin * 2);
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const usableHeight = pageHeight - (margin * 2);
+                const sections = preview.querySelectorAll('.header, .section');
+                let currentY = margin;
 
+                for (let i = 0; i < sections.length; i++) {
+                    const section = sections[i];
+                    if (section.style.display === 'none') {
+                        continue;
+                    }
+
+                    console.log(`Processando seção ${i + 1}...`);
+                    const canvas = await html2canvas(section, { scale: 2, useCORS: true });
+                    const imgHeight = canvas.height * usableWidth / canvas.width;
+
+                    if (currentY + imgHeight > usableHeight && i > 0) {
+                        pdf.addPage();
+                        currentY = margin;
+                        console.log("Espaço insuficiente. Criando nova página.");
+                    }
+
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', margin, currentY, usableWidth, imgHeight);
+                    currentY += imgHeight + 5;
+                }
+
+                console.log("PDF criado com sucesso!");
+                pdf.save('curriculo.pdf');
+
+            } catch (error) {
+                console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+            }
+        }
+        
         // Chamar a atualização inicial do preview
         atualizarPreview();
     }
