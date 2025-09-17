@@ -434,10 +434,12 @@ body {
     max-width: 100%; /* Permite que o formulário ocupe mais espaço */
 }
 
-/* Removemos os estilos dos textos que não existem mais */
-.form-container h2,
-.form-container p {
-    display: none; /* Esconde os textos caso eles existam por engano */
+/* Esconde os títulos APENAS nas páginas de formulário */
+.page-cadastro .form-container h2,
+.page-cadastro .form-container p,
+.page-profissionais .form-container h2,
+.page-profissionais .form-container p {
+    display: none;
 }
 
 /* ===================================================================
