@@ -40,7 +40,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===============================================
-    //   LÓGICA PARA O GERADOR DE CURRÍCULO (VERSÃO FINAL E CORRIGIDA)
+    //   LÓGICA PARA ANIMAÇÃO DE SCROLL (ESTAVA FALTANDO)
+    // ===============================================
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Opcional: para de observar o elemento uma vez que ele já apareceu
+                    // revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // A animação começa quando 10% do elemento está visível
+        });
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+    }
+
+
+    // ===============================================
+    //   LÓGICA PARA O GERADOR DE CURRÍCULO (SÓ RODA NA PÁGINA CERTA)
     // ===============================================
     if (document.querySelector('.curriculo-container')) {
 
@@ -55,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             new Sortable(sortableContainer, {
                 animation: 150,
                 handle: '.drag-handle',
+                filter: '.static-section',
                 onEnd: function (evt) {
                     const formSectionsOrdered = sortableContainer.querySelectorAll('.form-section[data-section-id]');
                     formSectionsOrdered.forEach(formSection => {
@@ -129,22 +153,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         function atualizarPreview() { 
             document.getElementById("previewNome").innerText = document.getElementById("nome").value || "Seu Nome Aqui"; 
-            const dia = document.getElementById("dia").value; 
-            const mes = document.getElementById("mes").value; 
-            const ano = document.getElementById("ano").value; 
             let dadosHtml = ""; 
-            if (dia && mes && ano) { 
-                const idade = calcularIdade(dia, mes, ano); 
-                if (!Number.isNaN(idade)) { 
-                    dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`; 
-                } 
-            } 
+            const dia = document.getElementById("dia").value, mes = document.getElementById("mes").value, ano = document.getElementById("ano").value;
+            if (dia && mes && ano) { const idade = calcularIdade(dia, mes, ano); if (!Number.isNaN(idade)) { dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`; } }
             const nacionalidade = document.getElementById("nacionalidade").value; 
             if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; } 
             const endereco = document.getElementById("endereco").value; 
             if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; } 
-            const ddd = document.getElementById("ddd").value; 
-            const tel = document.getElementById("telefone").value; 
+            const ddd = document.getElementById("ddd").value, tel = document.getElementById("telefone").value;
             const telFmt = formatarTelefone(ddd, tel); 
             if (telFmt) { dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; } 
             const email = document.getElementById("email").value; 
@@ -174,64 +190,41 @@ document.addEventListener('DOMContentLoaded', function() {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
-        // --- FUNÇÃO FINAL DE GERAR PDF (VISUAL PERFEITO + MÚLTIPLAS PÁGINAS) ---
         async function gerarPDF() {
-    console.log("Iniciando geração de PDF com quebra de página inteligente e margens personalizadas...");
-    try {
-        const { jsPDF } = window.jspdf;
-        const preview = document.getElementById('preview');
-        const pdf = new jsPDF('p', 'mm', 'a4');
+            console.log("Iniciando geração de PDF com fatiamento de página...");
+            try {
+                const { jsPDF } = window.jspdf;
+                const preview = document.getElementById('preview');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const margin = 15;
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const usableWidth = pageWidth - (margin * 2);
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const sections = preview.querySelectorAll('.header, .section');
+                let currentY = margin;
 
-        // =================================================================
-        // CONTROLE INDIVIDUAL DAS MARGENS (CORRIGIDO E REINSERIDO)
-        // =================================================================
-        const marginTop = 15;        // Margem do topo em mm (ex: 1.5cm)
-        const marginBottom = 10;     // << Margem do rodapé. Altere este valor! (ex: 1cm)
-        const marginHorizontal = 15; // Margem das laterais (ex: 1.5cm)
-        // =================================================================
+                for (let i = 0; i < sections.length; i++) {
+                    const section = sections[i];
+                    if (section.style.display === 'none') {
+                        continue;
+                    }
 
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const usableWidth = pageWidth - (marginHorizontal * 2);
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        
-        const sections = preview.querySelectorAll('.header, .section');
-        let currentY = marginTop; // Posição vertical inicial agora usa a margem do topo
+                    const canvas = await html2canvas(section, { scale: 2, useCORS: true });
+                    const imgHeight = canvas.height * usableWidth / canvas.width;
 
-        for (let i = 0; i < sections.length; i++) {
-            const section = sections[i];
-            
-            if (section.style.display === 'none') {
-                continue;
+                    if (currentY + imgHeight > pageHeight - margin && i > 0) {
+                        pdf.addPage();
+                        currentY = margin;
+                    }
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', margin, currentY, usableWidth, imgHeight);
+                    currentY += imgHeight + 5;
+                }
+                pdf.save('curriculo.pdf');
+            } catch (error) {
+                console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
             }
-
-            console.log(`Processando seção ${i + 1}...`);
-            const canvas = await html2canvas(section, { scale: 2, useCORS: true });
-            
-            const imgHeight = canvas.height * usableWidth / canvas.width;
-
-            // Lógica da quebra de página (agora usa a margem do rodapé individual)
-            if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
-                pdf.addPage();
-                currentY = marginTop; // Reseta a posição para o topo da nova página
-                console.log("Espaço insuficiente. Criando nova página.");
-            }
-
-            // Adiciona a imagem usando a margem lateral correta
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
-            
-            // Atualiza a posição para a próxima seção
-            currentY += imgHeight + 5; // Adiciona a altura da imagem + 5mm de espaço entre seções
         }
-
-        console.log("PDF criado com sucesso!");
-        pdf.save('curriculo.pdf');
-
-    } catch (error) {
-        console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
-    }
-}
         
-        // Chamar a atualização inicial do preview
         atualizarPreview();
     }
 });
