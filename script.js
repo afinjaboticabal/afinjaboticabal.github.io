@@ -180,7 +180,29 @@ if (document.querySelector('.curriculo-container')) {
         pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
         pdf.save("curriculo.pdf");
     }
+    // ===============================================
+//   LÓGICA PARA O GERADOR DE CURRÍCULO
+// ===============================================
+if (document.querySelector('.curriculo-container')) {
 
+    // ... todo o seu código do gerador já existe aqui ...
+    
+    async function gerarPDF() {
+        // ... a função gerarPDF continua aqui ...
+    }
+
+    // ===============================================
+    //   CÓDIGO NOVO PARA ADICIONAR
+    // ===============================================
+    const downloadButton = document.getElementById('baixar-pdf-btn');
+    if (downloadButton) {
+        downloadButton.addEventListener('click', gerarPDF);
+    }
+    // ===============================================
+
+    // inicializa preview limpo
+    atualizarPreview();
+}
     // inicializa preview limpo
     atualizarPreview();
 }
