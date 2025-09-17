@@ -744,11 +744,19 @@ body {
     font-size: 1rem;
 }
 
-.curriculo-container .curriculo,
-.curriculo-container .curriculo h2,
-.curriculo-container .curriculo h3,
-.curriculo-container .curriculo p,
-.curriculo-container .curriculo strong {
+/* Define a fonte Arial e cor preta como padrão para TODO o preview */
+.curriculo-container .curriculo {
     font-family: Arial, sans-serif;
     color: black;
+}
+
+/* Garante que o NOME (h2) e os TÍTULOS DE SEÇÃO (h3) fiquem em negrito */
+.curriculo-container .curriculo h2,
+.curriculo-container .curriculo h3 {
+    font-weight: bold; /* ou 700 */
+}
+
+/* Garante que os PARÁGRAFOS (p) e dados pessoais fiquem com peso NORMAL */
+.curriculo-container .curriculo p {
+    font-weight: normal; /* ou 400 */
 }
