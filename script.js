@@ -175,48 +175,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // --- FUNÇÃO FINAL DE GERAR PDF (VISUAL PERFEITO + MÚLTIPLAS PÁGINAS) ---
         async function gerarPDF() {
-            console.log("Iniciando geração de PDF com fatiamento de página...");
-            try {
-                const { jsPDF } = window.jspdf;
-                const preview = document.getElementById('preview');
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const margin = 15;
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const usableWidth = pageWidth - (margin * 2);
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                const usableHeight = pageHeight - (margin * 2);
-                const sections = preview.querySelectorAll('.header, .section');
-                let currentY = margin;
+    console.log("Iniciando geração de PDF com fatiamento de página...");
+    try {
+        const { jsPDF } = window.jspdf;
+        const preview = document.getElementById('preview');
+        const pdf = new jsPDF('p', 'mm', 'a4');
 
-                for (let i = 0; i < sections.length; i++) {
-                    const section = sections[i];
-                    if (section.style.display === 'none') {
-                        continue;
-                    }
-
-                    console.log(`Processando seção ${i + 1}...`);
-                    const canvas = await html2canvas(section, { scale: 2, useCORS: true });
-                    const imgHeight = canvas.height * usableWidth / canvas.width;
-
-                    if (currentY + imgHeight > usableHeight && i > 0) {
-                        pdf.addPage();
-                        currentY = margin;
-                        console.log("Espaço insuficiente. Criando nova página.");
-                    }
-
-                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', margin, currentY, usableWidth, imgHeight);
-                    currentY += imgHeight + 5;
-                }
-
-                console.log("PDF criado com sucesso!");
-                pdf.save('curriculo.pdf');
-
-            } catch (error) {
-                console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
-            }
-        }
+        // =================================================================
+        // ALTERAÇÃO PARA CONTROLE INDIVIDUAL DAS MARGENS
+        // =================================================================
         
-        // Chamar a atualização inicial do preview
-        atualizarPreview();
+        // Em vez de uma única variável 'margin', agora temos controle total.
+        const marginTop = 15;        // Margem do topo em mm (ex: 1.5cm)
+        const marginBottom = 5;      // << Margem do rodapé. Altere este valor! (ex: 0.5cm)
+        const marginHorizontal = 15; // Margem das laterais (ex: 1.5cm)
+        
+        // =================================================================
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const usableWidth = pageWidth - (marginHorizontal * 2);
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        
+        const sections = preview.querySelectorAll('.header, .section');
+        let currentY = marginTop; // Posição vertical inicial agora usa a margem do topo
+
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (section.style.display === 'none') {
+                continue;
+            }
+
+            console.log(`Processando seção ${i + 1}...`);
+            const canvas = await html2canvas(section, { scale: 2, useCORS: true });
+            
+            const imgHeight = canvas.height * usableWidth / canvas.width;
+
+            // LÓGICA DA QUEBRA DE PÁGINA (agora usa a margem do rodapé)
+            // Se a imagem for passar da margem de baixo, cria uma nova página
+            if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
+                pdf.addPage();
+                currentY = marginTop; // Reseta a posição para o topo da nova página
+                console.log("Espaço insuficiente. Criando nova página.");
+            }
+
+            // Adiciona a imagem usando a margem lateral correta
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
+            
+            // Atualiza a posição para a próxima seção
+            currentY += imgHeight + 5; // Adiciona a altura da imagem + 5mm de espaço entre seções
+        }
+
+        console.log("PDF criado com sucesso!");
+        pdf.save('curriculo.pdf');
+
+    } catch (error) {
+        console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
     }
+}
 });
