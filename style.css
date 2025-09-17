@@ -646,7 +646,7 @@ body {
     border: 1px solid #ccc;
     padding: 40px;
     background: #fff;
-    margin-top: 30px;
+    margin: 30px auto;
 }
 
 .curriculo-container .header {
@@ -743,6 +743,11 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
+    /* Linhas adicionadas para centralização perfeita */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Garante que não haja espaçamento interno extra */
 }
 
 /* Define a fonte Arial e cor preta como padrão para TODO o preview */
@@ -760,4 +765,9 @@ body {
 /* Garante que os PARÁGRAFOS (p) e dados pessoais fiquem com peso NORMAL */
 .curriculo-container .curriculo p {
     font-weight: normal; /* ou 400 */
+}
+
+/* Ajusta o espaçamento superior na página do currículo (que usa o estilo 'privacidade') */
+.page-privacidade .content-section {
+    padding-top: 30px; /* << Deixei um pequeno respiro, mas pode ser 0 se preferir */
 }
