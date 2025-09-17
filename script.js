@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===============================================
-    //   LÓGICA PARA O GERADOR DE CURRÍCULO (VERSÃO AVANÇADA)
+    //   LÓGICA PARA O GERADOR DE CURRÍCULO (VERSÃO FINAL E CORRIGIDA)
     // ===============================================
     if (document.querySelector('.curriculo-container')) {
 
@@ -52,17 +52,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // --- LÓGICA DE ARRASTAR E SOLTAR (DRAG-AND-DROP) ---
         new Sortable(formContainer, {
             animation: 150,
-            handle: '.drag-handle',
-            onEnd: function (evt) {
-                const movedItemId = evt.item.dataset.sectionId;
-                const previewSectionToMove = document.getElementById(`secao${capitalizeFirstLetter(movedItemId)}`);
-                const targetSectionId = evt.nextSibling ? evt.nextSibling.dataset.sectionId : null;
-                if (targetSectionId) {
-                    const targetPreviewElement = document.getElementById(`secao${capitalizeFirstLetter(targetSectionId)}`);
-                    previewContainer.insertBefore(previewSectionToMove, targetPreviewElement);
-                } else {
-                    previewContainer.appendChild(previewSectionToMove);
-                }
+            handle: '.drag-handle', // Define o ícone como a "alça" para arrastar
+            filter: '.static-section', // Impede que a seção de dados pessoais seja movida
+            onEnd: function (evt) { // Função chamada ao final de um arraste
+                const formSectionsOrdered = formContainer.querySelectorAll('.form-section[data-section-id]');
+                formSectionsOrdered.forEach(formSection => {
+                    const sectionId = formSection.dataset.sectionId;
+                    const previewSectionToMove = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`);
+                    if(previewSectionToMove) {
+                        previewContainer.appendChild(previewSectionToMove);
+                    }
+                });
             }
         });
 
@@ -75,9 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (previewElement) {
                     let currentSize = parseFloat(window.getComputedStyle(previewElement, null).getPropertyValue('font-size'));
                     if (action === 'increase') {
-                        currentSize += 1;
-                    } else if (action === 'decrease' && currentSize > 8) {
-                        currentSize -= 1;
+                        currentSize += 1; // Aumenta em 1px
+                    } else if (action === 'decrease' && currentSize > 8) { // Não deixa a fonte ficar muito pequena
+                        currentSize -= 1; // Diminui em 1px
                     }
                     previewElement.style.fontSize = `${currentSize}px`;
                 }
@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         function atualizarPreview() {
-            document.getElementById("previewNome").innerText = document.getElementById("nome").value;
+            // Atualiza os dados pessoais
+            document.getElementById("previewNome").innerText = document.getElementById("nome").value || "Seu Nome Aqui";
             const dia = document.getElementById("dia").value;
             const mes = document.getElementById("mes").value;
             const ano = document.getElementById("ano").value;
@@ -136,35 +137,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             const nacionalidade = document.getElementById("nacionalidade").value;
-            if (nacionalidade) {
-                dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`;
-            }
+            if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; }
             const endereco = document.getElementById("endereco").value;
-            if (endereco) {
-                dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`;
-            }
+            if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; }
             const ddd = document.getElementById("ddd").value;
             const tel = document.getElementById("telefone").value;
             const telFmt = formatarTelefone(ddd, tel);
-            if (telFmt) {
-                dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`;
-            }
+            if (telFmt) { dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; }
             const email = document.getElementById("email").value;
-            if (email) {
-                dadosHtml += `<p><strong>Email:</strong> ${email}</p>`;
-            }
+            if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; }
             document.getElementById("previewDados").innerHTML = dadosHtml;
+            
+            // Atualiza o conteúdo e a visibilidade das seções
             const formSections = formContainer.querySelectorAll('.form-section[data-section-id]');
             formSections.forEach(section => {
                 const sectionId = section.dataset.sectionId;
                 const inputElement = document.getElementById(sectionId);
                 const previewElement = document.getElementById(`preview${capitalizeFirstLetter(sectionId)}`);
                 const sectionPreviewContainer = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`);
-                if (inputElement.value.trim() === "") {
-                    sectionPreviewContainer.style.display = "none";
-                } else {
-                    sectionPreviewContainer.style.display = "block";
-                    previewElement.innerText = inputElement.value;
+                if (inputElement && previewElement && sectionPreviewContainer) {
+                    if (inputElement.value.trim() === "") {
+                        sectionPreviewContainer.style.display = "none";
+                    } else {
+                        sectionPreviewContainer.style.display = "block";
+                        previewElement.innerText = inputElement.value;
+                    }
                 }
             });
         }
@@ -175,61 +172,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // --- FUNÇÃO FINAL DE GERAR PDF (VISUAL PERFEITO + MÚLTIPLAS PÁGINAS) ---
         async function gerarPDF() {
-    console.log("Iniciando geração de PDF com fatiamento de página...");
-    try {
-        const { jsPDF } = window.jspdf;
-        const preview = document.getElementById('preview');
-        const pdf = new jsPDF('p', 'mm', 'a4');
+            console.log("Iniciando geração de PDF com fatiamento de página...");
+            try {
+                const { jsPDF } = window.jspdf;
+                const preview = document.getElementById('preview');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const margin = 15;
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const usableWidth = pageWidth - (margin * 2);
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const usableHeight = pageHeight - (margin * 2);
+                const sections = preview.querySelectorAll('.header, .section');
+                let currentY = margin;
 
-        // =================================================================
-        // ALTERAÇÃO PARA CONTROLE INDIVIDUAL DAS MARGENS
-        // =================================================================
-        
-        // Em vez de uma única variável 'margin', agora temos controle total.
-        const marginTop = 15;        // Margem do topo em mm (ex: 1.5cm)
-        const marginBottom = 10;      // << Margem do rodapé. Altere este valor! (ex: 0.5cm)
-        const marginHorizontal = 15; // Margem das laterais (ex: 1.5cm)
-        
-        // =================================================================
+                for (let i = 0; i < sections.length; i++) {
+                    const section = sections[i];
+                    if (section.style.display === 'none') {
+                        continue;
+                    }
 
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const usableWidth = pageWidth - (marginHorizontal * 2);
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        
-        const sections = preview.querySelectorAll('.header, .section');
-        let currentY = marginTop; // Posição vertical inicial agora usa a margem do topo
+                    const canvas = await html2canvas(section, { scale: 2, useCORS: true });
+                    const imgHeight = canvas.height * usableWidth / canvas.width;
 
-        for (let i = 0; i < sections.length; i++) {
-            const section = sections[i];
-            if (section.style.display === 'none') {
-                continue;
+                    if (currentY + imgHeight > usableHeight && i > 0) {
+                        pdf.addPage();
+                        currentY = margin;
+                    }
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', margin, currentY, usableWidth, imgHeight);
+                    currentY += imgHeight + 5;
+                }
+                pdf.save('curriculo.pdf');
+            } catch (error) {
+                console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
             }
-
-            console.log(`Processando seção ${i + 1}...`);
-            const canvas = await html2canvas(section, { scale: 2, useCORS: true });
-            
-            const imgHeight = canvas.height * usableWidth / canvas.width;
-
-            // LÓGICA DA QUEBRA DE PÁGINA (agora usa a margem do rodapé)
-            // Se a imagem for passar da margem de baixo, cria uma nova página
-            if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
-                pdf.addPage();
-                currentY = marginTop; // Reseta a posição para o topo da nova página
-                console.log("Espaço insuficiente. Criando nova página.");
-            }
-
-            // Adiciona a imagem usando a margem lateral correta
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
-            
-            // Atualiza a posição para a próxima seção
-            currentY += imgHeight + 5; // Adiciona a altura da imagem + 5mm de espaço entre seções
         }
-
-        console.log("PDF criado com sucesso!");
-        pdf.save('curriculo.pdf');
-
-    } catch (error) {
-        console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+        
+        // Chamar a atualização inicial do preview
+        atualizarPreview();
     }
-}
 });
