@@ -143,31 +143,67 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        async function gerarPDF() {
-            console.log("1. Função gerarPDF iniciada!");
-            try {
-                const { jsPDF } = window.jspdf;
-                console.log("2. Biblioteca jsPDF carregada com sucesso.");
-                const preview = document.getElementById("preview");
-                console.log("3. Div de pré-visualização encontrada:", preview);
-               const canvas = await html2canvas(preview, { scale: 2, useCORS: true });
-                console.log("4. Captura da tela (canvas) criada com sucesso.");
-                const imgData = canvas.toDataURL("image/png");
-                console.log("5. Imagem convertida para dados (dataURL).");
-                const pdf = new jsPDF("p", "mm", "a4");
-                console.log("6. Novo documento PDF criado.");
-                const imgProps = pdf.getImageProperties(imgData);
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-                console.log("7. Dimensões do PDF calculadas.");
-                pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-                console.log("8. Imagem adicionada ao PDF.");
-                pdf.save("curriculo.pdf");
-                console.log("9. Comando para salvar o PDF enviado! O download deve começar.");
-            } catch (error) {
-                console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
-            }
+        // SUBSTITUA SUA FUNÇÃO ANTIGA POR ESTA
+
+async function gerarPDF() {
+    console.log("1. Função gerarPDF (versão auto-ajustável) iniciada!");
+    try {
+        const { jsPDF } = window.jspdf;
+        const preview = document.getElementById("preview");
+
+        // --- NOVA LÓGICA DE AJUSTE AUTOMÁTICO ---
+
+        // 1. Medimos o tamanho real do preview na tela
+        const previewWidth = preview.offsetWidth;
+        const previewHeight = preview.offsetHeight;
+
+        // 2. Definimos a proporção de uma folha A4 (largura / altura)
+        const a4Ratio = 210 / 297;
+
+        // 3. Calculamos a proporção atual do preview
+        const previewRatio = previewWidth / previewHeight;
+
+        let scale = 1; // Começamos com a escala normal (100%)
+
+        // 4. Comparamos as proporções. Se o preview for "mais comprido" que uma folha A4...
+        if (previewRatio < a4Ratio) {
+            // ...calculamos o fator de "encolhimento" necessário.
+            scale = previewRatio / a4Ratio;
+            console.log(`Preview é muito comprido. Aplicando escala: ${scale}`);
+            
+            // 5. Aplicamos o "zoom out" no elemento ANTES de tirar a foto
+            preview.style.transformOrigin = 'top left';
+            preview.style.transform = `scale(${scale})`;
         }
+
+        // 6. Tiramos a "foto" do elemento (agora já encolhido, se necessário)
+        const canvas = await html2canvas(preview, {
+            scale: 2, // Aumenta a resolução da captura
+            useCORS: true
+        });
+
+        // 7. IMPORTANTE: Removemos o "zoom out" para a pré-visualização na tela voltar ao normal
+        if (scale < 1) {
+            preview.style.transformOrigin = '';
+            preview.style.transform = '';
+        }
+
+        // --- FIM DA NOVA LÓGICA ---
+
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("p", "mm", "a4");
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save("curriculo.pdf");
+        console.log("9. Comando para salvar o PDF enviado!");
+
+    } catch (error) {
+        console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+    }
+}
 
         const downloadButton = document.getElementById('baixar-pdf-btn');
         if (downloadButton) {
