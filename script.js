@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // ===============================================
-    //   LÓGICA PARA O MENU RETRÁTIL
+    //   Bloco 1: LÓGICA PARA O MENU RETRÁTIL
     // ===============================================
     const menuToggleButton = document.getElementById('menu-toggle');
     const closeMenuButton = document.getElementById('close-menu');
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===============================================
-    //   LÓGICA PARA O POP-UP DE COOKIES
+    //   Bloco 2: LÓGICA PARA O POP-UP DE COOKIES
     // ===============================================
     const cookiePopup = document.getElementById('cookie-popup');
     const acceptCookieButton = document.getElementById('accept-cookie');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===============================================
-    //   LÓGICA PARA ANIMAÇÃO DE SCROLL (ESTAVA FALTANDO)
+    //   Bloco 3: LÓGICA PARA ANIMAÇÃO DE SCROLL (PÁGINA INICIAL)
     // ===============================================
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     if (revealElements.length > 0) {
@@ -48,22 +48,18 @@ document.addEventListener('DOMContentLoaded', function() {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // Opcional: para de observar o elemento uma vez que ele já apareceu
-                    // revealObserver.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.1 // A animação começa quando 10% do elemento está visível
+            threshold: 0.1
         });
-
         revealElements.forEach(element => {
             revealObserver.observe(element);
         });
     }
 
-
     // ===============================================
-    //   LÓGICA PARA O GERADOR DE CURRÍCULO (SÓ RODA NA PÁGINA CERTA)
+    //   Bloco 4: LÓGICA PARA O GERADOR DE CURRÍCULO
     // ===============================================
     if (document.querySelector('.curriculo-container')) {
 
@@ -73,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const allInputs = document.querySelectorAll(".curriculo-container input, .curriculo-container textarea");
         const sortableContainer = document.getElementById('sortable-sections');
 
-        // --- LÓGICA DE ARRASTAR E SOLTAR (DRAG-AND-DROP) ---
+        // --- LÓGICA DE ARRASTAR E SOLTAR ---
         if (sortableContainer) {
             new Sortable(sortableContainer, {
                 animation: 150,
@@ -84,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     formSectionsOrdered.forEach(formSection => {
                         const sectionId = formSection.dataset.sectionId;
                         const previewSectionToMove = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`);
-                        if(previewSectionToMove) {
+                        if (previewSectionToMove) {
                             previewContainer.appendChild(previewSectionToMove);
                         }
                     });
@@ -112,77 +108,69 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // --- LÓGICA DE ATUALIZAÇÃO DO PREVIEW E PDF ---
+        // --- LÓGICA DE ATUALIZAÇÃO E PDF ---
         allInputs.forEach(input => input.addEventListener("input", atualizarPreview));
         document.getElementById("foto").addEventListener("change", atualizarFoto);
         document.getElementById('baixar-pdf-btn').addEventListener('click', gerarPDF);
 
-        function atualizarFoto() { 
-            const file = document.getElementById("foto").files[0]; 
-            if (file) { 
-                const reader = new FileReader(); 
-                reader.onload = (e) => { 
-                    document.getElementById("previewFoto").src = e.target.result; 
-                }; 
-                reader.readAsDataURL(file); 
-            } 
+        function atualizarFoto() {
+            const file = document.getElementById("foto").files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => { document.getElementById("previewFoto").src = e.target.result; };
+                reader.readAsDataURL(file);
+            }
         }
-        function calcularIdade(dia, mes, ano) { 
-            const hoje = new Date(); 
-            const nascimento = new Date(ano, mes - 1, dia); 
-            let idade = hoje.getFullYear() - nascimento.getFullYear(); 
-            const m = hoje.getMonth() - nascimento.getMonth(); 
-            if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) { 
-                idade--; 
-            } 
-            return idade; 
+        function calcularIdade(dia, mes, ano) {
+            const hoje = new Date();
+            const nascimento = new Date(ano, mes - 1, dia);
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const m = hoje.getMonth() - nascimento.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) { idade--; }
+            return idade;
         }
-        function formatarTelefone(ddd, numero) { 
-            numero = (numero || '').replace(/\D/g, ""); 
-            ddd = (ddd || '').toString().replace(/\D/g, ""); 
-            if (!ddd && !numero) return ""; 
-            if (!ddd) return numero; 
-            if (!numero) return ddd; 
-            if (numero.length === 9) { 
-                return `(${ddd}) ${numero.substring(0, 5)}-${numero.substring(5)}`; 
-            } else if (numero.length === 8) { 
-                return `(${ddd}) ${numero.substring(0, 4)}-${numero.substring(4)}`; 
-            } else { 
-                return `(${ddd}) ${numero}`; 
-            } 
+        function formatarTelefone(ddd, numero) {
+            numero = (numero || '').replace(/\D/g, "");
+            ddd = (ddd || '').toString().replace(/\D/g, "");
+            if (!ddd && !numero) return "";
+            if (!ddd) return numero;
+            if (!numero) return ddd;
+            if (numero.length === 9) { return `(${ddd}) ${numero.substring(0, 5)}-${numero.substring(5)}`; }
+            else if (numero.length === 8) { return `(${ddd}) ${numero.substring(0, 4)}-${numero.substring(4)}`; }
+            else { return `(${ddd}) ${numero}`; }
         }
-        function atualizarPreview() { 
-            document.getElementById("previewNome").innerText = document.getElementById("nome").value || "Seu Nome Aqui"; 
-            let dadosHtml = ""; 
+        function atualizarPreview() {
+            document.getElementById("previewNome").innerText = document.getElementById("nome").value || "Seu Nome Aqui";
+            let dadosHtml = "";
             const dia = document.getElementById("dia").value, mes = document.getElementById("mes").value, ano = document.getElementById("ano").value;
             if (dia && mes && ano) { const idade = calcularIdade(dia, mes, ano); if (!Number.isNaN(idade)) { dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`; } }
-            const nacionalidade = document.getElementById("nacionalidade").value; 
-            if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; } 
-            const endereco = document.getElementById("endereco").value; 
-            if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; } 
+            const nacionalidade = document.getElementById("nacionalidade").value;
+            if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; }
+            const endereco = document.getElementById("endereco").value;
+            if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; }
             const ddd = document.getElementById("ddd").value, tel = document.getElementById("telefone").value;
-            const telFmt = formatarTelefone(ddd, tel); 
-            if (telFmt) { dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; } 
-            const email = document.getElementById("email").value; 
-            if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; } 
-            document.getElementById("previewDados").innerHTML = dadosHtml; 
-            
-            if(sortableContainer) {
-                const formSections = sortableContainer.querySelectorAll('.form-section[data-section-id]'); 
-                formSections.forEach(section => { 
-                    const sectionId = section.dataset.sectionId; 
-                    const inputElement = document.getElementById(sectionId); 
-                    const previewElement = document.getElementById(`preview${capitalizeFirstLetter(sectionId)}`); 
-                    const sectionPreviewContainer = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`); 
-                    if (inputElement && previewElement && sectionPreviewContainer) { 
-                        if (inputElement.value.trim() === "") { 
-                            sectionPreviewContainer.style.display = "none"; 
-                        } else { 
-                            sectionPreviewContainer.style.display = "block"; 
-                            previewElement.innerText = inputElement.value; 
-                        } 
-                    } 
-                }); 
+            const telFmt = formatarTelefone(ddd, tel);
+            if (telFmt) { dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; }
+            const email = document.getElementById("email").value;
+            if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; }
+            document.getElementById("previewDados").innerHTML = dadosHtml;
+
+            if (sortableContainer) {
+                const formSections = sortableContainer.querySelectorAll('.form-section[data-section-id]');
+                formSections.forEach(section => {
+                    const sectionId = section.dataset.sectionId;
+                    const inputElement = document.getElementById(sectionId);
+                    const previewElement = document.getElementById(`preview${capitalizeFirstLetter(sectionId)}`);
+                    const sectionPreviewContainer = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`);
+                    if (inputElement && previewElement && sectionPreviewContainer) {
+                        if (inputElement.value.trim() === "") {
+                            sectionPreviewContainer.style.display = "none";
+                        } else {
+                            sectionPreviewContainer.style.display = "block";
+                            previewElement.innerText = inputElement.value;
+                        }
+                    }
+                });
             }
         }
         function capitalizeFirstLetter(string) {
@@ -191,40 +179,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         async function gerarPDF() {
-            console.log("Iniciando geração de PDF com fatiamento de página...");
-            try {
-                const { jsPDF } = window.jspdf;
-                const preview = document.getElementById('preview');
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const margin = 15;
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const usableWidth = pageWidth - (margin * 2);
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                const sections = preview.querySelectorAll('.header, .section');
-                let currentY = margin;
+    console.log("Iniciando geração de PDF com fatiamento de página e margens personalizadas...");
+    try {
+        const { jsPDF } = window.jspdf;
+        const preview = document.getElementById('preview');
+        const pdf = new jsPDF('p', 'mm', 'a4');
 
-                for (let i = 0; i < sections.length; i++) {
-                    const section = sections[i];
-                    if (section.style.display === 'none') {
-                        continue;
-                    }
+        // CONTROLE INDIVIDUAL DAS MARGENS
+        const marginTop = 15;        // Margem do topo em mm (ex: 1.5cm)
+        const marginBottom = 10;     // << Margem do rodapé. Altere este valor! (ex: 1cm)
+        const marginHorizontal = 15; // Margem das laterais (ex: 1.5cm)
 
-                    const canvas = await html2canvas(section, { scale: 2, useCORS: true });
-                    const imgHeight = canvas.height * usableWidth / canvas.width;
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const usableWidth = pageWidth - (marginHorizontal * 2);
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        
+        const sections = preview.querySelectorAll('.header, .section');
+        let currentY = marginTop;
 
-                    if (currentY + imgHeight > pageHeight - margin && i > 0) {
-                        pdf.addPage();
-                        currentY = margin;
-                    }
-                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', margin, currentY, usableWidth, imgHeight);
-                    currentY += imgHeight + 5;
-                }
-                pdf.save('curriculo.pdf');
-            } catch (error) {
-                console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (section.style.display === 'none') {
+                continue;
             }
+
+            const canvas = await html2canvas(section, { scale: 2, useCORS: true });
+            const imgHeight = canvas.height * usableWidth / canvas.width;
+
+            // Lógica da quebra de página usando a margem do rodapé
+            if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
+                pdf.addPage();
+                currentY = marginTop;
+            }
+
+            // Adiciona a imagem usando a margem lateral
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
+            
+            currentY += imgHeight + 5;
         }
+
+        console.log("PDF criado com sucesso!");
+        pdf.save('curriculo.pdf');
+
+    } catch (error) {
+        console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+    }
+}
         
         atualizarPreview();
     }
-});
+    
+}); // FIM DO DOMCONTENTLOADED
