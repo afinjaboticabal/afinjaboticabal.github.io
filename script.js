@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Em vez de uma única variável 'margin', agora temos controle total.
         const marginTop = 15;        // Margem do topo em mm (ex: 1.5cm)
-        const marginBottom = 5;      // << Margem do rodapé. Altere este valor! (ex: 0.5cm)
+        const marginBottom = 10;      // << Margem do rodapé. Altere este valor! (ex: 0.5cm)
         const marginHorizontal = 15; // Margem das laterais (ex: 1.5cm)
         
         // =================================================================
