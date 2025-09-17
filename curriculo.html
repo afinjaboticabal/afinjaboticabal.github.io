@@ -9,6 +9,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body class="page-privacidade">
 
@@ -29,42 +30,89 @@
     <main>
         <section class="content-section">
             <div class="curriculo-container">
-                <h1>Gerador de Currículo</h1>
+                <h1>Gerador de Currículo Interativo</h1>
                 
-                <div class="formulario">
-                    <label>Nome completo</label>
-                    <input type="text" id="nome" />
-                    <label>Data de nascimento</label>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="number" id="dia" placeholder="Dia" min="1" max="31" />
-                        <input type="number" id="mes" placeholder="Mês" min="1" max="12" />
-                        <input type="number" id="ano" placeholder="Ano" min="1900" max="2100" />
+                <div class="formulario" id="form-container">
+                    <div class="form-section static-section">
+                        <label>Nome completo</label>
+                        <input type="text" id="nome" />
+                        <label>Data de nascimento</label>
+                        <div style="display: flex; gap: 10px;"><input type="number" id="dia" placeholder="Dia" min="1" max="31" /><input type="number" id="mes" placeholder="Mês" min="1" max="12" /><input type="number" id="ano" placeholder="Ano" min="1900" max="2100" /></div>
+                        <label>Nacionalidade</label><input type="text" id="nacionalidade" />
+                        <label>Endereço</label><input type="text" id="endereco" />
+                        <label>Telefone</label>
+                        <div style="display: flex; gap: 10px;"><input type="number" id="ddd" placeholder="DDD" min="10" max="99" style="width: 80px;" /><input type="text" id="telefone" placeholder="Número" style="flex: 1;" /></div>
+                        <label>Email</label><input type="text" id="email" />
+                        <label>Foto 3x4</label><input type="file" id="foto" accept="image/*" />
                     </div>
-                    <label>Nacionalidade</label>
-                    <input type="text" id="nacionalidade" />
-                    <label>Endereço</label>
-                    <input type="text" id="endereco" />
-                    <label>Telefone</label>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="number" id="ddd" placeholder="DDD" min="10" max="99" style="width: 80px;" />
-                        <input type="text" id="telefone" placeholder="Número" style="flex: 1;" />
+
+                    <div class="form-section" data-section-id="objetivo">
+                        <div class="section-header">
+                            <span class="drag-handle">⋮⋮</span>
+                            <label>Objetivo</label>
+                            <div class="font-controls">
+                                <button class="font-size-btn" data-action="decrease" data-target="previewObjetivo">-</button>
+                                <button class="font-size-btn" data-action="increase" data-target="previewObjetivo">+</button>
+                            </div>
+                        </div>
+                        <textarea id="objetivo"></textarea>
                     </div>
-                    <label>Email</label>
-                    <input type="text" id="email" />
-                    <label>Foto 3x4</label>
-                    <input type="file" id="foto" accept="image/*" />
-                    <label>Objetivo</label>
-                    <textarea id="objetivo"></textarea>
-                    <label>Formação</label>
-                    <textarea id="formacao"></textarea>
-                    <label>Habilidades</label>
-                    <textarea id="habilidades"></textarea>
-                    <label>Cursos Complementares</label>
-                    <textarea id="cursos"></textarea>
-                    <label>Experiências</label>
-                    <textarea id="experiencias"></textarea>
-                    <label>Informações Complementares</label>
-                    <textarea id="info"></textarea>
+                    <div class="form-section" data-section-id="formacao">
+                        <div class="section-header">
+                            <span class="drag-handle">⋮⋮</span>
+                            <label>Formação</label>
+                             <div class="font-controls">
+                                <button class="font-size-btn" data-action="decrease" data-target="previewFormacao">-</button>
+                                <button class="font-size-btn" data-action="increase" data-target="previewFormacao">+</button>
+                            </div>
+                        </div>
+                        <textarea id="formacao"></textarea>
+                    </div>
+                    <div class="form-section" data-section-id="habilidades">
+                        <div class="section-header">
+                            <span class="drag-handle">⋮⋮</span>
+                            <label>Habilidades</label>
+                            <div class="font-controls">
+                                <button class="font-size-btn" data-action="decrease" data-target="previewHabilidades">-</button>
+                                <button class="font-size-btn" data-action="increase" data-target="previewHabilidades">+</button>
+                            </div>
+                        </div>
+                        <textarea id="habilidades"></textarea>
+                    </div>
+                    <div class="form-section" data-section-id="cursos">
+                        <div class="section-header">
+                            <span class="drag-handle">⋮⋮</span>
+                            <label>Cursos Complementares</label>
+                             <div class="font-controls">
+                                <button class="font-size-btn" data-action="decrease" data-target="previewCursos">-</button>
+                                <button class="font-size-btn" data-action="increase" data-target="previewCursos">+</button>
+                            </div>
+                        </div>
+                        <textarea id="cursos"></textarea>
+                    </div>
+                    <div class="form-section" data-section-id="experiencias">
+                        <div class="section-header">
+                            <span class="drag-handle">⋮⋮</span>
+                            <label>Experiências</label>
+                             <div class="font-controls">
+                                <button class="font-size-btn" data-action="decrease" data-target="previewExperiencias">-</button>
+                                <button class="font-size-btn" data-action="increase" data-target="previewExperiencias">+</button>
+                            </div>
+                        </div>
+                        <textarea id="experiencias"></textarea>
+                    </div>
+                    <div class="form-section" data-section-id="info">
+                        <div class="section-header">
+                            <span class="drag-handle">⋮⋮</span>
+                            <label>Informações Complementares</label>
+                             <div class="font-controls">
+                                <button class="font-size-btn" data-action="decrease" data-target="previewInfo">-</button>
+                                <button class="font-size-btn" data-action="increase" data-target="previewInfo">+</button>
+                            </div>
+                        </div>
+                        <textarea id="info"></textarea>
+                    </div>
+                    
                     <button id="baixar-pdf-btn">Baixar Currículo</button>
                 </div>
 
@@ -76,12 +124,12 @@
                             <div class="dados-pessoais" id="previewDados"></div>
                         </div>
                     </div>
-                    <div id="secaoObjetivo" class="section"><h3 >Objetivo</h3><p id="previewObjetivo"></p></div>
-                    <div id="secaoFormacao" class="section"><h3 >Formação</h3><p id="previewFormacao"></p></div>
-                    <div id="secaoHabilidades" class="section"><h3 >Habilidades</h3><p id="previewHabilidades"></p></div>
-                    <div id="secaoCursos" class="section"><h3 >Cursos Complementares</h3><p id="previewCursos"></p></div>
-                    <div id="secaoExperiencias" class="section"><h3 >Experiências</h3><p id="previewExperiencias"></p></div>
-                    <div id="secaoInfo" class="section"><h3 >Informações Complementares</h3><p id="previewInfo"></p></div>
+                    <div id="secaoObjetivo" class="section"><h3 >Objetivo</h3><p id="previewObjetivo" style="font-size: 12px;"></p></div>
+                    <div id="secaoFormacao" class="section"><h3 >Formação</h3><p id="previewFormacao" style="font-size: 12px;"></p></div>
+                    <div id="secaoHabilidades" class="section"><h3 >Habilidades</h3><p id="previewHabilidades" style="font-size: 12px;"></p></div>
+                    <div id="secaoCursos" class="section"><h3 >Cursos Complementares</h3><p id="previewCursos" style="font-size: 12px;"></p></div>
+                    <div id="secaoExperiencias" class="section"><h3 >Experiências</h3><p id="previewExperiencias" style="font-size: 12px;"></p></div>
+                    <div id="secaoInfo" class="section"><h3 >Informações Complementares</h3><p id="previewInfo" style="font-size: 12px;"></p></div>
                 </div>
             </div>
         </section>
