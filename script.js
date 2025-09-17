@@ -169,17 +169,38 @@ if (document.querySelector('.curriculo-container')) {
     }
 
     async function gerarPDF() {
+    console.log("1. Função gerarPDF iniciada!");
+    try {
         const { jsPDF } = window.jspdf;
+        console.log("2. Biblioteca jsPDF carregada com sucesso.");
+
         const preview = document.getElementById("preview");
+        console.log("3. Div de pré-visualização encontrada:", preview);
+
         const canvas = await html2canvas(preview, { scale: 2 });
+        console.log("4. Captura da tela (canvas) criada com sucesso.");
+
         const imgData = canvas.toDataURL("image/png");
+        console.log("5. Imagem convertida para dados (dataURL).");
+
         const pdf = new jsPDF("p", "mm", "a4");
+        console.log("6. Novo documento PDF criado.");
+
         const imgProps = pdf.getImageProperties(imgData);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        console.log("7. Dimensões do PDF calculadas.");
+
         pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        console.log("8. Imagem adicionada ao PDF.");
+
         pdf.save("curriculo.pdf");
+        console.log("9. Comando para salvar o PDF enviado! O download deve começar.");
+        
+    } catch (error) {
+        console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
     }
+}
     // ===============================================
 //   LÓGICA PARA O GERADOR DE CURRÍCULO
 // ===============================================
