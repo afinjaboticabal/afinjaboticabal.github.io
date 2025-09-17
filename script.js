@@ -64,3 +64,123 @@ if (menuToggleButton && menuOverlay && closeMenuButton) {
         }
     });
 }
+
+// ===============================================
+//   LÓGICA PARA O GERADOR DE CURRÍCULO
+// ===============================================
+
+// Verifica se estamos na página do currículo antes de rodar o código
+if (document.querySelector('.curriculo-container')) {
+
+    const inputs = document.querySelectorAll(".curriculo-container input, .curriculo-container textarea");
+    const fotoInput = document.getElementById("foto");
+
+    inputs.forEach((input) => {
+        input.addEventListener("input", atualizarPreview);
+    });
+
+    if (fotoInput) {
+        fotoInput.addEventListener("change", () => {
+            const file = fotoInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById("previewFoto").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    function calcularIdade(dia, mes, ano) {
+        const hoje = new Date();
+        const nascimento = new Date(ano, mes - 1, dia);
+        let idade = hoje.getFullYear() - nascimento.getFullYear();
+        const m = hoje.getMonth() - nascimento.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+            idade--;
+        }
+        return idade;
+    }
+
+    function formatarTelefone(ddd, numero) {
+        numero = (numero || '').replace(/\D/g, "");
+        ddd = (ddd || '').toString().replace(/\D/g, "");
+        if (!ddd && !numero) return "";
+        if (!ddd) return numero;
+        if (!numero) return ddd;
+        if (numero.length === 9) {
+            return `${ddd} ${numero.substring(0, 5)}-${numero.substring(5)}`;
+        } else if (numero.length === 8) {
+            return `${ddd} ${numero.substring(0, 4)}-${numero.substring(4)}`;
+        } else {
+            return `${ddd} ${numero}`;
+        }
+    }
+
+    function atualizarPreview() {
+        document.getElementById("previewNome").innerText = document.getElementById("nome").value;
+        const dia = document.getElementById("dia").value;
+        const mes = document.getElementById("mes").value;
+        const ano = document.getElementById("ano").value;
+        let dadosHtml = "";
+        if (dia && mes && ano) {
+            const idade = calcularIdade(dia, mes, ano);
+            if (!Number.isNaN(idade)) {
+                dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`;
+            }
+        }
+        const nacionalidade = document.getElementById("nacionalidade").value;
+        if (nacionalidade) {
+            dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`;
+        }
+        const endereco = document.getElementById("endereco").value;
+        if (endereco) {
+            dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`;
+        }
+        const ddd = document.getElementById("ddd").value;
+        const tel = document.getElementById("telefone").value;
+        const telFmt = formatarTelefone(ddd, tel);
+        if (telFmt) {
+            dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`;
+        }
+        const email = document.getElementById("email").value;
+        if (email) {
+            dadosHtml += `<p><strong>Email:</strong> ${email}</p>`;
+        }
+        document.getElementById("previewDados").innerHTML = dadosHtml;
+        toggleSection("objetivo", "secaoObjetivo", "previewObjetivo");
+        toggleSection("formacao", "secaoFormacao", "previewFormacao");
+        toggleSection("habilidades", "secaoHabilidades", "previewHabilidades");
+        toggleSection("cursos", "secaoCursos", "previewCursos");
+        toggleSection("experiencias", "secaoExperiencias", "previewExperiencias");
+        toggleSection("info", "secaoInfo", "previewInfo");
+    }
+
+    function toggleSection(inputId, sectionId, previewId) {
+        const value = document.getElementById(inputId).value;
+        const section = document.getElementById(sectionId);
+        if (value.trim() === "") {
+            section.style.display = "none";
+        } else {
+            section.style.display = "block";
+            document.getElementById(previewId).innerText = value;
+        }
+    }
+
+    async function gerarPDF() {
+        const { jsPDF } = window.jspdf;
+        const preview = document.getElementById("preview");
+        const canvas = await html2canvas(preview, { scale: 2 });
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("p", "mm", "a4");
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save("curriculo.pdf");
+    }
+
+    // inicializa preview limpo
+    atualizarPreview();
+}
