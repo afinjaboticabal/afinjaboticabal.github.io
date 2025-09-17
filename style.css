@@ -693,3 +693,53 @@ body {
 .curriculo-container .section {
     margin-bottom: 1.5rem;
 }
+
+/* ===================================================================
+   NOVOS ESTILOS PARA O GERADOR DE CURRÍCULO INTERATIVO
+   =================================================================== */
+
+.curriculo-container .form-section {
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.curriculo-container .form-section.static-section {
+    background-color: #e9e9e9; /* Cor de fundo diferente para a parte estática */
+}
+
+.curriculo-container .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.curriculo-container .drag-handle {
+    cursor: grab;
+    font-size: 1.5rem;
+    color: #888;
+}
+.curriculo-container .drag-handle:active {
+    cursor: grabbing;
+}
+
+.curriculo-container .section-header label {
+    flex-grow: 1; /* Faz o label ocupar o espaço restante */
+    margin: 0;
+}
+
+.curriculo-container .font-controls {
+    display: flex;
+}
+
+.curriculo-container .font-size-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
