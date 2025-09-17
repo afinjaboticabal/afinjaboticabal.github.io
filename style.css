@@ -583,7 +583,7 @@ body {
 }
 
 /* ===================================================================
-   ESTILOS ESPECÍFICOS PARA O GERADOR DE CURRÍCULO
+   ESTILOS ESPECÍFICOS PARA O GERADOR DE CURRÍCULO (VERSÃO CORRIGIDA)
    =================================================================== */
 
 .curriculo-container {
@@ -639,7 +639,8 @@ body {
     background: #0d47a1;
 }
 
-/* Estilos da Pré-visualização do Currículo */
+/* --- Estilos da Pré-visualização do Currículo --- */
+
 .curriculo-container .curriculo {
     width: 100%;
     max-width: 700px;
@@ -648,6 +649,34 @@ body {
     background: #fff;
     margin: 30px auto;
 }
+
+/* =========================================================
+   NOVAS REGRAS PARA CORRIGIR FONTE, COR E PESO
+   ========================================================= */
+
+/* Define a fonte Arial e cor preta como padrão para TODO o preview */
+.curriculo-container .curriculo,
+.curriculo-container .curriculo p,
+.curriculo-container .curriculo h2,
+.curriculo-container .curriculo h3 {
+    font-family: Arial, sans-serif;
+    color: black;
+}
+
+/* Garante que o NOME (h2) e os TÍTULOS DE SEÇÃO (h3) fiquem em negrito */
+.curriculo-container .curriculo h2,
+.curriculo-container .curriculo h3 {
+    font-weight: bold;
+}
+
+/* Garante que os PARÁGRAFOS (p) e dados pessoais fiquem com peso NORMAL */
+.curriculo-container .curriculo p {
+    font-weight: normal;
+}
+/* =========================================================
+   FIM DAS NOVAS REGRAS
+   ========================================================= */
+
 
 .curriculo-container .header {
     display: flex;
@@ -668,21 +697,21 @@ body {
 
 .curriculo-container .header h2 {
     margin: 0;
-    font-family: Arial, sans-serif;
+    /* font-family e font-size já são controlados pelas novas regras */
     font-size: 24px;
 }
 
 .curriculo-container .dados-pessoais p {
     margin: 4px 0;
-    font-family: Arial, sans-serif;
+    /* font-family e font-size já são controlados pelas novas regras */
     font-size: 14px;
 }
 
-.curriculo-container h3 {
+.curriculo-container .curriculo h3 {
     margin-top: 2rem;
     border-bottom: 1px solid #aaa;
     padding-bottom: 5px;
-    font-family: Arial, sans-serif;
+    /* font-family e font-size já são controlados pelas novas regras */
     font-size: 18px;
 }
 
