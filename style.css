@@ -699,7 +699,7 @@ body {
 .google-form-azul {
     width: 100%;
     max-width: 640px;
-    height: 1762px; /* << AJUSTE A ALTURA para este formulário */
+    height: 1800px; /* << AJUSTE A ALTURA para este formulário */
     border: none;
     display: block;
     margin: 0 auto;
