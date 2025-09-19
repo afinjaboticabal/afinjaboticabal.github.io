@@ -67,6 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const formContainer = document.getElementById('form-container');
         const previewContainer = document.getElementById('preview');
         const allInputs = document.querySelectorAll(".curriculo-container input, .curriculo-container textarea");
+         const textareas = document.querySelectorAll('.curriculo-container textarea');
+    textareas.forEach(textarea => {
+        textarea.addEventListener('input', function () {
+            this.style.height = 'auto'; // Reseta a altura para medir corretamente
+            this.style.height = (this.scrollHeight) + 'px'; // Ajusta para a altura do conteúdo
         const sortableContainer = document.getElementById('sortable-sections');
 
         // --- LÓGICA DE ARRASTAR E SOLTAR ---
