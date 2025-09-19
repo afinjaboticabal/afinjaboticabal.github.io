@@ -889,7 +889,7 @@ body {
     display: block; /* Para que possamos dar tamanho a ele */
     width: 80%; /* A linha ocupará 80% da largura do container */
     height: 3px; /* A espessura da linha */
-    margin: 25px auto; /* 25px de espaço acima/abaixo, e 'auto' para centralizar a linha */
+    margin: 10px auto; /* 25px de espaço acima/abaixo, e 'auto' para centralizar a linha */
 
     /* A mágica do degradê */
     background-image: linear-gradient(to right, 
