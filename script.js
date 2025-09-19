@@ -69,6 +69,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const allInputs = document.querySelectorAll(".curriculo-container input, .curriculo-container textarea");
         const sortableContainer = document.getElementById('sortable-sections');
 
+        // --- LÓGICA PARA TEXTAREA AUTO-AJUSTÁVEL ---
+        const textareas = document.querySelectorAll('.curriculo-container textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function () {
+                this.style.height = 'auto'; // Reseta a altura para medir corretamente
+                this.style.height = (this.scrollHeight) + 'px'; // Ajusta para a altura do conteúdo
+            });
+        });
+
         // --- LÓGICA DE ARRASTAR E SOLTAR ---
         if (sortableContainer) {
             new Sortable(sortableContainer, {
