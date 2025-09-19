@@ -871,3 +871,16 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/* Estilo para o título que separa os formulários na página de denúncia */
+.form-separator-title {
+    font-family: 'Comfortaa', sans-serif; /* << Fonte alterada para Comfortaa */
+    font-weight: 700;                   /* Garante o uso do negrito */
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3); /* << Sombra adicionada */
+    
+    /* Mantivemos os estilos que você já tinha: */
+    font-size: 28px;
+    margin-top: 50px;
+    text-align: center;
+    color: black; /* Garantindo a cor preta */
+}
