@@ -94,24 +94,45 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // --- LÓGICA DOS CONTROLES DE FONTE ---
     if (formContainer) {
-        formContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('font-size-btn')) {
-                const action = event.target.dataset.action;
-                const targetId = event.target.dataset.target;
-                const previewElement = document.getElementById(targetId);
-                if (previewElement) {
-                    let currentSize = parseFloat(window.getComputedStyle(previewElement, null).getPropertyValue('font-size'));
-                    if (action === 'increase') {
-                        currentSize += 1;
-                    } else if (action === 'decrease' && currentSize > 8) {
-                        currentSize -= 1;
-                    }
-                    previewElement.style.fontSize = `${currentSize}px`;
+    formContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('font-size-btn')) {
+            const action = event.target.dataset.action;
+            const targetId = event.target.dataset.target;
+            const previewElement = document.getElementById(targetId);
+            
+            // Encontra o display numérico correspondente
+            const displayElement = document.querySelector(`[data-size-display-for="${targetId}"]`);
+
+            if (previewElement) {
+                let currentSize = parseFloat(window.getComputedStyle(previewElement, null).getPropertyValue('font-size'));
+                if (action === 'increase') {
+                    currentSize += 1;
+                } else if (action === 'decrease' && currentSize > 8) {
+                    currentSize -= 1;
+                }
+                previewElement.style.fontSize = `${currentSize}px`;
+
+                // ATUALIZA O NÚMERO NO DISPLAY
+                if (displayElement) {
+                    displayElement.innerText = currentSize;
+                }
                 }
             }
         });
     }
 
+        // --- FUNÇÃO PARA INICIALIZAR OS VALORES DOS DISPLAYS ---
+function initializeFontDisplays() {
+    const displays = document.querySelectorAll('.font-size-display');
+    displays.forEach(display => {
+        const targetId = display.dataset.sizeDisplayFor;
+        const previewElement = document.getElementById(targetId);
+        if (previewElement) {
+            const currentSize = Math.round(parseFloat(window.getComputedStyle(previewElement, null).getPropertyValue('font-size')));
+            display.innerText = currentSize;
+        }
+    });
+}
     // --- LÓGICA DE ATUALIZAÇÃO E PDF ---
     allInputs.forEach(input => input.addEventListener("input", atualizarPreview));
     document.getElementById("foto").addEventListener("change", atualizarFoto);
@@ -230,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Chamar a atualização inicial do preview
+    initializeFontDisplays();
     atualizarPreview();
 }
 });
