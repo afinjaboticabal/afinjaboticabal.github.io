@@ -815,3 +815,19 @@ body {
 .page-privacidade .content-section {
     padding-top: 30px; /* << Deixei um pequeno respiro, mas pode ser 0 se preferir */
 }
+
+/* Estilo para o display numérico do tamanho da fonte */
+.curriculo-container .font-size-display {
+    width: 40px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    color: black;
+    font-weight: bold;
+    font-size: 0.9rem;
+    
+    /* Comandos para centralizar o número */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
