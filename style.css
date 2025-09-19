@@ -596,10 +596,13 @@ body {
 }
 
 .curriculo-container h1 {
-    font-family: Arial, sans-serif;
+    font-family: 'Comfortaa', sans-serif; /* << FONTE ALTERADA */
+    font-weight: 700;                   /* << GARANTE O USO DO NEGRITO */
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3); /* << SOMBRA ADICIONADA */
     font-size: 34px;
     text-align: center;
     margin-bottom: 30px;
+    color: black; /* Garante a cor preta */
 }
 
 .curriculo-container .formulario {
