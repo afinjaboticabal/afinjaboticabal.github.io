@@ -696,6 +696,15 @@ body {
     padding-bottom: 0;
 }
 
+.google-form-azul {
+    width: 100%;
+    max-width: 640px;
+    height: 1762px; /* << AJUSTE A ALTURA para este formulário */
+    border: none;
+    display: block;
+    margin: 0 auto;
+}
+
 /* =========================================================
    NOVAS REGRAS PARA CORRIGIR FONTE, COR E PESO
    ========================================================= */
