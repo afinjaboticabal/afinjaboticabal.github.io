@@ -670,28 +670,28 @@ body {
    =================================================================== */
 
 /* Muda a cor do Menu Fixo */
-.denuncia .sticky-menu {
+.page-denuncia .sticky-menu {
     background-color: #000080; /* << Azul Marinho - ajuste a cor se precisar */
 }
 
 /* Muda a imagem da Barra Superior */
-.denuncia .top-bar {
+.page-denuncia .top-bar {
     background-image: url('imagens/padrao-barra-azul-superior.png');
 }
 
 /* Muda a imagem da Barra Inferior */
-.denuncia .bottom-bar {
+.page-denuncia .bottom-bar {
     background-image: url('imagens/padrao-barra-azul-inferior.png');
 }
 
 /* Garante o espaçamento correto abaixo do menu */
-.denuncia .top-bar {
+.page-denuncia .top-bar {
     margin-top: 52px; /* Ajuste se a altura do menu for diferente */
 }
 
 /* Garante que o formulário fique rente às barras */
-.denuncia .content-section,
-.denuncia .form-container {
+.page-denuncia .content-section,
+.page-denuncia .form-container {
     padding-top: 0;
     padding-bottom: 0;
 }
