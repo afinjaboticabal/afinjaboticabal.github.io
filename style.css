@@ -618,12 +618,22 @@ body {
     margin-bottom: 5px;
 }
 
+/* Regra base para todos os campos de formulário */
 .curriculo-container input, .curriculo-container textarea {
     width: 100%;
     margin-bottom: 10px;
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    font-family: Arial, sans-serif; /* Garante a mesma fonte do preview */
+    font-size: 1rem; /* Tamanho de fonte consistente */
+}
+
+/* Regra específica e melhorada para os campos de texto grandes */
+.curriculo-container textarea {
+    min-height: 80px;     /* << Aumenta a altura inicial (equivale a umas 4-5 linhas) */
+    resize: none;         /* << Impede o redimensionamento manual pelo usuário */
+    overflow-y: hidden;   /* << Esconde a barra de rolagem, pois o JS vai cuidar da altura */
 }
 
 .curriculo-container button {
