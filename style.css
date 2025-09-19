@@ -665,6 +665,37 @@ body {
     margin: 30px auto;
 }
 
+/* ===================================================================
+   ESTILOS ESPECÍFICOS PARA A NOVA PÁGINA
+   =================================================================== */
+
+/* Muda a cor do Menu Fixo */
+.page-nova .sticky-menu {
+    background-color: #000080; /* << Azul Marinho - ajuste a cor se precisar */
+}
+
+/* Muda a imagem da Barra Superior */
+.page-nova .top-bar {
+    background-image: url('imagens/padrao-barra-azul-superior.png');
+}
+
+/* Muda a imagem da Barra Inferior */
+.page-nova .bottom-bar {
+    background-image: url('imagens/padrao-barra-azul-inferior.png');
+}
+
+/* Garante o espaçamento correto abaixo do menu */
+.page-nova .top-bar {
+    margin-top: 52px; /* Ajuste se a altura do menu for diferente */
+}
+
+/* Garante que o formulário fique rente às barras */
+.page-nova .content-section,
+.page-nova .form-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 /* =========================================================
    NOVAS REGRAS PARA CORRIGIR FONTE, COR E PESO
    ========================================================= */
