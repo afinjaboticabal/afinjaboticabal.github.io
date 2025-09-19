@@ -888,7 +888,7 @@ body {
     content: ''; /* Essencial para o pseudo-elemento aparecer */
     display: block; /* Para que possamos dar tamanho a ele */
     width: 80%; /* A linha ocupará 80% da largura do container */
-    height: 1px; /* A espessura da linha */
+    height: 3px; /* A espessura da linha */
     margin: 25px auto; /* 25px de espaço acima/abaixo, e 'auto' para centralizar a linha */
 
     /* A mágica do degradê */
