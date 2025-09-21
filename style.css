@@ -961,10 +961,9 @@ body {
 
 /* 6. Estilo da imagem na parte de cima */
 .portfolio-image {
-    max-width: 15%;
+    max-width: 20%;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 /* 7. Estilo da caixa de texto na parte de baixo */
