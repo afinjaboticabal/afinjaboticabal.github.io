@@ -229,7 +229,6 @@ body {
     background-repeat: repeat-x;
     background-position: center bottom;
     background-size: auto 100%; /* Garante que a imagem não seja ampliada */
-    display: block;
 }
 
 .footer-social {
