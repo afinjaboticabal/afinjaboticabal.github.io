@@ -16,11 +16,14 @@
   src: url('fonts/Comfortaa-Bold.ttf') format('truetype'); /* << Corrigido */
 }
 
-html {
-    height: 100%;
-}
 body {
-    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
 }
 
 /* --- FIM DO CARREGAMENTO LOCAL --- */
