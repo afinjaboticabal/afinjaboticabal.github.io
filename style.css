@@ -228,7 +228,8 @@ body {
     background-image: url('imagens/BarraInferior3.png');
     background-repeat: repeat-x;
     background-position: center bottom;
-    background-size: auto 100%; /* Garante que a imagem não seja ampliada */
+    background-size: auto 100%;
+    display: block;
 }
 
 .footer-social {
