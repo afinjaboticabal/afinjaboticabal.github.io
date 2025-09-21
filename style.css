@@ -224,12 +224,17 @@ body {
     /* As linhas de background e height foram removidas daqui */
 }
 .bottom-bar {
-    height: 180px; /* << SUBSTITUA PELA ALTURA EXATA da sua imagem padrao-rodape.png */
+    height: 180px; 
     background-image: url('imagens/BarraInferior3.png');
     background-repeat: repeat-x;
     background-position: center bottom;
     background-size: auto 100%;
+    
+    /* Propriedades para forçar a remoção do espaço em branco */
     display: block;
+    vertical-align: bottom;
+    float: left; /* << ESTA É A MUDANÇA PRINCIPAL */
+    width: 100%; /* << Garante que o float ocupe toda a largura */
 }
 
 .footer-social {
