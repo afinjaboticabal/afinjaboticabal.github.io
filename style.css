@@ -898,3 +898,69 @@ body {
         transparent
     );
 }
+
+/* ===================================================================
+   ESTILOS ESPECÍFICOS PARA A PÁGINA DE PORTIFÓLIO
+   =================================================================== */
+
+/* 1. Define a cor da barra do menu */
+.page-portifolio .sticky-menu {
+    background-color: #6a5acd; /* Ex: Roxo "SlateBlue". Mude se desejar */
+}
+
+/* 2. Define a imagem da Barra Superior */
+.page-portifolio .top-bar {
+    background-image: url('imagens/topo-portifolio.png');
+    margin-top: 52px; /* Garante o espaço abaixo do menu fixo */
+}
+
+/* 3. Define a imagem da Barra Inferior */
+.page-portifolio .bottom-bar {
+    background-image: url('imagens/rodape-portifolio.png');
+}
+
+/* 4. Estilo e Animação do Background do Conteúdo */
+@keyframes scroll-background {
+    from { background-position: 0 0; }
+    to { background-position: -1920px 0; } /* Ajuste a largura (1920px) para a largura da sua imagem de fundo */
+}
+
+#portfolio-background {
+    padding: 80px 20px;
+    background-image: url('imagens/background-portifolio.png');
+    background-repeat: repeat-x; /* Repete a imagem horizontalmente */
+    animation: scroll-background 40s linear infinite; /* 40s controla a velocidade. Aumente para mais lento. */
+}
+
+/* 5. Container para os conteúdos da página */
+.portfolio-content-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px; /* Espaço entre a imagem de cima e o texto de baixo */
+}
+
+/* 6. Estilo da imagem na parte de cima */
+.portfolio-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* 7. Estilo da caixa de texto na parte de baixo */
+.portfolio-text-box {
+    background-color: rgba(255, 255, 255, 0.85); /* Fundo branco semitransparente para legibilidade */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.portfolio-text-box p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.7;
+}
