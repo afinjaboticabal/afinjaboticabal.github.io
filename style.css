@@ -900,18 +900,18 @@ body {
 }
 
 /* ===================================================================
-   ESTILOS ESPECÍFICOS PARA A PÁGINA DE PORTIFÓLIO
+   ESTILOS ESPECÍFICOS PARA A PÁGINA DE PORTIFÓLIO (VERSÃO CORRIGIDA)
    =================================================================== */
 
 /* 1. Define a cor da barra do menu */
 .page-portifolio .sticky-menu {
-    background-color: #ff861c; /* Ex: Roxo "SlateBlue". Mude se desejar */
+    background-color: #ff861c;
 }
 
 /* 2. Define a imagem da Barra Superior */
 .page-portifolio .top-bar {
     background-image: url('imagens/topo-portifolio.png');
-    margin-top: 52px; /* Garante o espaço abaixo do menu fixo */
+    margin-top: 52px;
 }
 
 /* 3. Define a imagem da Barra Inferior */
@@ -922,15 +922,15 @@ body {
 /* 4. Estilo e Animação do Background do Conteúdo */
 @keyframes scroll-background {
     from { background-position: 0 0; }
-    to { background-position: -1920px 0; } /* Ajuste a largura (1920px) para a largura da sua imagem de fundo */
+    to { background-position: -1920px 0; }
 }
 
 #portfolio-background {
     padding: 80px 20px;
     background-image: url('imagens/background-portifolio.png');
-    background-repeat: repeat-x; /* Repete a imagem horizontalmente */
+    background-repeat: repeat-x;
     background-size: auto 100%;
-    animation: scroll-background 40s linear infinite; /* 40s controla a velocidade. Aumente para mais lento. */
+    animation: scroll-background 40s linear infinite;
 }
 
 /* 5. Container para os conteúdos da página */
@@ -940,7 +940,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px; /* Espaço entre a imagem de cima e o texto de baixo */
+    gap: 60px;
 }
 
 /* 6. Estilo da imagem na parte de cima */
@@ -953,7 +953,7 @@ body {
 
 /* 7. Estilo da caixa de texto na parte de baixo */
 .portfolio-text-box {
-    background-color: rgba(255, 255, 255, 0.85); /* Fundo branco semitransparente para legibilidade */
+    background-color: rgba(255, 255, 255, 0.85);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
