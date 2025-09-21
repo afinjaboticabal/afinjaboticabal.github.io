@@ -929,6 +929,7 @@ body {
     padding: 80px 20px;
     background-image: url('imagens/background-portifolio.png');
     background-repeat: repeat-x; /* Repete a imagem horizontalmente */
+    background-size: auto 100%;
     animation: scroll-background 40s linear infinite; /* 40s controla a velocidade. Aumente para mais lento. */
 }
 
