@@ -323,6 +323,9 @@ body {
     .social-icons-column {
         flex-shrink: 0;
     }
+  .desktop-only-image {
+        display: none;
+    }
 }
 
 .page-cadastro .top-bar {
@@ -1017,4 +1020,21 @@ body {
 /* Efeito de zoom ao passar o mouse sobre o ícone */
 .social-gif:hover {
     transform: scale(1.1);
+}
+
+/* ===================================================================
+   ESTILOS PARA AS LINHAS SOCIAIS E IMAGENS DE DESKTOP
+   =================================================================== */
+
+/* Cria uma linha horizontal para alinhar o GIF e a nova imagem */
+.social-row {
+    display: flex;
+    align-items: center; /* Alinha verticalmente no centro */
+    gap: 15px; /* Espaço entre o GIF e a nova imagem */
+}
+
+/* Define um tamanho fixo para as novas imagens */
+.desktop-only-image {
+    width: 120px; /* << AJUSTE O TAMANHO FIXO CONFORME DESEJAR */
+    height: auto;
 }
