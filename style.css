@@ -1038,14 +1038,12 @@ body {
     width: 200px; 
     height: auto;
     border-radius: 8px; /* Adiciona bordas levemente arredondadas */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Adiciona uma sombra sutil */
     transition: all 0.3s ease; /* << ESSA LINHA CRIA A ANIMAÇÃO SUAVE */
 }
 
 /* Efeito ao passar o mouse por cima da imagem */
 .desktop-only-image:hover {
     transform: scale(1.05); /* Aumenta levemente o tamanho */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Aumenta a sombra para dar profundidade */
     cursor: pointer; /* Muda o cursor para a "mãozinha" de link */
 }
 
