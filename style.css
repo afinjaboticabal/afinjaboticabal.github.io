@@ -980,3 +980,30 @@ body {
     color: #333;
     line-height: 1.7;
 }
+
+/* Container principal que alinha a imagem e os ícones lado a lado */
+.image-with-socials-container {
+    display: flex;
+    align-items: center; /* Alinha verticalmente no centro */
+    justify-content: center; /* Centraliza o conjunto */
+    gap: 25px; /* Espaço entre a imagem principal e os ícones */
+}
+
+/* Coluna que empilha os ícones um sobre o outro */
+.social-icons-column {
+    display: flex;
+    flex-direction: column; /* Organiza os ícones em uma coluna vertical */
+    gap: 20px; /* Espaço entre os ícones */
+}
+
+/* Estilo para os GIFs das redes sociais */
+.social-gif {
+    width: 60px; /* Tamanho dos ícones. Ajuste se precisar. */
+    height: auto;
+    transition: transform 0.2s ease; /* Efeito suave ao passar o mouse */
+}
+
+/* Efeito de zoom ao passar o mouse sobre o ícone */
+.social-gif:hover {
+    transform: scale(1.1);
+}
