@@ -311,10 +311,6 @@ body {
     #cookie-popup {
         flex-direction: column;
         text-align: center;
-       /* AJUSTE DE PROPORÇÃO DA IMAGEM PRINCIPAL NO CELULAR */
-    .portfolio-image {
-        /* Aumenta a largura da imagem em telas pequenas */
-        max-width: 75%; /* << EXPERIMENTE ESTE VALOR */
     }
 }
 
