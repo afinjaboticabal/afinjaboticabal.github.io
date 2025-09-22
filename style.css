@@ -312,6 +312,9 @@ body {
         flex-direction: column;
         text-align: center;
     }
+  .portfolio-image {
+        max-width: 75%;
+    }
 }
 
 .page-cadastro .top-bar {
