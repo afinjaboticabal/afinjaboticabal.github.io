@@ -1035,6 +1035,6 @@ body {
 
 /* Define um tamanho fixo para as novas imagens */
 .desktop-only-image {
-    width: 150px; /* << AJUSTE O TAMANHO FIXO CONFORME DESEJAR */
+    width: 200px; /* << AJUSTE O TAMANHO FIXO CONFORME DESEJAR */
     height: auto;
 }
