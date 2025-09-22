@@ -254,4 +254,60 @@ function initializeFontDisplays() {
     initializeFontDisplays();
     atualizarPreview();
 }
+
+// ===============================================
+    //   Bloco 5: LÓGICA PARA ANIMAÇÃO DOS GIFs SOCIAIS
+    // ===============================================
+    const socialGifs = document.querySelectorAll('.social-gif');
+
+    // IMPORTANTE: Ajuste este valor para a duração da sua animação em milissegundos.
+    // Exemplo: 1.5 segundos = 1500
+    const gifAnimationDuration = 1500; 
+
+    // Função que toca a animação uma vez
+    const playAnimationOnce = (element) => {
+        const staticSrc = element.src;
+        const animatedSrc = element.dataset.animatedSrc;
+
+        // Se não houver src animado, não faz nada
+        if (!animatedSrc) return;
+
+        // Troca para o GIF animado
+        element.src = animatedSrc;
+
+        // Agenda a troca de volta para a imagem estática após a duração da animação
+        setTimeout(() => {
+            element.src = staticSrc;
+        }, gifAnimationDuration);
+    };
+
+    // --- Lógica para tocar a animação no HOVER do mouse ---
+    socialGifs.forEach(gif => {
+        gif.addEventListener('mouseenter', () => {
+            playAnimationOnce(gif);
+        });
+    });
+
+    // --- Lógica para tocar a animação a PRIMEIRA VEZ ao rolar a página ---
+    const gifObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Se o GIF entrou na tela
+            if (entry.isIntersecting) {
+                const gifElement = entry.target;
+                
+                // Toca a animação uma vez
+                playAnimationOnce(gifElement);
+                
+                // Para de observar este GIF para não tocar novamente ao rolar
+                gifObserver.unobserve(gifElement);
+            }
+        });
+    }, {
+        threshold: 0.5 // Toca quando 50% do GIF estiver visível
+    });
+
+    // Inicia a observação de cada GIF
+    socialGifs.forEach(gif => {
+        gifObserver.observe(gif);
+    });
 });
