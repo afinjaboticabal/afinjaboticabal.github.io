@@ -312,8 +312,16 @@ body {
         flex-direction: column;
         text-align: center;
     }
-  .portfolio-image {
-        max-width: 75%;
+ /* Diz para a imagem principal crescer e ocupar o espaço livre */
+    .portfolio-image {
+        flex-grow: 1;       /* A propriedade principal: faz a imagem se esticar */
+        width: 0;           /* Ajuda o flexbox a calcular o crescimento corretamente */
+        min-width: 150px;   /* Define um tamanho mínimo para a imagem, por segurança */
+    }
+
+    /* Impede que a coluna de ícones seja espremida */
+    .social-icons-column {
+        flex-shrink: 0;
     }
 }
 
