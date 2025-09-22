@@ -998,7 +998,7 @@ body {
 
 /* Estilo para os GIFs das redes sociais */
 .social-gif {
-    width: 60px; /* Tamanho dos ícones. Ajuste se precisar. */
+    width: 80px; /* Tamanho dos ícones. Ajuste se precisar. */
     height: auto;
     transition: transform 0.2s ease; /* Efeito suave ao passar o mouse */
 }
