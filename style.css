@@ -696,11 +696,6 @@ body {
    ESTILOS ESPECÍFICOS PARA DENUNCIA
    =================================================================== */
 
-/* Muda a cor do Menu Fixo */
-.page-denuncia .sticky-menu {
-    background-color: #3886cf; /* << Azul Marinho - ajuste a cor se precisar */
-}
-
 /* Muda a imagem da Barra Superior */
 .page-denuncia .top-bar {
     background-image: url('imagens/padrao-barra-azul-superior.png');
@@ -1176,6 +1171,13 @@ body {
 /* 4. Menu da página PROFISSIONAIS E APOIADORES (Verde) */
 .page-profissionais .sticky-menu {
     background-image: linear-gradient(to right, #1b5e20, #4caf50, #1b5e20);
+    background-size: 200% 100%;
+    background-repeat: repeat-x;
+    animation: seamless-scroll-200 15s linear infinite;
+}
+
+.page-denuncia .sticky-menu {
+    background-image: linear-gradient(to right, #0d47a1, #42a5f5, #0d47a1);
     background-size: 200% 100%;
     background-repeat: repeat-x;
     animation: seamless-scroll-200 15s linear infinite;
