@@ -1054,3 +1054,66 @@ body {
     margin-bottom: 15px; /* Espaço entre o título e o parágrafo */
     color: #333;
 }
+
+/* ============================
+   ESTILOS PARA A PÁGINA GUIA
+   ============================ */
+.page-guia .sticky-menu {
+  background-color: #c4a484; /* marrom claro */
+}
+
+.page-guia .top-bar {
+  background-image: url('imagens/barra-guia-superior.png'); /* ajuste a imagem se tiver */
+  margin-top: 52px;
+}
+
+.page-guia .bottom-bar {
+  background-image: url('imagens/barra-guia-inferior.png'); /* ajuste a imagem se tiver */
+}
+
+.guia-title {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 40px 0;
+}
+
+.guia-img {
+  max-width: 100%;
+  margin: 20px auto;
+  display: block;
+}
+
+.guia-box {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 30px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.guia-box.empty {
+  height: 200px; /* espaço vazio */
+}
+
+.guia-squares {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px auto;
+  flex-wrap: wrap;
+}
+
+.guia-square {
+  width: 180px;
+  height: 180px;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+}
