@@ -608,7 +608,7 @@ body {
 #menu-overlay a:hover::before {
     background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00, #007bff);
     background-size: 300% 300%;
-    animation: seamless-scroll-300 4s linear infinite;
+    animation: seamless-scroll-300 10s linear infinite;
 }
 
 /* ===================================================================
