@@ -644,7 +644,7 @@ body {
     color: black; /* Garante a cor preta */
 }
 
-.subtitulo-curriculo .curriculo-container {
+.curriculo-container .subtitulo-curriculo {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 400; /* Peso normal, sem negrito */
     font-size: 16px;  /* Tamanho menor que o título */
