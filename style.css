@@ -1228,3 +1228,67 @@ body {
     height: auto;         /* << Garante a remoção da altura fixa */
     min-height: 500px;
 }
+
+/* =========================================================
+   ESTILOS PARA A PLAYLIST PERSONALIZADA
+   ========================================================= */
+
+/* Título principal acima da lista de vídeos */
+.playlist-main-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    color: #333;
+}
+
+/* O container que segura todos os vídeos e cria a barra de rolagem */
+.custom-playlist-container {
+    max-height: 500px; /* Altura máxima da lista antes de rolar */
+    overflow-y: auto;  /* Adiciona a barra de rolagem vertical quando necessário */
+    text-align: left;
+    padding-right: 10px; /* Espaço para a barra de rolagem não colar no texto */
+}
+
+/* Cada item da lista (link que envolve imagem e texto) */
+.custom-playlist-item {
+    display: flex;         /* Alinha imagem e texto lado a lado */
+    align-items: center;   /* Centraliza verticalmente */
+    text-decoration: none;
+    color: #333;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 1px solid #eee;
+}
+
+/* Efeito ao passar o mouse por cima do item */
+.custom-playlist-item:hover {
+    background-color: #e9e9e9;
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+/* Estilo da miniatura do vídeo */
+.playlist-thumbnail {
+    width: 120px;
+    height: 68px; /* Proporção 16:9 */
+    border-radius: 6px;
+    margin-right: 15px;
+    object-fit: cover; /* Garante que a imagem não se estique */
+    flex-shrink: 0; /* Impede que a imagem encolha */
+}
+
+/* Estilo do título do vídeo */
+.playlist-title {
+    font-family: Arial, sans-serif;
+    font-size: 1rem; /* 16px */
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0; /* Remove margens do parágrafo */
+}
