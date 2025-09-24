@@ -1062,7 +1062,7 @@ body {
 /* Define a cor de fundo da página */
 .page-guia {
     background-color: #FDF5E6; /* Tom de bege claro (Old Lace) */
-
+}
 /* 1. Define a cor da barra do menu */
 .page-guia .sticky-menu {
     background-color: #B99B7E; /* Tom de marrom claro */
