@@ -474,10 +474,6 @@ body {
     transform: translateY(-2px);
 }
 
-.page-cadastro .top-bar {
-    margin-top: 50px;
-}
-
 /* Zera o espaçamento vertical para o formulário colar nas barras */
 .page-cadastro .content-section {
     padding-top: 0;
@@ -510,11 +506,6 @@ body {
 /* Muda a imagem da Barra Inferior */
 .page-profissionais .bottom-bar {
     background-image: url('imagens/padrao-barra-verde-inferior.png');
-}
-
-/* Empurra a barra do topo para baixo do menu (SÓ na pág. de profissionais) */
-.page-profissionais .top-bar {
-    margin-top: 52px; /* << Ajuste este valor para a altura exata do seu menu verde */
 }
 
 /* Zera o espaçamento vertical para o formulário nesta página */
@@ -608,11 +599,6 @@ body {
 .page-privacidade .privacy-policy-container p,
 .page-privacidade .privacy-policy-container .topics-list {
     color: black;
-}
-
-/* Empurra a barra do topo para baixo do menu (SÓ na pág. de privacidade) */
-.page-privacidade .top-bar {
-    margin-top: 52px; /* << Ajuste este valor se precisar, para colar perfeitamente */
 }
 
 /* =========================================================
@@ -730,11 +716,6 @@ body {
 /* Muda a imagem da Barra Inferior */
 .page-denuncia .bottom-bar {
     background-image: url('imagens/padrao-barra-azul-inferior.png');
-}
-
-/* Garante o espaçamento correto abaixo do menu */
-.page-denuncia .top-bar {
-    margin-top: 52px; /* Ajuste se a altura do menu for diferente */
 }
 
 /* Garante que o formulário fique rente às barras */
@@ -926,7 +907,6 @@ body {
     font-weight: 700;
     text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
     font-size: 22px;
-    margin-top: 50px;
     text-align: center;
     color: black;
 }
@@ -954,7 +934,6 @@ body {
 /* 2. Define a imagem da Barra Superior */
 .page-portifolio .top-bar {
     background-image: url('imagens/topo-portifolio.png');
-    margin-top: 52px;
 }
 
 /* 3. Define a imagem da Barra Inferior */
@@ -1075,11 +1054,6 @@ body {
 /* Define a cor de fundo da página */
 .page-guia {
     background-color: #FDF5E6; /* Tom de bege claro (Old Lace) */
-}
-
-/* 2. Empurra o conteúdo para baixo do menu fixo */
-.page-guia .top-bar {
-    margin-top: 52px; /* Ajuste se a altura do menu for diferente */
 }
 
 /* 3. Define a imagem da Barra Superior */
@@ -1221,4 +1195,17 @@ body {
     background-size: 200% 100%;
     background-repeat: repeat-x;
     animation: seamless-scroll-200 15s linear infinite;
+}
+
+/* =========================================================
+   REGRA UNIFICADA PARA O ESPAÇAMENTO DO MENU
+   ========================================================= */
+
+.page-cadastro .top-bar,
+.page-profissionais .top-bar,
+.page-privacidade .top-bar,
+.page-denuncia .top-bar,
+.page-portifolio .top-bar,
+.page-guia .top-bar {
+    margin-top: 50px; /* Valor unificado e corrigido */
 }
