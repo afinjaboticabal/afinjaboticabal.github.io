@@ -1063,11 +1063,20 @@ body {
 .page-guia {
     background-color: #FDF5E6; /* Tom de bege claro (Old Lace) */
 }
+
 /* 1. Define a cor da barra do menu */
 .page-guia .sticky-menu {
-    background-image: linear-gradient(to right, #5C4033, #B99B7E, #5C4033);
-    background-size: 200% auto;
-    animation: rotate-gradient 5s linear infinite alternate;
+    /* Nosso "pedaço" de degradê: simples, de escuro para claro */
+    background-image: linear-gradient(to right, #5C4033, #B99B7E);
+
+    /* Fazemos o "pedaço" ser bem largo para um degradê suave */
+    background-size: 400% 100%;
+
+    /* A MÁGICA: Mandamos o navegador repetir o degradê infinitamente */
+    background-repeat: repeat-x;
+
+    /* Usamos a nossa NOVA animação */
+    animation: seamless-scroll 10s linear infinite;
 }
 
 /* 2. Empurra o conteúdo para baixo do menu fixo */
@@ -1144,4 +1153,13 @@ body {
     font-size: 0.9rem;
     color: #555;
     line-height: 1.5;
+}
+
+@keyframes seamless-scroll {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: -400%; /* Move o fundo para a esquerda pelo seu tamanho total */
+  }
 }
