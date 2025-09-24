@@ -647,7 +647,7 @@ body {
 .curriculo-container .subtitulo-curriculo {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 400; /* Peso normal, sem negrito */
-    font-size: 16px;  /* Tamanho menor que o título */
+    font-size: 20px;  /* Tamanho menor que o título */
     color: #555;      /* Um cinza escuro para diferenciar do título */
     text-align: center;
     max-width: 600px; /* Evita que a linha fique muito longa em telas grandes */
