@@ -1159,7 +1159,7 @@ body {
     background-image: linear-gradient(to right, #5C4033, #B99B7E, #5C4033);
     background-size: 200% 100%;
     background-repeat: repeat-x;
-    animation: seamless-scroll-200 15s linear infinite;
+    animation: seamless-scroll-200 20s linear infinite;
 }
 
 /* 2. Menu das páginas CADASTRO, PROFISSIONAIS e PORTIFÓLIO (Colorido) */
@@ -1169,5 +1169,5 @@ body {
     background-image: linear-gradient(to right, #007bff, #28a745, #ffc107, #ff8c00, #007bff);
     background-size: 400% 100%;
     background-repeat: repeat-x;
-    animation: seamless-scroll-400 30s linear infinite;
+    animation: seamless-scroll-400 50s linear infinite;
 }
