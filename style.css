@@ -1066,16 +1066,16 @@ body {
 
 /* 1. Define a cor da barra do menu */
 .page-guia .sticky-menu {
-    /* Nosso "pedaço" de degradê: simples, de escuro para claro */
-    background-image: linear-gradient(to right, #5C4033, #B99B7E);
+    /* O novo "azulejo" contínuo: Escuro -> Claro -> Escuro */
+    background-image: linear-gradient(to right, #5C4033, #B99B7E, #5C4033);
 
-    /* Fazemos o "pedaço" ser bem largo para um degradê suave */
-    background-size: 400% 100%;
+    /* Ajustamos o tamanho para o novo padrão */
+    background-size: 200% 100%;
 
-    /* A MÁGICA: Mandamos o navegador repetir o degradê infinitamente */
+    /* A repetição continua sendo a chave */
     background-repeat: repeat-x;
 
-    /* Usamos a nossa NOVA animação */
+    /* A animação que ajustaremos no próximo passo */
     animation: seamless-scroll 10s linear infinite;
 }
 
@@ -1160,6 +1160,7 @@ body {
     background-position-x: 0;
   }
   100% {
-    background-position-x: -400%; /* Move o fundo para a esquerda pelo seu tamanho total */
+    /* Ajustamos a distância para -200% para casar com o novo tamanho */
+    background-position-x: -200%;
   }
 }
