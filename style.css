@@ -611,7 +611,14 @@ body {
 /* Ativa a animação quando o mouse está em cima do botão */
 .menu a:hover::before,
 #menu-overlay a:hover::before {
-    animation: rotate-gradient 3s linear infinite;
+    /* O "azulejo" do degradê da borda, agora com o azul no início e no fim para ser contínuo */
+    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #ff8c00, #007bff);
+    
+    /* Aumentamos o tamanho para o degradê ser mais suave e se repetir corretamente */
+    background-size: 300% 300%;
+
+    /* Usamos a MESMA animação de scroll contínuo que criamos para o menu */
+    animation: seamless-scroll 4s linear infinite;
 }
 
 /* ===================================================================
