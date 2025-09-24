@@ -1067,7 +1067,7 @@ body {
 .page-guia .sticky-menu {
     background-image: linear-gradient(to right, #5C4033, #B99B7E, #5C4033);
     background-size: 200% auto;
-    animation: rotate-gradient 5s linear infinite;
+    animation: rotate-gradient 5s linear infinite alternate;
 }
 
 /* 2. Empurra o conteúdo para baixo do menu fixo */
