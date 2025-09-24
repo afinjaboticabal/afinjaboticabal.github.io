@@ -1065,7 +1065,7 @@ body {
 }
 /* 1. Define a cor da barra do menu */
 .page-guia .sticky-menu {
-    background-color: #B99B7E; /* Tom de marrom claro */
+    background-image: linear-gradient(to right, #5C4033, #B99B7E); /* Degradê de marrom escuro para claro */
 }
 
 /* 2. Empurra o conteúdo para baixo do menu fixo */
