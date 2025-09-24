@@ -312,3 +312,37 @@ socialGifs.forEach(gif => {
     gifObserver.observe(gif);
 });
 });
+
+// ===============================================
+//   Bloco 6: LÓGICA DO PLAYER DE VÍDEO INTERATIVO
+// ===============================================
+if (document.querySelector('.video-layout-container')) {
+
+    const mainPlayer = document.getElementById('main-video-player');
+    const playlistItems = document.querySelectorAll('.custom-playlist-item');
+
+    playlistItems.forEach(item => {
+        item.addEventListener('click', function(event) {
+            // 1. Impede que o link navegue para outra página
+            event.preventDefault();
+
+            // 2. Pega o ID do vídeo do atributo 'data-video-id' do item clicado
+            const videoId = this.dataset.videoId;
+            
+            // 3. Se não houver ID, não faz nada
+            if (!videoId) return;
+
+            // 4. Monta a nova URL de incorporação com autoplay
+            const newSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+            // 5. Atualiza o 'src' do player principal, trocando o vídeo
+            mainPlayer.src = newSrc;
+            
+            // 6. Atualiza qual item está com a classe 'active-video'
+            // Remove de todos primeiro...
+            playlistItems.forEach(el => el.classList.remove('active-video'));
+            // ...e adiciona apenas no que foi clicado
+            this.classList.add('active-video');
+        });
+    });
+}
