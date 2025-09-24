@@ -1226,4 +1226,5 @@ body {
     border-radius: 8px; /* Adiciona bordas arredondadas para combinar com o estilo da caixa */
     aspect-ratio: 16 / 9; /* << Adicione esta linha */
     height: auto;         /* << Garante a remoção da altura fixa */
+    min-height: 500px;
 }
