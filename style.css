@@ -364,32 +364,41 @@ body {
 }
 
 /* =========================================================
-   ESTILO MELHORADO DO BOTÃO DE MENU
+   ESTILO MELHORADO DO BOTÃO DE MENU (EFEITO VIDRO)
    ========================================================= */
 
 #menu-toggle {
-    background-color: #f9f9f9; /* Cor de fundo sólida para dar corpo ao botão */
-    border: 1px solid #ccc;     /* Borda mais suave para definir o contorno */
-    border-bottom: 2px solid #b3b3b3; /* Borda inferior mais escura para dar profundidade */
-    color: black;
+    /* Efeito de Vidro Fosco */
+    background-color: rgba(255, 255, 255, 0.2); /* Fundo branco com alta transparência */
+    -webkit-backdrop-filter: blur(10px); /* Efeito de desfoque para Safari */
+    backdrop-filter: blur(10px); /* Efeito de desfoque (o "vidro fosco") */
+    
+    /* Borda e Saliência Interna */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda sutil para definir as arestas do vidro */
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0,0,0,0.15); /* Sombra interna (saliência) + sombra externa */
+
+    /* Estilos Gerais */
+    color: white; /* Texto branco para melhor contraste */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Sombra no texto para legibilidade */
     padding: 5px 15px;
     font-family: 'Comfortaa', sans-serif;
     font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Sombra que cria o efeito de profundidade */
-    transition: all 0.2s ease-out; /* Garante que os efeitos de hover sejam suaves */
+    border-radius: 8px; /* Borda um pouco mais arredondada para o efeito vidro */
+    transition: all 0.2s ease-out;
 }
 
 #menu-toggle:hover {
-    transform: translateY(-2px); /* Efeito de "levantar" ao passar o mouse */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Sombra mais forte para dar mais destaque */
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.3); /* Vidro um pouco mais "claro" no hover */
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.4), 0 4px 8px rgba(0,0,0,0.2);
 }
 
 #menu-toggle:active {
-    transform: translateY(1px); /* Efeito de "afundar" ao clicar */
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15); /* Sombra menor, simulando que foi pressionado */
+    transform: translateY(1px);
+    background-color: rgba(255, 255, 255, 0.15); /* Vidro um pouco mais "escuro" ao clicar */
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0,0,0,0.15);
 }
 
 /* --- Estilos do Overlay (Tela Cheia) --- */
