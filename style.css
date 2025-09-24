@@ -363,9 +363,14 @@ body {
     justify-content: flex-start; /* Alinha o botão "Menu" à direita */
 }
 
+/* =========================================================
+   ESTILO MELHORADO DO BOTÃO DE MENU
+   ========================================================= */
+
 #menu-toggle {
-    background-color: transparent;
-    border: 2px solid black;
+    background-color: #f9f9f9; /* Cor de fundo sólida para dar corpo ao botão */
+    border: 1px solid #ccc;     /* Borda mais suave para definir o contorno */
+    border-bottom: 2px solid #b3b3b3; /* Borda inferior mais escura para dar profundidade */
     color: black;
     padding: 5px 15px;
     font-family: 'Comfortaa', sans-serif;
@@ -373,6 +378,18 @@ body {
     font-size: 1rem;
     cursor: pointer;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Sombra que cria o efeito de profundidade */
+    transition: all 0.2s ease-out; /* Garante que os efeitos de hover sejam suaves */
+}
+
+#menu-toggle:hover {
+    transform: translateY(-2px); /* Efeito de "levantar" ao passar o mouse */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Sombra mais forte para dar mais destaque */
+}
+
+#menu-toggle:active {
+    transform: translateY(1px); /* Efeito de "afundar" ao clicar */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15); /* Sombra menor, simulando que foi pressionado */
 }
 
 /* --- Estilos do Overlay (Tela Cheia) --- */
