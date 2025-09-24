@@ -1055,65 +1055,87 @@ body {
     color: #333;
 }
 
-/* ============================
-   ESTILOS PARA A PÁGINA GUIA
-   ============================ */
+/* ===================================================================
+   ESTILOS ESPECÍFICOS PARA A PÁGINA GUIA INTERATIVO
+   =================================================================== */
+
+/* 1. Define a cor da barra do menu */
 .page-guia .sticky-menu {
-  background-color: #c4a484; /* marrom claro */
+    background-color: #B99B7E; /* Tom de marrom claro */
 }
 
+/* 2. Empurra o conteúdo para baixo do menu fixo */
 .page-guia .top-bar {
-  background-image: url('imagens/barra-guia-superior.png'); /* barra superior */
-  margin-top: 52px;
+    margin-top: 52px; /* Ajuste se a altura do menu for diferente */
 }
 
+/* 3. Define a imagem da Barra Superior */
+.page-guia .top-bar {
+    background-image: url('imagens/topo-guia.png');
+}
+
+/* 4. Define a imagem da Barra Inferior */
 .page-guia .bottom-bar {
-  background-image: url('imagens/barra-guia-inferior.png'); /* barra inferior */
+    background-image: url('imagens/rodape-guia.png');
 }
 
+/* 5. Container principal do conteúdo do guia */
+.guia-content-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; /* Espaçamento entre os elementos */
+}
+
+/* 6. Estilo do Título Principal */
 .guia-title {
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  margin: 40px 0;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.guia-img {
-  max-width: 100%;
-  margin: 20px auto;
-  display: block;
+/* 7. Estilo para as imagens do guia (gui1 e gui2) */
+.guia-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.guia-box {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 30px;
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  background-color: #f9f9f9;
-  font-family: 'Comfortaa', sans-serif;
+/* 8. Container para as janelas quadradas */
+.guia-squares-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem para a linha de baixo em telas pequenas */
+    justify-content: center;
+    gap: 20px; /* Espaço entre os quadrados */
+    width: 100%;
 }
 
-.guia-box.empty {
-  height: 200px; /* espaço reservado em branco */
+/* 9. Estilo de cada janela quadrada */
+.guia-square-item {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 250px; /* Largura fixa para cada quadrado */
+    border: 1px solid #ddd;
 }
 
-.guia-squares {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin: 30px auto;
-  flex-wrap: wrap;
+.guia-square-item h3 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
 }
 
-.guia-square {
-  width: 180px;
-  height: 180px;
-  background-color: #e6e6e6;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Comfortaa', sans-serif;
-  font-weight: 700;
+.guia-square-item p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
 }
