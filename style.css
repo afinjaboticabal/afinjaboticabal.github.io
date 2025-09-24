@@ -1172,3 +1172,11 @@ body {
   0% { background-position-x: 0; }
   100% { background-position-x: -300%; }
 }
+
+/* 3. Menu das páginas CURRÍCULO e PRIVACIDADE (Cinza) */
+.page-privacidade .sticky-menu {
+    background-image: linear-gradient(to right, #4d4d4d, #b3b3b3, #4d4d4d);
+    background-size: 200% 100%;
+    background-repeat: repeat-x;
+    animation: seamless-scroll-200 15s linear infinite;
+}
