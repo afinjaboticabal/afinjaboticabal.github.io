@@ -328,14 +328,6 @@ body {
     }
 }
 
-.page-cadastro .sticky-menu {
-    /* Degradê de Azul para Azul Claro */
-    background-image: linear-gradient(to right, #0d47a1, #1976d2, #42a5f5, #0d47a1);
-    background-size: 300% 100%;
-    background-repeat: repeat-x;
-    animation: seamless-scroll 8s linear infinite;
-}
-
 .page-cadastro .top-bar {
     background-image: url('imagens/BarraSuperiorCadastro.png');
 }
@@ -483,11 +475,6 @@ body {
 /* ===================================================================
    ESTILOS ESPECÍFICOS PARA A PÁGINA DE PROFISSIONAIS
    =================================================================== */
-
-/* Muda a cor do Menu Fixo */
-.page-profissionais .sticky-menu {
-    background-color: #05a300; /* << Verde escuro - ajuste a cor se precisar */
-}
 
 /* Muda a imagem da Barra Superior */
 .page-profissionais .top-bar {
@@ -948,11 +935,6 @@ body {
    ESTILOS ESPECÍFICOS PARA A PÁGINA DE PORTIFÓLIO (VERSÃO CORRIGIDA)
    =================================================================== */
 
-/* 1. Define a cor da barra do menu */
-.page-portifolio .sticky-menu {
-    background-color: #ffb300;
-}
-
 /* 2. Define a imagem da Barra Superior */
 .page-portifolio .top-bar {
     background-image: url('imagens/topo-portifolio.png');
@@ -1079,21 +1061,6 @@ body {
     background-color: #FDF5E6; /* Tom de bege claro (Old Lace) */
 }
 
-/* 1. Define a cor da barra do menu */
-.page-guia .sticky-menu {
-    /* O novo "azulejo" contínuo: Escuro -> Claro -> Escuro */
-    background-image: linear-gradient(to right, #5C4033, #B99B7E, #5C4033);
-
-    /* Ajustamos o tamanho para o novo padrão */
-    background-size: 200% 100%;
-
-    /* A repetição continua sendo a chave */
-    background-repeat: repeat-x;
-
-    /* A animação que ajustaremos no próximo passo */
-    animation: seamless-scroll 10s linear infinite;
-}
-
 /* 2. Empurra o conteúdo para baixo do menu fixo */
 .page-guia .top-bar {
     margin-top: 52px; /* Ajuste se a altura do menu for diferente */
@@ -1170,12 +1137,37 @@ body {
     line-height: 1.5;
 }
 
-@keyframes seamless-scroll {
-  0% {
-    background-position-x: 0;
-  }
-  100% {
-    /* Ajustamos a distância para -200% para casar com o novo tamanho */
-    background-position-x: -200%;
-  }
+/* --- ANIMAÇÕES --- */
+
+/* Animação para o degradê de Marrom (200% de largura) */
+@keyframes seamless-scroll-200 {
+  0% { background-position-x: 0; }
+  100% { background-position-x: -200%; }
+}
+
+/* Animação para o degradê Colorido (400% de largura) */
+@keyframes seamless-scroll-400 {
+  0% { background-position-x: 0; }
+  100% { background-position-x: -400%; }
+}
+
+
+/* --- ESTILOS DOS MENUS --- */
+
+/* 1. Menu da página GUIA (Marrom) */
+.page-guia .sticky-menu {
+    background-image: linear-gradient(to right, #5C4033, #B99B7E, #5C4033);
+    background-size: 200% 100%;
+    background-repeat: repeat-x;
+    animation: seamless-scroll-200 10s linear infinite;
+}
+
+/* 2. Menu das páginas CADASTRO, PROFISSIONAIS e PORTIFÓLIO (Colorido) */
+.page-cadastro .sticky-menu,
+.page-profissionais .sticky-menu,
+.page-portifolio .sticky-menu {
+    background-image: linear-gradient(to right, #007bff, #28a745, #ffc107, #ff8c00, #007bff);
+    background-size: 400% 100%;
+    background-repeat: repeat-x;
+    animation: seamless-scroll-400 10s linear infinite;
 }
