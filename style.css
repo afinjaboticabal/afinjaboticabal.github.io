@@ -1219,3 +1219,8 @@ body {
 .page-guia .top-bar {
     margin-top: 49px; /* Valor unificado e corrigido */
 }
+
+.portfolio-text-box iframe {
+    max-width: 100%;
+    border-radius: 8px; /* Adiciona bordas arredondadas para combinar com o estilo da caixa */
+}
