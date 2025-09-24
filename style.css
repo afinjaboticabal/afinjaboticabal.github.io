@@ -328,6 +328,14 @@ body {
     }
 }
 
+.page-cadastro .sticky-menu {
+    /* Degradê de Azul para Azul Claro */
+    background-image: linear-gradient(to right, #0d47a1, #1976d2, #42a5f5, #0d47a1);
+    background-size: 300% 100%;
+    background-repeat: repeat-x;
+    animation: seamless-scroll 8s linear infinite;
+}
+
 .page-cadastro .top-bar {
     background-image: url('imagens/BarraSuperiorCadastro.png');
 }
