@@ -1063,12 +1063,12 @@ body {
 }
 
 .page-guia .top-bar {
-  background-image: url('imagens/barra-guia-superior.png'); /* ajuste a imagem se tiver */
+  background-image: url('imagens/barra-guia-superior.png'); /* barra superior */
   margin-top: 52px;
 }
 
 .page-guia .bottom-bar {
-  background-image: url('imagens/barra-guia-inferior.png'); /* ajuste a imagem se tiver */
+  background-image: url('imagens/barra-guia-inferior.png'); /* barra inferior */
 }
 
 .guia-title {
@@ -1095,7 +1095,7 @@ body {
 }
 
 .guia-box.empty {
-  height: 200px; /* espaço vazio */
+  height: 200px; /* espaço reservado em branco */
 }
 
 .guia-squares {
