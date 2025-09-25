@@ -1380,7 +1380,7 @@ body {
     height: 250px; /* Altura da faixa da imagem - ajuste se necessário */
     background-repeat: no-repeat;       /* <<< ALTERADO: Imagem não se repete mais */
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     margin-top: 40px;                   /* <<< ADICIONADO: Espaço acima da imagem */
     margin-bottom: 40px;                /* <<< ADICIONADO: Espaço abaixo da imagem (corrige a sobreposição) */
     border-radius: 15px;
