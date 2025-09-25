@@ -1066,7 +1066,11 @@ body {
     font-weight: 700;
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.page-guia .content-section {
+    padding-top: 30px;
 }
 
 /* 7. Estilo para as imagens do guia (gui1 e gui2) */
@@ -1292,6 +1296,21 @@ body {
     margin: 0;
 }
 
+.guia-image-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    overflow-x: hidden;
+}
+
+.guia-image-fixed {
+    /* Esta é a regra principal para telas grandes */
+    width: 1200px;
+    height: auto;
+    border-radius: 15px;
+}
+
 /* --- AJUSTES PARA CELULAR (RESPONSIVIDADE) --- */
 @media (max-width: 768px) {
     .content-section h2 {
@@ -1374,19 +1393,4 @@ body {
         width: 900px; 
     }
 
-}
-
-.guia-image-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    overflow-x: hidden;
-}
-
-.guia-image-fixed {
-    /* Esta é a regra principal para telas grandes */
-    width: 1200px;
-    height: auto;
-    border-radius: 15px;
 }
