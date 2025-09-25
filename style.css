@@ -1222,62 +1222,59 @@ body {
 }
 
 /* =========================================================
-   SEÇÃO DA PLAYLIST INTERATIVA
+   SEÇÃO DA PLAYLIST INTERATIVA (VERSÃO FINAL E ESPECÍFICA)
    ========================================================= */
 
-/* --- Layout das Colunas --- */
-.video-layout-container {
+/* Usamos ".page-guia" no início de cada regra para aumentar a 
+  prioridade e garantir que este estilo seja aplicado corretamente. 
+*/
+
+.page-guia .video-layout-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    /* CORREÇÃO: Garante que a coluna da playlist se estique para ter a mesma altura da coluna do vídeo. */
-    align-items: stretch; 
+    align-items: stretch; /* Garante que as colunas tenham a mesma altura */
 }
 
-.video-player-column {
+.page-guia .video-player-column {
     flex: 2;
     min-width: 300px;
 }
 
-.video-player-column iframe {
+.page-guia .video-player-column iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 8px;
-    /* Adicionado para remover qualquer espaço fantasma abaixo do vídeo */
-    display: block;
+    display: block; /* Remove espaço extra abaixo do vídeo */
 }
 
-/* --- Coluna da Playlist e Lógica de Rolagem --- */
-.playlist-column {
+.page-guia .playlist-column {
     flex: 1;
     min-width: 280px;
     display: flex;
     flex-direction: column;
 }
 
-.custom-playlist-container {
+.page-guia .custom-playlist-container {
     flex: 1;
-    /* CORREÇÃO: Estas duas propriedades juntas criam a barra de rolagem vertical dentro do espaço disponível. */
-    overflow-y: auto;
-    min-height: 0; /* Essencial para o overflow funcionar em um item flex */
-    padding-right: 5px; 
+    overflow-y: auto; /* Cria a barra de rolagem */
+    min-height: 0;   /* Essencial para a rolagem funcionar em flexbox */
+    padding-right: 5px;
 }
 
-/* --- Estilos e Tamanhos dos Itens (AJUSTADOS) --- */
-.playlist-main-title {
+.page-guia .playlist-main-title {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 700;
-    /* AJUSTE: Tamanho da fonte do título principal reduzido. */
-    font-size: 1rem;
+    font-size: 1rem; /* Tamanho do título principal reduzido */
     text-align: left;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
     padding-bottom: 8px;
     border-bottom: 2px solid #ddd;
     color: #333;
     flex-shrink: 0;
 }
 
-.custom-playlist-item {
+.page-guia .custom-playlist-item {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -1285,23 +1282,22 @@ body {
     background-color: #f9f9f9;
     border-radius: 6px;
     margin-bottom: 5px;
-    /* AJUSTE: Padding (espaçamento interno) reduzido para diminuir o tamanho da "caixa de seleção". */
-    padding: 5px;
+    padding: 5px; /* Padding reduzido para diminuir a "caixa" */
     transition: background-color 0.2s ease;
     border: 1px solid #eee;
 }
 
-.custom-playlist-item:hover {
+.page-guia .custom-playlist-item:hover {
     background-color: #e9e9e9;
     cursor: pointer;
 }
 
-.custom-playlist-item.active-video {
+.page-guia .custom-playlist-item.active-video {
     background-color: #dceafc;
     border-color: #a9c7ec;
 }
 
-.playlist-thumbnail {
+.page-guia .playlist-thumbnail {
     width: 80px;
     height: 45px;
     border-radius: 4px;
@@ -1310,11 +1306,10 @@ body {
     flex-shrink: 0;
 }
 
-.playlist-title {
+.page-guia .playlist-title {
     font-family: Arial, sans-serif;
     font-weight: bold;
-    /* AJUSTE: Tamanho da fonte do título de cada vídeo reduzido. */
-    font-size: 0.75rem; /* Equivalente a 12px */
+    font-size: 0.75rem; /* Tamanho da fonte do vídeo reduzido (12px) */
     line-height: 1.3;
     text-align: left;
     margin: 0;
