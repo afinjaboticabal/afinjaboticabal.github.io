@@ -1098,7 +1098,7 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
     width: 250px;
-    height: 250px;
+    height: 165px;
     border: 1px solid #ddd;
     background-size: cover; /* Faz a imagem cobrir toda a caixa */
     background-position: center; /* Centraliza a imagem */
