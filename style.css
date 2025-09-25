@@ -326,6 +326,21 @@ body {
   .desktop-only-image {
         display: none;
     }
+  /* =========================================================
+       LAYOUT DO VÍDEO E PLAYLIST PARA CELULAR
+       ========================================================= */
+
+    /* Muda o layout de 2 colunas para 1 coluna, empilhando os itens */
+    .page-guia .video-layout-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    /* Define uma altura máxima para a playlist no celular */
+    .page-guia .playlist-column {
+        /* A playlist terá no máximo 400px de altura e depois ativará a rolagem vertical */
+        height: 400px; 
+    }
 }
 
 .page-cadastro .top-bar {
