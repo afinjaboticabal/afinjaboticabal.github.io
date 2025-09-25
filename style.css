@@ -1313,6 +1313,10 @@ body {
     border-radius: 15px;
 }
 
+.caixa1 { background-image: url('imagens/caixa1.png'); }
+.caixa2 { background-image: url('imagens/caixa2.png'); }
+.caixa3 { background-image: url('imagens/caixa3.png'); }
+
 /* --- AJUSTES PARA CELULAR (RESPONSIVIDADE) --- */
 @media (max-width: 768px) {
     .content-section h2 {
