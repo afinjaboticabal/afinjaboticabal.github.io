@@ -1243,11 +1243,13 @@ body {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: 20px;
-    align-items: stretch; /* Força colunas à mesma altura */
+    align-items: stretch; /* mantém alinhamento */
+    grid-auto-rows: 1fr;  /* força as linhas a terem a mesma altura */
 }
 
 .page-guia .video-player-column {
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .page-guia .video-player-column iframe {
@@ -1260,14 +1262,11 @@ body {
 .page-guia .playlist-column {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    height: 100%; /* Garante altura igual ao vídeo */
 }
 
 .page-guia .custom-playlist-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-right: 8px;
+    flex: 1; /* ocupa toda a altura */
+    overflow-y: auto; /* cria a rolagem interna */
 }
 
 /* --- Estilos dos itens da lista --- */
@@ -1317,6 +1316,7 @@ body {
     position: relative;
     width: 100%;
     padding-top: 56.25%; /* 16:9 */
+    flex: 1; /* <- ESSA LINHA É FUNDAMENTAL */
 }
 
 .page-guia .video-wrapper iframe {
