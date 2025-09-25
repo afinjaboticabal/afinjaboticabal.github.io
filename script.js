@@ -346,3 +346,34 @@ if (document.querySelector('.video-layout-container')) {
         });
     });
 }
+
+// ===============================================
+//   Bloco 7: AJUSTE DE ALTURA DA PLAYLIST DE VÍDEO
+// ===============================================
+// Esta função garante que a playlist tenha a mesma altura do vídeo.
+function ajustarAlturaPlaylist() {
+    // Seleciona a coluna do vídeo e a coluna da playlist
+    const videoColumn = document.querySelector('.page-guia .video-player-column');
+    const playlistColumn = document.querySelector('.page-guia .playlist-column');
+
+    // Se ambos os elementos existirem na página...
+    if (videoColumn && playlistColumn) {
+        // ...e a tela for larga o suficiente para eles ficarem lado a lado...
+        if (window.innerWidth > 768) { // Este valor deve corresponder ao seu breakpoint de CSS para mobile
+            // 1. Mede a altura exata da coluna do vídeo em pixels.
+            const alturaVideo = videoColumn.offsetHeight;
+            // 2. Aplica essa altura exata à coluna da playlist.
+            playlistColumn.style.height = `${alturaVideo}px`;
+        } else {
+            // Em telas pequenas (mobile), remove a altura fixa para que a playlist
+            // flua normalmente abaixo do vídeo.
+            playlistColumn.style.height = 'auto';
+        }
+    }
+}
+
+// Adiciona "escutadores" para rodar a função nos momentos certos:
+// 1. Quando a página termina de carregar
+document.addEventListener('DOMContentLoaded', ajustarAlturaPlaylist);
+// 2. Quando o tamanho da janela do navegador muda (para responsividade)
+window.addEventListener('resize', ajustarAlturaPlaylist);
