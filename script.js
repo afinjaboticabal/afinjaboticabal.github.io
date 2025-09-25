@@ -348,30 +348,37 @@ if (document.querySelector('.video-layout-container')) {
 }
 
 // ===============================================
-//   Bloco 7: AJUSTE DE ALTURA DA PLAYLIST (VERSÃO CORRIGIDA E FINAL)
+//   Bloco 7: AJUSTE DE ALTURA DA PLAYLIST (COM DEBUG PARA CELULAR)
 // ===============================================
 function ajustarAlturaPlaylist() {
-    // A CORREÇÃO ESTÁ AQUI: Selecionamos o IFRAME do vídeo DIRETAMENTE,
-    // em vez da coluna que o envolve.
+    console.log("1. Função 'ajustarAlturaPlaylist' foi chamada.");
+
+    // A versão anterior que media o IFRAME estava correta para o desktop
     const videoElement = document.querySelector('.page-guia .video-player-column iframe');
     const playlistColumn = document.querySelector('.page-guia .playlist-column');
 
     if (videoElement && playlistColumn) {
+        console.log("2. Elemento de vídeo e coluna da playlist ENCONTRADOS.");
+        
+        // Verifica se a tela é larga (desktop) ou estreita (celular)
         if (window.innerWidth > 768) {
-            // Agora medimos a altura real do elemento de vídeo.
+            console.log("3. MODO DESKTOP ATIVADO.");
             const alturaVideo = videoElement.offsetHeight;
-
-            // Apenas aplicamos a altura se ela for um valor válido (maior que zero).
-            if (alturaVideo > 0) {
-                playlistColumn.style.height = `${alturaVideo}px`;
-            }
+            playlistColumn.style.height = `${alturaVideo}px`;
+            console.log(`4. Altura DESKTOP de ${alturaVideo}px APLICADA.`);
         } else {
-            // Em telas pequenas, reseta a altura.
-            playlistColumn.style.height = 'auto';
+            // --- LÓGICA PARA CELULAR ---
+            console.log("3. MODO CELULAR ATIVADO.");
+            // ESTA LINHA É A NOSSA PRINCIPAL SUSPEITA
+            playlistColumn.style.height = 'auto'; 
+            console.log("4. Altura 'auto' FOI APLICADA via JS. Isso pode estar anulando a altura de 400px do CSS.");
+            console.log("--> PRÓXIMO PASSO: Inspecione o elemento '.playlist-column' na aba 'Elements' para confirmar.");
         }
+    } else {
+        console.error("ERRO: Não foi possível encontrar os elementos.");
     }
 }
 
-// Roda a função quando a página carrega e quando a janela é redimensionada.
+// Roda a função
 document.addEventListener('DOMContentLoaded', ajustarAlturaPlaylist);
 window.addEventListener('resize', ajustarAlturaPlaylist);
