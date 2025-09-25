@@ -1318,7 +1318,7 @@ body {
   .desktop-only-image {
         display: none;
     }
-/* =========================================================
+    /* =========================================================
        LAYOUT DO VÍDEO E PLAYLIST P/ CELULAR (VERSÃO FINAL)
        ========================================================= */
 
@@ -1371,14 +1371,10 @@ body {
     }
 
   .page-guia .guia-image-fixed {
-        width: 90%;
+        width: 95%;
     }
 }
-/* ===================================================================
-   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png) - VERSÃO CORRIGIDA
-   =================================================================== */
 
-/* Contêiner que centraliza a imagem e gerencia o excesso */
 .guia-image-container {
     display: flex;
     justify-content: center;
@@ -1387,8 +1383,8 @@ body {
     overflow-x: hidden;
 }
 
-/* Estilo da imagem para ser fixa em telas grandes */
 .guia-image-fixed {
+    /* Esta é a regra principal para telas grandes */
     width: 1200px;
     height: auto;
     border-radius: 15px;
