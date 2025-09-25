@@ -1221,53 +1221,53 @@ body {
     margin-top: 49px; /* Valor unificado e corrigido */
 }
 
-/* ===== PLAYLIST INTERATIVA ===== */
+/* =========================================================
+   SEÇÃO DA PLAYLIST INTERATIVA (SOLUÇÃO FINAL COM JAVASCRIPT)
+   ========================================================= */
+
+/* Estilo para o título centralizado (mantido) */
+.page-guia .playlist-main-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+    margin: 0 auto 20px auto;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    max-width: 90%; 
+}
+
+/* Layout em Grid para as colunas */
 .page-guia .video-layout-container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: 20px;
-    align-items: stretch; /* força colunas a terem a mesma altura */
 }
 
-/* Coluna do vídeo */
-.page-guia .video-player-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.page-guia .video-wrapper {
-    position: relative;
+.page-guia .video-player-column iframe {
     width: 100%;
-    padding-top: 56.25%; /* 16:9 */
+    aspect-ratio: 16 / 9;
     border-radius: 8px;
-    overflow: hidden;
-    background: #000; /* fundo para evitar bordas vazias */
-}
-
-.page-guia .video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
     display: block;
 }
 
-/* Coluna da playlist */
+/* A coluna da playlist agora é um container flex... */
 .page-guia .playlist-column {
     display: flex;
     flex-direction: column;
+    /* A ALTURA SERÁ DEFINIDA DINAMICAMENTE PELO JAVASCRIPT */
 }
 
-/* A lista ocupa toda a altura disponível da coluna */
+/* ...e o container interno usa esse espaço para criar a rolagem. */
 .page-guia .custom-playlist-container {
-    flex: 1;              /* ocupa o espaço restante */
-    overflow-y: auto;     /* gera a barra */
-    padding-right: 8px;   /* evita a barra colar nos itens */
+    flex-grow: 1; 
+    overflow-y: auto; 
+    min-height: 0; /* Boa prática para evitar problemas de encolhimento */
+    padding-right: 8px;
 }
 
-/* Estilos dos itens */
+/* --- Estilos dos itens da lista (mantidos) --- */
 .page-guia .custom-playlist-item {
     display: flex;
     align-items: center;
