@@ -326,20 +326,51 @@ body {
   .desktop-only-image {
         display: none;
     }
-  /* =========================================================
-       LAYOUT DO VÍDEO E PLAYLIST PARA CELULAR
+/* =========================================================
+       LAYOUT DO VÍDEO E PLAYLIST P/ CELULAR (ROLAGEM HORIZONTAL)
        ========================================================= */
 
-    /* Muda o layout de 2 colunas para 1 coluna, empilhando os itens */
+    /* 1. Empilha o vídeo e a playlist (um em cima do outro) */
     .page-guia .video-layout-container {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
     }
 
-    /* Define uma altura máxima para a playlist no celular */
+    /* 2. A coluna da playlist agora tem altura automática para se ajustar ao conteúdo */
     .page-guia .playlist-column {
-        /* A playlist terá no máximo 400px de altura e depois ativará a rolagem vertical */
-        height: 400px; 
+        height: auto;
+    }
+
+    /* 3. O container da playlist se torna uma "esteira" de rolagem horizontal */
+    .page-guia .custom-playlist-container {
+        display: flex;
+        flex-direction: row; /* Garante que os itens fiquem em linha */
+        overflow-y: hidden;  /* Desliga a rolagem vertical */
+        overflow-x: auto;    /* LIGA a rolagem horizontal */
+        padding-bottom: 15px; /* Espaço para a barra de rolagem não cobrir os itens */
+    }
+
+    /* 4. Cada item da lista é ajustado para o novo layout */
+    .page-guia .custom-playlist-item {
+        flex-direction: column; /* Empilha a imagem e o título de cada item */
+        flex-shrink: 0;         /* Impede que os itens se espremam */
+        width: 160px;           /* Largura fixa para cada vídeo na lista */
+        margin-bottom: 0;       /* Remove a margem inferior antiga */
+        margin-right: 12px;     /* Adiciona espaçamento lateral entre os itens */
+    }
+
+    /* 5. A miniatura (thumbnail) também é ajustada */
+    .page-guia .playlist-thumbnail {
+        width: 140px;           /* Um pouco menor que o item para ter respiro */
+        height: 79px;           /* Altura na proporção 16:9 */
+        margin-right: 0;        /* Remove a margem da direita */
+        margin-bottom: 8px;     /* Adiciona um espaço entre a imagem e o título */
+    }
+
+    /* 6. O título de cada vídeo é centralizado */
+    .page-guia .playlist-title {
+        text-align: center;
+        white-space: normal; /* Permite que o texto quebre em duas linhas se for longo */
     }
 }
 
