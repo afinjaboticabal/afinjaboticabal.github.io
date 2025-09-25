@@ -1324,22 +1324,18 @@ body {
 }
 
 /* =========================================================
-   SEÇÃO DA PLAYLIST INTERATIVA (VERSÃO FINAL E COMPLETA)
+   SEÇÃO DA PLAYLIST INTERATIVA
    ========================================================= */
-
 /* --- Layout das Colunas --- */
-
 .video-layout-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .video-player-column {
     flex: 2;
     min-width: 300px;
 }
-
 .video-player-column iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -1347,40 +1343,30 @@ body {
 }
 
 /* --- Coluna e Lógica de Rolagem --- */
-
 .playlist-column {
     flex: 1;
     min-width: 280px;
-    /* Transforma a coluna em um container flexível vertical */
     display: flex;
     flex-direction: column;
 }
-
 .custom-playlist-container {
-    /* Faz a lista ocupar todo o espaço vertical disponível na coluna */
     flex: 1;
-    /* Ativa a rolagem SÓ quando o conteúdo transbordar */
     overflow-y: auto;
-    /* Corrige bugs de overflow em navegadores baseados em Chrome/Safari */
     min-height: 0;
-    padding-right: 10px; /* Espaço para a barra de rolagem */
+    padding-right: 10px;
 }
 
 /* --- Estilos e Tamanhos dos Itens --- */
-
 .playlist-main-title {
-    font-family: 'Comfortaa', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem; /* Tamanho reduzido */
+    font-size: 1.1rem;
     text-align: left;
     margin-bottom: 10px;
     padding-bottom: 8px;
     border-bottom: 2px solid #ddd;
     color: #333;
-    /* Impede que o título encolha */
     flex-shrink: 0;
 }
-
 .custom-playlist-item {
     display: flex;
     align-items: center;
@@ -1393,17 +1379,14 @@ body {
     transition: background-color 0.2s ease;
     border: 1px solid #eee;
 }
-
 .custom-playlist-item:hover {
     background-color: #e9e9e9;
     cursor: pointer;
 }
-
 .custom-playlist-item.active-video {
     background-color: #dceafc;
     border-color: #a9c7ec;
 }
-
 .playlist-thumbnail {
     width: 80px;
     height: 45px;
@@ -1412,11 +1395,11 @@ body {
     object-fit: cover;
     flex-shrink: 0;
 }
-
 .playlist-title {
     font-family: Arial, sans-serif;
     font-weight: bold;
-    font-size: 0.8rem; /* Tamanho bem pequeno */
+    font-size: 0.8rem;
     line-height: 1.2;
+    text-align: left; /* Garante alinhamento à esquerda */
     margin: 0;
 }
