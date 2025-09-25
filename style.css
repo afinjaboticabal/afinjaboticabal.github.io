@@ -1370,10 +1370,6 @@ body {
         white-space: normal; 
     }
 
-    .page-guia .guia-image-fixed {
-        width: 100vw; /* <<< ALTERE PARA ESTE VALOR */
-    }
-
 }
 
 .guia-image-container {
