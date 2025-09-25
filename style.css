@@ -1370,3 +1370,19 @@ body {
         white-space: normal; 
     }
 }
+
+/* ===================================================================
+   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png)
+   =================================================================== */
+
+.guia-image-divider {
+    width: 100%;
+    height: 250px; /* Altura da faixa da imagem - ajuste se necessário */
+    background-repeat: repeat-x; /* Repete a imagem nas laterais */
+    background-position: center;
+    background-size: auto 100%; /* Garante que a altura da imagem preencha a div */
+}
+
+.guia-image-divider-1 {
+    background-image: url('imagens/gui1.png');
+}
