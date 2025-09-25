@@ -1222,10 +1222,9 @@ body {
 }
 
 /* =========================================================
-   SEÇÃO DA PLAYLIST INTERATIVA (SOLUÇÃO FINAL CORRIGIDA)
+   SEÇÃO DA PLAYLIST INTERATIVA (CORRIGIDA)
    ========================================================= */
 
-/* Estilo para o título centralizado (mantido) */
 .page-guia .playlist-main-title {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 700;
@@ -1238,23 +1237,33 @@ body {
     max-width: 90%; 
 }
 
-/* Layout em Grid para as colunas */
 .page-guia .video-layout-container {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: 20px;
-    align-items: stretch; /* mantém alinhamento */
-    grid-auto-rows: 1fr;  /* força as linhas a terem a mesma altura */
+    align-items: stretch;
+    grid-auto-rows: 1fr; /* garante mesma altura entre as colunas */
 }
 
 .page-guia .video-player-column {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
-.page-guia .video-player-column iframe {
+.page-guia .video-wrapper {
+    position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    padding-top: 56.25%; /* 16:9 */
+    flex: 1; /* altura real dentro do grid */
+}
+
+.page-guia .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 8px;
     display: block;
 }
@@ -1262,11 +1271,13 @@ body {
 .page-guia .playlist-column {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .page-guia .custom-playlist-container {
-    flex: 1; /* ocupa toda a altura */
-    overflow-y: auto; /* cria a rolagem interna */
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
 /* --- Estilos dos itens da lista --- */
@@ -1309,30 +1320,4 @@ body {
     line-height: 1.3;
     text-align: left;
     margin: 0;
-}
-
-/* Garante que o vídeo define a altura */
-.page-guia .video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 */
-    flex: 1; /* <- ESSA LINHA É FUNDAMENTAL */
-}
-
-.page-guia .video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* Faz a playlist copiar a altura do vídeo */
-.page-guia .playlist-column {
-    height: auto; /* reset do height:100% */
-}
-
-.page-guia .custom-playlist-container {
-    max-height: 100%;
-    overflow-y: auto;
 }
