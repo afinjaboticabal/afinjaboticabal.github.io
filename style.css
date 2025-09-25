@@ -1238,11 +1238,18 @@ body {
     max-width: 90%; 
 }
 
+/* Layout em Grid para as colunas */
+.page-guia .video-layout-container {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch; /* Força colunas à mesma altura */
+}
+
 .page-guia .video-player-column {
     min-width: 0;
 }
 
-/* O iframe define a altura da linha do Grid através de sua proporção */
 .page-guia .video-player-column iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -1250,22 +1257,11 @@ body {
     display: block;
 }
 
-.page-guia .video-layout-container {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    gap: 20px;
-
-    /* NOVO: força as colunas a terem a mesma altura */
-    align-items: stretch;
-}
-
 .page-guia .playlist-column {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-
-    /* NOVO: garante que use a mesma altura do vídeo */
-    height: 100%;
+    height: 100%; /* Garante altura igual ao vídeo */
 }
 
 .page-guia .custom-playlist-container {
@@ -1274,7 +1270,7 @@ body {
     padding-right: 8px;
 }
 
-/* --- Estilos dos itens da lista (mantidos) --- */
+/* --- Estilos dos itens da lista --- */
 .page-guia .custom-playlist-item {
     display: flex;
     align-items: center;
