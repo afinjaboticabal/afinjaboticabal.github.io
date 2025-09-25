@@ -1370,20 +1370,24 @@ body {
         white-space: normal; 
     }
 
+  .page-guia .guia-image-fixed {
+        width: 90%;
+    }
+}
 /* ===================================================================
-   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png)
+   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png) - VERSÃO CORRIGIDA
    =================================================================== */
 
-/* Contêiner para centralizar a imagem e gerenciar o excesso */
+/* Contêiner que centraliza a imagem e gerencia o excesso */
 .guia-image-container {
-    display: flex;             /* <<< ALTERADO */
-    justify-content: center;   /* <<< ALTERADO */
+    display: flex;
+    justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
     overflow-x: hidden;
 }
 
-/* Estilo da imagem para ser 100% fixa, sem se ajustar (NÃO PRECISA MUDAR) */
+/* Estilo da imagem para ser fixa em telas grandes */
 .guia-image-fixed {
     width: 1200px;
     height: auto;
