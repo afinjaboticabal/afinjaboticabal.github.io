@@ -1222,117 +1222,16 @@ body {
 }
 
 /* =========================================================
-   ESTILOS PARA A PLAYLIST PERSONALIZADA
-   ========================================================= */
-
-/* Título principal acima da lista de vídeos */
-.playlist-main-title {
-    font-family: 'Comfortaa', sans-serif;
-    font-size: 1.5rem; /* 24px */
-    font-weight: 700;
-    text-align: left;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ddd;
-    color: #333;
-}
-
-/* O container que segura todos os vídeos e cria a barra de rolagem */
-.custom-playlist-container {
-    flex: 1;
-    overflow-y: auto;
-    text-align: left;
-    padding-right: 10px;
-    min-height: 0;
-}
-
-/* Cada item da lista (link que envolve imagem e texto) */
-.custom-playlist-item {
-    display: flex;         /* Alinha imagem e texto lado a lado */
-    align-items: center;   /* Centraliza verticalmente */
-    text-decoration: none;
-    color: #333;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    padding: 10px;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    border: 1px solid #eee;
-}
-
-/* Efeito ao passar o mouse por cima do item */
-.custom-playlist-item:hover {
-    background-color: #e9e9e9;
-    transform: translateY(-2px);
-    cursor: pointer;
-}
-
-/* Estilo da miniatura do vídeo */
-.playlist-thumbnail {
-    width: 120px;
-    height: 68px; /* Proporção 16:9 */
-    border-radius: 6px;
-    margin-right: 15px;
-    object-fit: cover; /* Garante que a imagem não se estique */
-    flex-shrink: 0; /* Impede que a imagem encolha */
-}
-
-/* Estilo do título do vídeo */
-.playlist-title {
-    font-family: Arial, sans-serif;
-    font-size: 1rem; /* 16px */
-    font-weight: bold;
-    line-height: 1.3;
-    margin: 0; /* Remove margens do parágrafo */
-}
-
-/* =========================================================
-   ESTILOS PARA O LAYOUT DE VÍDEO E PLAYLIST
-   ========================================================= */
-
-/* Container principal que cria as duas colunas */
-.video-layout-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite quebrar em telas pequenas */
-    gap: 20px;       /* Espaço entre as colunas */
-}
-
-/* Coluna da esquerda para o player */
-.video-player-column {
-    flex: 2; /* Faz esta coluna ser 2x maior que a da playlist */
-    min-width: 300px; /* Largura mínima antes de quebrar a linha */
-}
-
-.video-player-column iframe {
-    width: 100%;
-    aspect-ratio: 16 / 9; /* Mantém a proporção do vídeo */
-    border-radius: 8px;
-}
-
-/* Coluna da direita para a playlist */
-.playlist-column {
-    flex: 1; /* Ocupa 1 parte do espaço */
-    min-width: 280px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Estilo para o item da playlist que está ativo (tocando no momento) */
-.custom-playlist-item.active-video {
-    background-color: #dceafc; /* Um azul claro para destaque */
-    border-color: #a9c7ec;
-}
-
-/* =========================================================
    SEÇÃO DA PLAYLIST INTERATIVA
    ========================================================= */
 
+/* --- Layout das Colunas --- */
 .video-layout-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     /* CORREÇÃO: Garante que a coluna da playlist se estique para ter a mesma altura da coluna do vídeo. */
-    align-items: stretch;
+    align-items: stretch; 
 }
 
 .video-player-column {
@@ -1361,7 +1260,7 @@ body {
     /* CORREÇÃO: Estas duas propriedades juntas criam a barra de rolagem vertical dentro do espaço disponível. */
     overflow-y: auto;
     min-height: 0; /* Essencial para o overflow funcionar em um item flex */
-    padding-right: 5px;
+    padding-right: 5px; 
 }
 
 /* --- Estilos e Tamanhos dos Itens (AJUSTADOS) --- */
