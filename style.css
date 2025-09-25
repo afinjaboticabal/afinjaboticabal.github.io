@@ -1222,7 +1222,7 @@ body {
 }
 
 /* =========================================================
-   SEÇÃO DA PLAYLIST INTERATIVA (CORRIGIDA)
+   SEÇÃO DA PLAYLIST INTERATIVA (CORRIGIDA FINAL)
    ========================================================= */
 
 .page-guia .playlist-main-title {
@@ -1237,27 +1237,32 @@ body {
     max-width: 90%; 
 }
 
+/* Grid principal */
 .page-guia .video-layout-container {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: 20px;
-    align-items: start; /* NÃO usa stretch para não deformar */
+    align-items: start; /* não estica o vídeo */
 }
 
+/* Coluna do vídeo */
 .page-guia .video-player-column {
-    display: flex;
-    flex-direction: column;
     min-width: 0;
 }
 
 .page-guia .video-wrapper {
-    aspect-ratio: 16 / 9;
+    position: relative;
     width: 100%;
+    aspect-ratio: 16 / 9; /* garante 16:9 */
     border-radius: 8px;
     overflow: hidden;
+    background: #000; /* fundo preto caso o vídeo não carregue */
 }
 
 .page-guia .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: none;
@@ -1266,12 +1271,13 @@ body {
 
 /* Coluna da playlist */
 .page-guia .playlist-column {
-    height: 100%; /* herda a altura do grid row */
+    min-width: 0;
 }
 
+/* A lista de vídeos nunca passa da altura do vídeo */
 .page-guia .custom-playlist-container {
-    max-height: 100%; /* limita ao tamanho do vídeo */
-    overflow-y: auto; /* cria a barra de rolagem */
+    max-height: calc(100% * 9 / 16); /* limita pela proporção do vídeo */
+    overflow-y: auto;
     padding-right: 8px;
 }
 
