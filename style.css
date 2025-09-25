@@ -1222,57 +1222,59 @@ body {
 }
 
 /* =========================================================
-   SEÇÃO DA PLAYLIST INTERATIVA (TÍTULO CENTRALIZADO)
+   SEÇÃO DA PLAYLIST INTERATIVA (SOLUÇÃO FINAL CORRIGIDA)
    ========================================================= */
 
-/* Novo estilo para o título, agora centralizado */
+/* Estilo para o título centralizado (mantido) */
 .page-guia .playlist-main-title {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 700;
-    font-size: 1.5rem; /* Aumentado um pouco por ser um título principal */
-    text-align: center; /* <<< MUDANÇA PRINCIPAL */
+    font-size: 1.5rem;
+    text-align: center;
     color: #333;
-    margin: 0 auto 20px auto; /* Centraliza o bloco e dá espaço abaixo */
+    margin: 0 auto 20px auto;
     padding-bottom: 10px;
     border-bottom: 2px solid #ddd;
     max-width: 90%; 
 }
 
-/* Layout em Grid para as colunas de vídeo e playlist */
+/* Layout em Grid para as colunas */
 .page-guia .video-layout-container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: 20px;
-    align-items: stretch;
+    /* Deixamos o alinhamento padrão (stretch), pois vamos controlar o overflow */
 }
 
 .page-guia .video-player-column {
     min-width: 0;
 }
 
+/* O iframe define a altura da linha do Grid através de sua proporção */
 .page-guia .video-player-column iframe {
     width: 100%;
-    height: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 8px;
     display: block;
 }
 
-/* A coluna da playlist agora só contém a lista, facilitando o layout */
+/* A MUDANÇA MAIS IMPORTANTE ESTÁ AQUI */
 .page-guia .playlist-column {
     display: flex;
+    flex-direction: column;
+    /* A MÁGICA: "overflow: hidden" força a coluna a respeitar a altura 
+       definida pelo vídeo, em vez de crescer com seu próprio conteúdo. */
     overflow: hidden;
 }
 
+/* Agora, com a altura da coluna controlada, o container interno pode rolar. */
 .page-guia .custom-playlist-container {
-    flex-grow: 1;
-    overflow-y: auto; /* Cria a barra de rolagem */
-    min-height: 0;
+    flex-grow: 1; /* Ocupa o espaço disponível na coluna */
+    overflow-y: auto; /* E cria a barra de rolagem */
     padding-right: 8px;
 }
 
 /* --- Estilos dos itens da lista (mantidos) --- */
-
 .page-guia .custom-playlist-item {
     display: flex;
     align-items: center;
