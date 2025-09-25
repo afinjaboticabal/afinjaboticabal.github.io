@@ -1372,20 +1372,21 @@ body {
 }
 
 /* ===================================================================
-   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png) - VERSÃO CORRIGIDA
+   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png)
    =================================================================== */
 
-.guia-image-divider {
-    width: 100%;
-    height: 250px; /* Altura da faixa da imagem - ajuste se necessário */
-    background-repeat: no-repeat;       /* <<< ALTERADO: Imagem não se repete mais */
-    background-position: center;
-    background-size: contain;
-    margin-top: 40px;                   /* <<< ADICIONADO: Espaço acima da imagem */
-    margin-bottom: 40px;                /* <<< ADICIONADO: Espaço abaixo da imagem (corrige a sobreposição) */
-    border-radius: 15px;
+/* Contêiner para centralizar a imagem e dar espaçamento */
+.guia-image-container {
+    text-align: center; /* Centraliza a imagem na horizontal */
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
-.guia-image-divider-1 {
-    background-image: url('imagens/gui1.png');
+/* Estilo da imagem para ser fixa e arredondada */
+.guia-image-fixed {
+    width: 1200px; /* << LARGURA FIXA: A imagem tentará sempre ter 1200px */
+    max-width: 95%; /* << SEGURANÇA: Em telas pequenas, ela encolhe para não quebrar o layout */
+    height: auto; /* Mantém a proporção correta da imagem */
+    border-radius: 15px; /* Arredonda as bordas da própria imagem */
+    display: inline-block;
 }
