@@ -1251,37 +1251,27 @@ body {
 }
 
 .page-guia .video-wrapper {
-    position: relative;
+    aspect-ratio: 16 / 9;
     width: 100%;
-    padding-top: 56.25%; /* 16:9 */
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .page-guia .video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 8px;
+    border: none;
     display: block;
 }
 
 /* Coluna da playlist */
 .page-guia .playlist-column {
-    display: flex;
-    flex-direction: column;
-    max-height: 100%; /* base do cálculo */
+    height: 100%; /* herda a altura do grid row */
 }
 
-/* Lista de vídeos limitada à altura do player */
 .page-guia .custom-playlist-container {
-    max-height: calc((100vw - 40px) * 2/3 * 9/16); 
-    /* Explicação:
-       - 100vw - 40px = largura total da grid com gap aproximado
-       - 2/3 = proporção da coluna do vídeo
-       - 9/16 = altura do vídeo em relação à largura
-       Assim, a lista nunca fica maior que o vídeo */
-    overflow-y: auto;
+    max-height: 100%; /* limita ao tamanho do vídeo */
+    overflow-y: auto; /* cria a barra de rolagem */
     padding-right: 8px;
 }
 
