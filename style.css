@@ -327,50 +327,55 @@ body {
         display: none;
     }
 /* =========================================================
-       LAYOUT DO VÍDEO E PLAYLIST P/ CELULAR (ROLAGEM HORIZONTAL)
+       LAYOUT DO VÍDEO E PLAYLIST P/ CELULAR (VERSÃO FINAL)
        ========================================================= */
 
-    /* 1. Empilha o vídeo e a playlist (um em cima do outro) */
+    /* 1. A MUDANÇA PRINCIPAL: Força o container a se tornar um bloco
+       simples, o que obriga seus filhos a se empilharem verticalmente. */
     .page-guia .video-layout-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
+        display: block; 
     }
 
-    /* 2. A coluna da playlist agora tem altura automática para se ajustar ao conteúdo */
+    /* 2. Adiciona um espaço entre o vídeo e a playlist quando empilhados */
+    .page-guia .video-player-column {
+        margin-bottom: 25px;
+    }
+
+    /* 3. A coluna da playlist tem altura automática (mantido) */
     .page-guia .playlist-column {
         height: auto;
     }
 
-    /* 3. O container da playlist se torna uma "esteira" de rolagem horizontal */
+    /* 4. O container da playlist se torna uma "esteira" de rolagem horizontal (mantido) */
     .page-guia .custom-playlist-container {
         display: flex;
-        flex-direction: row; /* Garante que os itens fiquem em linha */
-        overflow-y: hidden;  /* Desliga a rolagem vertical */
-        overflow-x: auto;    /* LIGA a rolagem horizontal */
-        padding-bottom: 15px; /* Espaço para a barra de rolagem não cobrir os itens */
+        flex-direction: row; 
+        overflow-y: hidden;  
+        overflow-x: auto;    
+        padding-bottom: 15px;
     }
 
-    /* 4. Cada item da lista é ajustado para o novo layout */
+    /* 5. Cada item da lista é ajustado para o novo layout (mantido) */
     .page-guia .custom-playlist-item {
-        flex-direction: column; /* Empilha a imagem e o título de cada item */
-        flex-shrink: 0;         /* Impede que os itens se espremam */
-        width: 160px;           /* Largura fixa para cada vídeo na lista */
-        margin-bottom: 0;       /* Remove a margem inferior antiga */
-        margin-right: 12px;     /* Adiciona espaçamento lateral entre os itens */
+        flex-direction: column; 
+        flex-shrink: 0;         
+        width: 160px;           
+        margin-bottom: 0;       
+        margin-right: 12px;     
     }
 
-    /* 5. A miniatura (thumbnail) também é ajustada */
+    /* 6. A miniatura (thumbnail) também é ajustada (mantido) */
     .page-guia .playlist-thumbnail {
-        width: 140px;           /* Um pouco menor que o item para ter respiro */
-        height: 79px;           /* Altura na proporção 16:9 */
-        margin-right: 0;        /* Remove a margem da direita */
-        margin-bottom: 8px;     /* Adiciona um espaço entre a imagem e o título */
+        width: 140px;          
+        height: 79px;          
+        margin-right: 0;       
+        margin-bottom: 8px;    
     }
 
-    /* 6. O título de cada vídeo é centralizado */
+    /* 7. O título de cada vídeo é centralizado (mantido) */
     .page-guia .playlist-title {
         text-align: center;
-        white-space: normal; /* Permite que o texto quebre em duas linhas se for longo */
+        white-space: normal; 
     }
 }
 
