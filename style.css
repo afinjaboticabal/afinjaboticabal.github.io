@@ -1222,50 +1222,53 @@ body {
 }
 
 /* =========================================================
-   SEÇÃO DA PLAYLIST INTERATIVA (VERSÃO FINAL E ESPECÍFICA)
+   SEÇÃO DA PLAYLIST INTERATIVA (SOLUÇÃO COM CSS GRID)
    ========================================================= */
 
-/* Usamos ".page-guia" no início de cada regra para aumentar a 
-  prioridade e garantir que este estilo seja aplicado corretamente. 
-*/
+/* Mudamos a técnica de layout para CSS Grid, que é mais robusta
+   para alinhar a altura das colunas neste cenário. */
 
 .page-guia .video-layout-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Define 2 colunas: uma com 2/3 e outra com 1/3 do espaço */
     gap: 20px;
-    align-items: stretch; /* Garante que as colunas tenham a mesma altura */
+    align-items: stretch; /* Garante que ambas as colunas se estiquem na mesma altura */
 }
 
 .page-guia .video-player-column {
-    flex: 2;
-    min-width: 300px;
+    /* Não são mais necessárias as propriedades flex. O Grid cuida disso. */
+    min-width: 0; /* Reseta o min-width para o Grid funcionar bem */
 }
 
 .page-guia .video-player-column iframe {
     width: 100%;
+    height: 100%; /* Ocupa toda a altura da célula do Grid */
     aspect-ratio: 16 / 9;
     border-radius: 8px;
-    display: block; /* Remove espaço extra abaixo do vídeo */
+    display: block;
 }
 
+/* A coluna da playlist continua usando flexbox para organizar seus itens internos (título e lista) */
 .page-guia .playlist-column {
-    flex: 1;
-    min-width: 280px;
     display: flex;
     flex-direction: column;
+    /* Linha CRÍTICA: Força a coluna a respeitar a altura da célula do Grid, permitindo a rolagem interna */
+    overflow: hidden;
 }
 
 .page-guia .custom-playlist-container {
-    flex: 1;
-    overflow-y: auto; /* Cria a barra de rolagem */
-    min-height: 0;   /* Essencial para a rolagem funcionar em flexbox */
-    padding-right: 5px;
+    flex-grow: 1; /* Faz a lista ocupar todo o espaço vertical restante */
+    overflow-y: auto; /* Finalmente, cria a barra de rolagem! */
+    min-height: 0; /* Essencial para a rolagem funcionar */
+    padding-right: 8px;
 }
+
+/* --- Estilos e Tamanhos dos Itens (mantidos) --- */
 
 .page-guia .playlist-main-title {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 700;
-    font-size: 1rem; /* Tamanho do título principal reduzido */
+    font-size: 1rem;
     text-align: left;
     margin: 0 0 10px 0;
     padding-bottom: 8px;
@@ -1282,7 +1285,7 @@ body {
     background-color: #f9f9f9;
     border-radius: 6px;
     margin-bottom: 5px;
-    padding: 5px; /* Padding reduzido para diminuir a "caixa" */
+    padding: 5px;
     transition: background-color 0.2s ease;
     border: 1px solid #eee;
 }
@@ -1309,7 +1312,7 @@ body {
 .page-guia .playlist-title {
     font-family: Arial, sans-serif;
     font-weight: bold;
-    font-size: 0.75rem; /* Tamanho da fonte do vídeo reduzido (12px) */
+    font-size: 0.75rem;
     line-height: 1.3;
     text-align: left;
     margin: 0;
