@@ -1370,6 +1370,10 @@ body {
         white-space: normal; 
     }
 
+  .page-guia .guia-image-fixed {
+        width: 1000px; 
+    }
+
 }
 
 .guia-image-container {
