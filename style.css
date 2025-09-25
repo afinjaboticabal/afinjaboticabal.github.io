@@ -1238,6 +1238,17 @@ body {
     max-width: 90%; 
 }
 
+.page-guia .playlist-subtitle {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1rem; /* Tamanho menor que o título (16px) */
+    font-weight: 400; /* Usa a versão normal da Comfortaa, não a negrito */
+    text-align: center;
+    color: #555; /* Um cinza escuro para diferenciar do título */
+    /* O espaçamento abaixo afasta o vídeo, e o de cima aproxima o texto do título */
+    margin: -10px auto 25px auto; 
+    max-width: 700px; /* Evita que a linha fique muito longa */
+}
+
 /* Layout em Grid para as colunas */
 .page-guia .video-layout-container {
     display: grid;
