@@ -1238,14 +1238,6 @@ body {
     max-width: 90%; 
 }
 
-/* Layout em Grid para as colunas */
-.page-guia .video-layout-container {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    gap: 20px;
-    /* Deixamos o alinhamento padrão (stretch), pois vamos controlar o overflow */
-}
-
 .page-guia .video-player-column {
     min-width: 0;
 }
@@ -1258,19 +1250,27 @@ body {
     display: block;
 }
 
-/* A MUDANÇA MAIS IMPORTANTE ESTÁ AQUI */
+.page-guia .video-layout-container {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 20px;
+
+    /* NOVO: força as colunas a terem a mesma altura */
+    align-items: stretch;
+}
+
 .page-guia .playlist-column {
     display: flex;
     flex-direction: column;
-    /* A MÁGICA: "overflow: hidden" força a coluna a respeitar a altura 
-       definida pelo vídeo, em vez de crescer com seu próprio conteúdo. */
     overflow: hidden;
+
+    /* NOVO: garante que use a mesma altura do vídeo */
+    height: 100%;
 }
 
-/* Agora, com a altura da coluna controlada, o container interno pode rolar. */
 .page-guia .custom-playlist-container {
-    flex-grow: 1; /* Ocupa o espaço disponível na coluna */
-    overflow-y: auto; /* E cria a barra de rolagem */
+    flex-grow: 1;
+    overflow-y: auto;
     padding-right: 8px;
 }
 
