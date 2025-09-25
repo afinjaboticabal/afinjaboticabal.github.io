@@ -1324,33 +1324,99 @@ body {
 }
 
 /* =========================================================
-   AJUSTES DE TAMANHO PARA A PLAYLIST INTERATIVA
+   SEÇÃO DA PLAYLIST INTERATIVA (VERSÃO FINAL E COMPLETA)
    ========================================================= */
 
-/* 1. Diminui AINDA MAIS o título "A Jornada de Clara e Lucas" */
+/* --- Layout das Colunas --- */
+
+.video-layout-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.video-player-column {
+    flex: 2;
+    min-width: 300px;
+}
+
+.video-player-column iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+}
+
+/* --- Coluna e Lógica de Rolagem --- */
+
+.playlist-column {
+    flex: 1;
+    min-width: 280px;
+    /* Transforma a coluna em um container flexível vertical */
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-playlist-container {
+    /* Faz a lista ocupar todo o espaço vertical disponível na coluna */
+    flex: 1;
+    /* Ativa a rolagem SÓ quando o conteúdo transbordar */
+    overflow-y: auto;
+    /* Corrige bugs de overflow em navegadores baseados em Chrome/Safari */
+    min-height: 0;
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+}
+
+/* --- Estilos e Tamanhos dos Itens --- */
+
 .playlist-main-title {
-    font-size: 1.1rem; /* Tamanho bem reduzido (era 1.2rem) */
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem; /* Tamanho reduzido */
+    text-align: left;
     margin-bottom: 10px;
     padding-bottom: 8px;
+    border-bottom: 2px solid #ddd;
+    color: #333;
+    /* Impede que o título encolha */
+    flex-shrink: 0;
 }
 
-/* 2. Diminui AINDA MAIS o tamanho de cada item da lista */
 .custom-playlist-item {
-    padding: 6px; /* Espaçamento interno mínimo (era 8px) */
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    background-color: #f9f9f9;
+    border-radius: 8px;
     margin-bottom: 6px;
+    padding: 6px;
+    transition: background-color 0.2s ease;
+    border: 1px solid #eee;
 }
 
-/* 3. Diminui AINDA MAIS a miniatura (thumbnail) do vídeo */
+.custom-playlist-item:hover {
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
+
+.custom-playlist-item.active-video {
+    background-color: #dceafc;
+    border-color: #a9c7ec;
+}
+
 .playlist-thumbnail {
-    width: 80px;  /* Largura bem reduzida (era 100px) */
-    height: 45px; /* Altura proporcional (16:9) */
+    width: 80px;
+    height: 45px;
+    border-radius: 6px;
     margin-right: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
-/* 4. Diminui AINDA MAIS o título de cada vídeo na lista */
 .playlist-title {
-    font-family: Arial, sans-serif; /* Garante a fonte correta */
-    font-weight: bold; /* Garante o negrito */
-    font-size: 0.8rem; /* Fonte bem reduzida (era 0.9rem) */
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.8rem; /* Tamanho bem pequeno */
     line-height: 1.2;
+    margin: 0;
 }
