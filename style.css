@@ -1327,28 +1327,30 @@ body {
    AJUSTES DE TAMANHO PARA A PLAYLIST INTERATIVA
    ========================================================= */
 
-/* 1. Diminui o título "A Jornada de Clara e Lucas" */
+/* 1. Diminui AINDA MAIS o título "A Jornada de Clara e Lucas" */
 .playlist-main-title {
-    font-size: 1.2rem; /* Tamanho reduzido (era 1.5rem) */
-    margin-bottom: 15px;
+    font-size: 1.1rem; /* Tamanho bem reduzido (era 1.2rem) */
+    margin-bottom: 10px;
     padding-bottom: 8px;
 }
 
-/* 2. Diminui o tamanho e o espaçamento de cada item da lista */
+/* 2. Diminui AINDA MAIS o tamanho de cada item da lista */
 .custom-playlist-item {
-    padding: 8px; /* Espaçamento interno reduzido (era 10px) */
-    margin-bottom: 8px; /* Espaço entre os itens reduzido */
+    padding: 6px; /* Espaçamento interno mínimo (era 8px) */
+    margin-bottom: 6px;
 }
 
-/* 3. Diminui a miniatura (thumbnail) do vídeo */
+/* 3. Diminui AINDA MAIS a miniatura (thumbnail) do vídeo */
 .playlist-thumbnail {
-    width: 100px;  /* Largura reduzida (era 120px) */
-    height: 56px;  /* Altura proporcional (16:9) */
-    margin-right: 12px;
+    width: 80px;  /* Largura bem reduzida (era 100px) */
+    height: 45px; /* Altura proporcional (16:9) */
+    margin-right: 10px;
 }
 
-/* 4. Diminui o título de cada vídeo na lista */
+/* 4. Diminui AINDA MAIS o título de cada vídeo na lista */
 .playlist-title {
-    font-size: 0.9rem; /* Tamanho da fonte reduzido (era 1rem) */
+    font-family: Arial, sans-serif; /* Garante a fonte correta */
+    font-weight: bold; /* Garante o negrito */
+    font-size: 0.8rem; /* Fonte bem reduzida (era 0.9rem) */
     line-height: 1.2;
 }
