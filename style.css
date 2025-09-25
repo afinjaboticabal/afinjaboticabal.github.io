@@ -1221,42 +1221,27 @@ body {
     margin-top: 49px; /* Valor unificado e corrigido */
 }
 
-/* =========================================================
-   SEÇÃO DA PLAYLIST INTERATIVA (CORRIGIDA FINAL)
-   ========================================================= */
-
-.page-guia .playlist-main-title {
-    font-family: 'Comfortaa', sans-serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    text-align: center;
-    color: #333;
-    margin: 0 auto 20px auto;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ddd;
-    max-width: 90%; 
-}
-
-/* Grid principal */
+/* ===== PLAYLIST INTERATIVA ===== */
 .page-guia .video-layout-container {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-columns: 2fr 1fr;
     gap: 20px;
-    align-items: start; /* não estica o vídeo */
+    align-items: stretch; /* força colunas a terem a mesma altura */
 }
 
 /* Coluna do vídeo */
 .page-guia .video-player-column {
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .page-guia .video-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9; /* garante 16:9 */
+    padding-top: 56.25%; /* 16:9 */
     border-radius: 8px;
     overflow: hidden;
-    background: #000; /* fundo preto caso o vídeo não carregue */
+    background: #000; /* fundo para evitar bordas vazias */
 }
 
 .page-guia .video-wrapper iframe {
@@ -1271,17 +1256,18 @@ body {
 
 /* Coluna da playlist */
 .page-guia .playlist-column {
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-/* A lista de vídeos nunca passa da altura do vídeo */
+/* A lista ocupa toda a altura disponível da coluna */
 .page-guia .custom-playlist-container {
-    max-height: calc(100% * 9 / 16); /* limita pela proporção do vídeo */
-    overflow-y: auto;
-    padding-right: 8px;
+    flex: 1;              /* ocupa o espaço restante */
+    overflow-y: auto;     /* gera a barra */
+    padding-right: 8px;   /* evita a barra colar nos itens */
 }
 
-/* --- Estilos dos itens da lista --- */
+/* Estilos dos itens */
 .page-guia .custom-playlist-item {
     display: flex;
     align-items: center;
