@@ -1370,11 +1370,8 @@ body {
         white-space: normal; 
     }
 
-  .guia-image-fixed {
-        /* Em telas menores que 768px, a imagem deixa de ter a largura fixa
-           e passa a ocupar 95% da largura da tela, evitando os cortes. */
-        width: 95%;
-    }
+   .page-guia .guia-image-fixed {
+    width: 90%;
 }
 
 /* ===================================================================
