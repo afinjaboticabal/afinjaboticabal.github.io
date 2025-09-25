@@ -1372,20 +1372,21 @@ body {
 }
 
 /* ===================================================================
-   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png) - VERSÃO 100% FIXA
+   ESTILO PARA IMAGEM DIVISORA DO GUIA (gui1.png)
    =================================================================== */
 
 /* Contêiner para centralizar a imagem e gerenciar o excesso */
 .guia-image-container {
-    text-align: center; /* Centraliza a imagem na horizontal */
+    display: flex;             /* <<< ALTERADO */
+    justify-content: center;   /* <<< ALTERADO */
     padding-top: 40px;
     padding-bottom: 40px;
-    overflow-x: hidden; /* Impede que a imagem crie uma barra de rolagem na página */
+    overflow-x: hidden;
 }
 
-/* Estilo da imagem para ser 100% fixa, sem se ajustar */
+/* Estilo da imagem para ser 100% fixa, sem se ajustar (NÃO PRECISA MUDAR) */
 .guia-image-fixed {
-    width: 1200px;       /* LARGURA FIXA: A imagem terá sempre 1200px */
-    height: auto;        /* Mantém a proporção correta da imagem */
-    border-radius: 15px; /* Arredonda as bordas da própria imagem */
+    width: 1200px;
+    height: auto;
+    border-radius: 15px;
 }
