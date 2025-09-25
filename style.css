@@ -1239,10 +1239,11 @@ body {
 
 /* O container que segura todos os vídeos e cria a barra de rolagem */
 .custom-playlist-container {
-    max-height: 500px; /* Altura máxima da lista antes de rolar */
-    overflow-y: auto;  /* Adiciona a barra de rolagem vertical quando necessário */
+    flex: 1;
+    overflow-y: auto;
     text-align: left;
-    padding-right: 10px; /* Espaço para a barra de rolagem não colar no texto */
+    padding-right: 10px;
+    min-height: 0;
 }
 
 /* Cada item da lista (link que envolve imagem e texto) */
@@ -1312,10 +1313,42 @@ body {
 .playlist-column {
     flex: 1; /* Ocupa 1 parte do espaço */
     min-width: 280px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Estilo para o item da playlist que está ativo (tocando no momento) */
 .custom-playlist-item.active-video {
     background-color: #dceafc; /* Um azul claro para destaque */
     border-color: #a9c7ec;
+}
+
+/* =========================================================
+   AJUSTES DE TAMANHO PARA A PLAYLIST INTERATIVA
+   ========================================================= */
+
+/* 1. Diminui o título "A Jornada de Clara e Lucas" */
+.playlist-main-title {
+    font-size: 1.2rem; /* Tamanho reduzido (era 1.5rem) */
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+}
+
+/* 2. Diminui o tamanho e o espaçamento de cada item da lista */
+.custom-playlist-item {
+    padding: 8px; /* Espaçamento interno reduzido (era 10px) */
+    margin-bottom: 8px; /* Espaço entre os itens reduzido */
+}
+
+/* 3. Diminui a miniatura (thumbnail) do vídeo */
+.playlist-thumbnail {
+    width: 100px;  /* Largura reduzida (era 120px) */
+    height: 56px;  /* Altura proporcional (16:9) */
+    margin-right: 12px;
+}
+
+/* 4. Diminui o título de cada vídeo na lista */
+.playlist-title {
+    font-size: 0.9rem; /* Tamanho da fonte reduzido (era 1rem) */
+    line-height: 1.2;
 }
