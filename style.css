@@ -1092,13 +1092,15 @@ body {
 
 /* 9. Estilo de cada janela quadrada */
 .guia-square-item {
-    background-color: rgba(255, 255, 255, 0.9);
+    /* background-color foi removido */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
-    width: 250px; /* Largura fixa para cada quadrado */
+    width: 250px;
     border: 1px solid #ddd;
+    background-size: cover; /* Faz a imagem cobrir toda a caixa */
+    background-position: center; /* Centraliza a imagem */
 }
 
 .guia-square-item h3 {
