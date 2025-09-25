@@ -348,34 +348,25 @@ if (document.querySelector('.video-layout-container')) {
 }
 
 // ===============================================
-//   Bloco 7: AJUSTE DE ALTURA DA PLAYLIST (COM DEBUG PARA CELULAR)
+//   Bloco 7: AJUSTE DE ALTURA DA PLAYLIST (VERSÃO FINALÍSSIMA)
 // ===============================================
 function ajustarAlturaPlaylist() {
-    console.log("1. Função 'ajustarAlturaPlaylist' foi chamada.");
-
-    // A versão anterior que media o IFRAME estava correta para o desktop
     const videoElement = document.querySelector('.page-guia .video-player-column iframe');
     const playlistColumn = document.querySelector('.page-guia .playlist-column');
 
     if (videoElement && playlistColumn) {
-        console.log("2. Elemento de vídeo e coluna da playlist ENCONTRADOS.");
-        
-        // Verifica se a tela é larga (desktop) ou estreita (celular)
+        // Apenas a lógica para DESKTOP (> 768px) continua no JavaScript
         if (window.innerWidth > 768) {
-            console.log("3. MODO DESKTOP ATIVADO.");
             const alturaVideo = videoElement.offsetHeight;
-            playlistColumn.style.height = `${alturaVideo}px`;
-            console.log(`4. Altura DESKTOP de ${alturaVideo}px APLICADA.`);
+            if (alturaVideo > 0) {
+                playlistColumn.style.height = `${alturaVideo}px`;
+            }
         } else {
-            // --- LÓGICA PARA CELULAR ---
-            console.log("3. MODO CELULAR ATIVADO.");
-            // ESTA LINHA É A NOSSA PRINCIPAL SUSPEITA
-            playlistColumn.style.height = 'auto'; 
-            console.log("4. Altura 'auto' FOI APLICADA via JS. Isso pode estar anulando a altura de 400px do CSS.");
-            console.log("--> PRÓXIMO PASSO: Inspecione o elemento '.playlist-column' na aba 'Elements' para confirmar.");
+            // A CORREÇÃO: Removemos a regra que definia a altura como 'auto'.
+            // Agora o JS não interfere mais com o CSS no modo celular.
+            // Definir como '' remove o estilo inline.
+            playlistColumn.style.height = '';
         }
-    } else {
-        console.error("ERRO: Não foi possível encontrar os elementos.");
     }
 }
 
