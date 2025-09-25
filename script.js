@@ -348,43 +348,30 @@ if (document.querySelector('.video-layout-container')) {
 }
 
 // ===============================================
-//   Bloco 7: AJUSTE DE ALTURA DA PLAYLIST (COM DEBUG)
+//   Bloco 7: AJUSTE DE ALTURA DA PLAYLIST (VERSÃO CORRIGIDA E FINAL)
 // ===============================================
 function ajustarAlturaPlaylist() {
-    // Pista 1: A função foi chamada?
-    console.log("1. Função 'ajustarAlturaPlaylist' foi chamada.");
-
-    const videoColumn = document.querySelector('.page-guia .video-player-column');
+    // A CORREÇÃO ESTÁ AQUI: Selecionamos o IFRAME do vídeo DIRETAMENTE,
+    // em vez da coluna que o envolve.
+    const videoElement = document.querySelector('.page-guia .video-player-column iframe');
     const playlistColumn = document.querySelector('.page-guia .playlist-column');
 
-    if (videoColumn && playlistColumn) {
-        // Pista 2: Encontramos os elementos corretos?
-        console.log("2. Coluna do vídeo e da playlist ENCONTRADAS no HTML.");
-
+    if (videoElement && playlistColumn) {
         if (window.innerWidth > 768) {
-            console.log("3. A tela é larga. Tentando ajustar a altura.");
+            // Agora medimos a altura real do elemento de vídeo.
+            const alturaVideo = videoElement.offsetHeight;
 
-            const alturaVideo = videoColumn.offsetHeight;
-            // Pista 3: Qual a altura do vídeo que medimos?
-            console.log(`4. Altura do vídeo medida: ${alturaVideo}px`);
-
+            // Apenas aplicamos a altura se ela for um valor válido (maior que zero).
             if (alturaVideo > 0) {
                 playlistColumn.style.height = `${alturaVideo}px`;
-                // Pista 4: Conseguimos aplicar a altura?
-                console.log(`5. Altura de ${alturaVideo}px APLICADA na coluna da playlist.`);
-            } else {
-                console.warn("AVISO: A altura do vídeo é 0. O ajuste não foi aplicado. Isso pode acontecer se o vídeo ainda não carregou.");
             }
         } else {
-            console.log("3. A tela é estreita. Resetando a altura para 'auto'.");
+            // Em telas pequenas, reseta a altura.
             playlistColumn.style.height = 'auto';
         }
-    } else {
-        // Pista de ERRO: Não encontramos os elementos.
-        console.error("ERRO GRAVE: Não foi possível encontrar '.video-player-column' ou '.playlist-column'. Verifique as classes no seu arquivo HTML.");
     }
 }
 
-// Roda a função quando a página carrega e quando a janela é redimensionada
+// Roda a função quando a página carrega e quando a janela é redimensionada.
 document.addEventListener('DOMContentLoaded', ajustarAlturaPlaylist);
 window.addEventListener('resize', ajustarAlturaPlaylist);
