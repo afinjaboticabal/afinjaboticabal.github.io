@@ -1418,32 +1418,19 @@ body {
         transform: translateX(-25px);
     }
 
-  /* --- NOVA SOLUÇÃO VISUAL PARA O PREVIEW DO CURRÍCULO --- */
-    
-    /* 1. Estiliza a "janela" que não aparece no print */
-    .preview-window {
-        background-color: #e9e9e9; /* Cor de fundo da moldura */
-        padding: 20px; /* Espaçamento interno da moldura */
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        margin: 30px auto;
-        width: 100%;
-        overflow: hidden; /* Garante que nada vaze para fora da janela */
-    }
-
-    /* 2. Aplica o "zoom out" na pré-visualização para caber na janela */
+  /* --- SOLUÇÃO FINAL E ROBUSTA PARA O PREVIEW (SEM JANELA) --- */
     .curriculo-container .curriculo {
-        /* Define a largura base do currículo, como ele seria em 100% */
+        /* 1. Mantém a largura base para o PDF de alta qualidade */
         width: 700px;
-        
-        /* A mágica acontece aqui: reduzimos a escala do elemento */
-        transform: scale(0.45); /* Ajuste este valor se precisar (ex: 0.5 para um pouco maior) */
-        transform-origin: top left; /* Garante que a redução comece do canto superior esquerdo */
 
-        /* Ajusta a margem para compensar o espaço vazio criado pela escala */
-        margin-left: -192px; /* Aprox. (700px * (1 - 0.45)) / 2 */
-        margin-top: -192px;  /* Aprox. (700px * (1 - 0.45)) / 2 */
-        margin-bottom: -385px; /* Compensa o espaço vertical */
+        /* 2. A propriedade 'zoom' encolhe o elemento E o espaço que ele ocupa, corrigindo o bug */
+        zoom: 48%; /* Exibe o elemento com 48% do seu tamanho original. Ajuste se necessário. */
+
+        /* 3. Centraliza o elemento na tela e garante um espaço antes do rodapé */
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        margin-bottom: 30px; 
     }
 
 }
