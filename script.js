@@ -300,7 +300,7 @@ function simularPaginacao() {
         if (section.style.display !== 'none') {
             
             // Mede a altura da seção atual.
-            const sectionHeight = section.offsetHeight / 0.48;
+            const sectionHeight = section.offsetHeight;
 
             // Se a seção for estourar a página (e não for a primeira coisa na página), criamos uma nova.
             if (currentPageHeight + sectionHeight > MAX_PAGE_HEIGHT_PX && currentPage.hasChildNodes()) {
