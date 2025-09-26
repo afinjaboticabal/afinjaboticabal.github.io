@@ -296,39 +296,34 @@ function simularPaginacao() {
     let currentPageHeight = 0;
 
     sections.forEach(section => {
-        // --- INÍCIO DA LÓGICA CORRIGIDA ---
-
-        // 1. PRIMEIRO, anexa a seção à página atual. Agora ela existe no DOM e pode ser medida.
         currentPage.appendChild(section);
 
-        // 2. SEGUNDO, verifica se a seção está visível para então fazer os cálculos.
         if (section.style.display !== 'none') {
             const style = window.getComputedStyle(section);
-            const measuredHeight = section.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
+            
+            // --- INÍCIO DA CORREÇÃO ---
+            // Tornamos a leitura das margens segura. Se parseInt falhar, ele usará 0.
+            const marginTop = parseInt(style.marginTop) || 0;
+            const marginBottom = parseInt(style.marginBottom) || 0;
+            const measuredHeight = section.offsetHeight + marginTop + marginBottom;
+            // --- FIM DA CORREÇÃO ---
+            
             const realHeight = measuredHeight / zoomFactor;
 
-            // 3. TERCEIRO, verifica se a seção que acabamos de adicionar estourou o limite.
-            // A condição "currentPage.children.length > 1" impede que uma seção seja movida se ela for a primeira da página, mesmo que seja muito grande.
             if (currentPageHeight + realHeight > MAX_PAGE_HEIGHT_PX && currentPage.children.length > 1) {
                 
-                // A página estourou. Criamos uma nova página.
                 currentPage = document.createElement('div');
                 currentPage.className = 'preview-page';
                 previewContainer.appendChild(currentPage);
 
-                // Movemos a seção que causou o estouro para esta nova página.
                 currentPage.appendChild(section);
 
-                // A altura da nova página começa com a altura desta seção.
                 currentPageHeight = realHeight;
 
             } else {
-                // A seção coube, então apenas somamos sua altura à contagem da página atual.
                 currentPageHeight += realHeight;
             }
         }
-        // Se a seção estiver invisível, ela já foi anexada e simplesmente não fazemos mais nada.
-        // --- FIM DA LÓGICA CORRIGIDA ---
     });
 }
         
