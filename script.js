@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const positionOnRuler = 1 - (elementCenterY / viewportHeight);
 
                 let scale = 1.0; // Tamanho padrão (sem zoom)
-                const maxScale = 1.05; // O zoom máximo que queremos (5%)
+                const maxScale = 1.1; // O zoom máximo que queremos (10%)
 
                 // Lógica da sua régua de 20-40-60-80
                 // Convertemos para a escala de 0 a 1 (0.2, 0.4, 0.6, 0.8)
