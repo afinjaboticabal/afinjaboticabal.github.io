@@ -1416,6 +1416,7 @@ body {
 
   .page-guia .guia-image-fixed {
         width: 900px; 
+        transform: translateX(-50px);
     }
 
 }
