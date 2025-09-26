@@ -686,6 +686,13 @@ body {
     margin: 30px auto;
 }
 
+#preview {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 700px;
+}
+
 /* ===================================================================
    ESTILOS ESPECÍFICOS PARA DENUNCIA
    =================================================================== */
