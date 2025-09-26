@@ -183,6 +183,8 @@ function initializeFontDisplays() {
     }
 
     function atualizarPreview() {
+    // Primeiro, reseta o layout da paginação para uma lista simples
+    desfazerPaginacao();
     // --- Atualiza dados pessoais em ambas as pré-visualizações ---
     const nome = document.getElementById("nome").value || "Seu Nome Aqui";
     document.getElementById("previewNome").innerText = nome;
@@ -253,6 +255,30 @@ function initializeFontDisplays() {
     simularPaginacao();
 }
 
+// ===============================================
+//   Bloco NOVO: FUNÇÃO PARA RESETAR A PAGINAÇÃO
+// ===============================================
+function desfazerPaginacao() {
+    const previewContainer = document.getElementById('preview-visivel');
+    const pages = previewContainer.querySelectorAll('.preview-page');
+
+    // Se não houver páginas, não há nada para fazer
+    if (pages.length === 0) return;
+
+    // Pega todas as seções de dentro de todas as páginas
+    const allSections = previewContainer.querySelectorAll('.preview-page .header, .preview-page .section');
+    
+    // Move as seções de volta para serem filhas diretas do container principal
+    allSections.forEach(section => {
+        previewContainer.appendChild(section);
+    });
+    
+    // Remove as divs de página, que agora estão vazias
+    pages.forEach(page => {
+        page.remove();
+    });
+}
+        
 // ===============================================
 //   Bloco NOVO: LÓGICA PARA SIMULAR PAGINAÇÃO
 // ===============================================
