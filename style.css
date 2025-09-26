@@ -1418,9 +1418,4 @@ body {
         width: 900px; 
     }
 
-    /* <<< ADICIONE A NOVA REGRA AQUI DENTRO >>> */
-    .guia-square-item.is-active {
-        transform: scale(1.05);
-    }
-
 }
