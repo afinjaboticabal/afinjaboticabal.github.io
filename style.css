@@ -1418,7 +1418,7 @@ body {
         width: 900px; 
 
   .page-guia .deslocar-imagem {
-        transform: translateX(-25px);
+        transform: translateX(-50px);
     }
 
 }
