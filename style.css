@@ -1415,7 +1415,7 @@ body {
     }
 
   .page-guia .deslocar-imagem {
-        transform: translateX(-50px);
+        transform: translateX(-25px);
     }
 
 }
