@@ -283,47 +283,40 @@ function desfazerPaginacao() {
 //   Bloco NOVO: LÓGICA PARA SIMULAR PAGINAÇÃO
 // ===============================================
 function simularPaginacao() {
-    // Proporção de uma A4 (297mm / 210mm). A altura da área de conteúdo útil
-    // no PDF é de aprox. 272mm e a largura é 180mm. 272/180 = ~1.51
-    // Para uma largura de 700px, a altura máxima é 700 * 1.51 = ~1057px.
     const MAX_PAGE_HEIGHT_PX = 1050;
-
     const previewContainer = document.getElementById('preview-visivel');
-    
-    // Pega todas as seções de dentro do container principal para poder manipulá-las
     const sections = Array.from(previewContainer.querySelectorAll('.header, .section'));
     
-    // Limpa o container para recomeçar a paginação do zero
     previewContainer.innerHTML = '';
 
-    // Cria a primeira página virtual
     let currentPage = document.createElement('div');
     currentPage.className = 'preview-page';
     previewContainer.appendChild(currentPage);
-
     let currentPageHeight = 0;
 
     sections.forEach(section => {
-        // Ignora seções que estão escondidas
-        if (section.style.display === 'none') {
-            return;
+        // A lógica de quebra de página precisa acontecer ANTES de adicionarmos a altura da seção atual.
+        // Primeiro, verificamos se a seção está visível para podermos medir sua altura.
+        if (section.style.display !== 'none') {
+            
+            // Mede a altura da seção atual.
+            const sectionHeight = section.offsetHeight;
+
+            // Se a seção for estourar a página (e não for a primeira coisa na página), criamos uma nova.
+            if (currentPageHeight + sectionHeight > MAX_PAGE_HEIGHT_PX && currentPage.hasChildNodes()) {
+                currentPage = document.createElement('div');
+                currentPage.className = 'preview-page';
+                previewContainer.appendChild(currentPage);
+                currentPageHeight = 0;
+            }
+
+            // Adiciona a altura da seção visível à contagem da página atual.
+            currentPageHeight += sectionHeight;
         }
 
-        // Mede a altura total da seção (incluindo margens)
-        const style = getComputedStyle(section);
-        const sectionHeight = section.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-
-        // Se a seção não couber na página atual (e a página não estiver vazia), cria uma nova.
-        if (currentPageHeight + sectionHeight > MAX_PAGE_HEIGHT_PX && currentPage.hasChildNodes()) {
-            currentPage = document.createElement('div');
-            currentPage.className = 'preview-page';
-            previewContainer.appendChild(currentPage);
-            currentPageHeight = 0; // Reseta a altura para a nova página
-        }
-        
-        // Move a seção para dentro da página virtual correta
+        // Independentemente de ser visível ou não, SEMPRE adicionamos a seção à página atual.
+        // Isso garante que nenhuma seção seja "perdida" no processo.
         currentPage.appendChild(section);
-        currentPageHeight += sectionHeight;
     });
 }
         
