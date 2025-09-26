@@ -373,3 +373,36 @@ function ajustarAlturaPlaylist() {
 // Roda a função
 document.addEventListener('DOMContentLoaded', ajustarAlturaPlaylist);
 window.addEventListener('resize', ajustarAlturaPlaylist);
+
+// ===============================================
+//   Bloco 8: ANIMAÇÃO DE SCROLL PARA OS TÓPICOS (MOBILE)
+// ===============================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona todas as janelas de tópicos
+    const topicSquares = document.querySelectorAll('.guia-square-item');
+
+    // Só executa o código se existirem janelas de tópicos na página
+    if (topicSquares.length > 0) {
+
+        // Cria um "observador" que vai vigiar quando as janelas entram e saem da tela
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Se a janela está visível na tela...
+                if (entry.isIntersecting) {
+                    // ...adiciona a classe 'is-active' para ela crescer
+                    entry.target.classList.add('is-active');
+                } else {
+                    // ...caso contrário, remove a classe para ela voltar ao normal
+                    entry.target.classList.remove('is-active');
+                }
+            });
+        }, {
+            threshold: 0.6 // A animação dispara quando 60% da janela estiver visível
+        });
+
+        // Pede ao observador para vigiar cada uma das janelas
+        topicSquares.forEach(square => {
+            scrollObserver.observe(square);
+        });
+    }
+});
