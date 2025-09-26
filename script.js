@@ -252,7 +252,7 @@ function initializeFontDisplays() {
         }
     });
         // Chama a nova função de paginação no final de cada atualização
-    simularPaginacao();
+    setTimeout(simularPaginacao, 0);
 }
 
 // ===============================================
