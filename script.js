@@ -283,6 +283,9 @@ function desfazerPaginacao() {
 //   Bloco NOVO: LÓGICA PARA SIMULAR PAGINAÇÃO
 // ===============================================
 function simularPaginacao() {
+    console.clear(); // Limpa o console para uma nova análise
+    console.log("--- Iniciando Simulação de Paginação ---");
+
     const MAX_PAGE_HEIGHT_PX = 1050;
     const previewContainer = document.getElementById('preview-visivel');
     const zoomFactor = parseFloat(window.getComputedStyle(previewContainer).zoom) || 1;
@@ -294,35 +297,41 @@ function simularPaginacao() {
     currentPage.className = 'preview-page';
     previewContainer.appendChild(currentPage);
     let currentPageHeight = 0;
+    let pageCounter = 1;
 
     sections.forEach(section => {
         currentPage.appendChild(section);
 
         if (section.style.display !== 'none') {
             const style = window.getComputedStyle(section);
-            
-            // --- INÍCIO DA CORREÇÃO ---
-            // Tornamos a leitura das margens segura. Se parseInt falhar, ele usará 0.
             const marginTop = parseInt(style.marginTop) || 0;
             const marginBottom = parseInt(style.marginBottom) || 0;
             const measuredHeight = section.offsetHeight + marginTop + marginBottom;
-            // --- FIM DA CORREÇÃO ---
-            
             const realHeight = measuredHeight / zoomFactor;
 
+            console.log(`Analisando seção: ${section.id || 'header'} | Altura Real: ${Math.round(realHeight)}px`);
+            console.log(`Página ${pageCounter} - Altura Atual: ${Math.round(currentPageHeight)}px | Soma seria: ${Math.round(currentPageHeight + realHeight)}px`);
+
             if (currentPageHeight + realHeight > MAX_PAGE_HEIGHT_PX && currentPage.children.length > 1) {
+                console.log(`%cDECISÃO: ESTOUROU! Criando nova página.`, 'color: red; font-weight: bold;');
                 
                 currentPage = document.createElement('div');
                 currentPage.className = 'preview-page';
                 previewContainer.appendChild(currentPage);
-
                 currentPage.appendChild(section);
 
+                pageCounter++;
                 currentPageHeight = realHeight;
 
             } else {
+                console.log(`%cDECISÃO: Coube na página.`, 'color: green;');
                 currentPageHeight += realHeight;
             }
+            console.log(`Página ${pageCounter} - Altura Final: ${Math.round(currentPageHeight)}px`);
+            console.log("-----------------------------------------");
+        } else {
+             console.log(`Analisando seção: ${section.id || 'header'} | Seção está invisível.`);
+             console.log("-----------------------------------------");
         }
     });
 }
