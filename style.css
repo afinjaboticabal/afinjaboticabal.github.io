@@ -1425,15 +1425,10 @@ body {
         transform: translateX(-25px);
     }
 
-  /* --- SOLUÇÃO FINAL E ROBUSTA PARA O PREVIEW (SEM JANELA) --- */
-    .curriculo-container .curriculo {
-        /* 1. Mantém a largura base para o PDF de alta qualidade */
+    /* --- Zoom aplicado APENAS na pré-visualização visível --- */
+    #preview-visivel {
         width: 700px;
-
-        /* 2. A propriedade 'zoom' encolhe o elemento E o espaço que ele ocupa, corrigindo o bug */
-        zoom: 48%; /* Exibe o elemento com 48% do seu tamanho original. Ajuste se necessário. */
-
-        /* 3. Centraliza o elemento na tela e garante um espaço antes do rodapé */
+        zoom: 48%;
         margin-left: auto;
         margin-right: auto;
         margin-top: 30px;
