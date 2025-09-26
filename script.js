@@ -225,15 +225,38 @@ function initializeFontDisplays() {
     const clone = originalPreview.cloneNode(true);
 
     // 2. Estiliza o clone para renderizar fora da tela e em sua resolução total.
-    //    É importante resetar tanto o 'zoom' quanto o 'transform' para garantir 100% do tamanho.
     clone.style.zoom = '100%';
     clone.style.transform = 'none';
     clone.style.position = 'absolute';
-    clone.style.left = '-9999px'; // Posiciona muito para a esquerda, tornando-o invisível.
+    clone.style.left = '-9999px';
     clone.style.top = '0px';
-    clone.style.width = '700px'; // Define a largura exata para a captura.
+    clone.style.width = '700px';
 
-    // Adiciona o clone ao corpo do documento para que ele possa ser renderizado pelo navegador.
+    // ==================================================================
+    //   INÍCIO DA CORREÇÃO (NOVO BLOCO DE CÓDIGO)
+    // ==================================================================
+    // Este bloco corrige as fontes sobrepostas no celular e a fonte errada no desktop.
+    // Ele lê o tamanho real da fonte do elemento original e o aplica no clone.
+    const originalTextElements = originalPreview.querySelectorAll('h2, h3, p');
+    const cloneTextElements = clone.querySelectorAll('h2, h3, p');
+
+    originalTextElements.forEach((el, index) => {
+        const computedStyle = window.getComputedStyle(el);
+        const fontSize = computedStyle.fontSize;
+        const fontFamily = computedStyle.fontFamily;
+        const fontWeight = computedStyle.fontWeight;
+        
+        if (cloneTextElements[index]) {
+            cloneTextElements[index].style.fontSize = fontSize;
+            cloneTextElements[index].style.fontFamily = fontFamily;
+            cloneTextElements[index].style.fontWeight = fontWeight;
+            cloneTextElements[index].style.lineHeight = 'normal'; // Garante o espaçamento correto
+        }
+    });
+    // ==================================================================
+    //   FIM DA CORREÇÃO
+    // ==================================================================
+
     document.body.appendChild(clone);
 
     try {
@@ -246,7 +269,6 @@ function initializeFontDisplays() {
         const usableWidth = pageWidth - (marginHorizontal * 2);
         const pageHeight = pdf.internal.pageSize.getHeight();
         
-        // 3. IMPORTANTE: A captura é feita a partir das seções do CLONE, não do original visível.
         const sections = clone.querySelectorAll('.header, .section');
         let currentY = marginTop;
 
@@ -254,7 +276,6 @@ function initializeFontDisplays() {
             const section = sections[i];
             if (section.style.display === 'none') { continue; }
             
-            // 4. Tira o "print" da seção do clone em alta resolução.
             const canvas = await html2canvas(section, { scale: 2, useCORS: true });
             const imgHeight = canvas.height * usableWidth / canvas.width;
             
@@ -269,8 +290,6 @@ function initializeFontDisplays() {
     } catch (error) {
         console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
     } finally {
-        // 5. ESSENCIAL: Remove o clone do documento ao final do processo,
-        //    independentemente de ter dado certo ou errado.
         document.body.removeChild(clone);
     }
 }
