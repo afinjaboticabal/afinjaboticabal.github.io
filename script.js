@@ -94,28 +94,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // --- LÓGICA DOS CONTROLES DE FONTE ---
     if (formContainer) {
-    formContainer.addEventListener('click', function(event) {
-        if (event.target.classList.contains('font-size-btn')) {
-            const action = event.target.dataset.action;
-            const targetId = event.target.dataset.target;
-            const previewElement = document.getElementById(targetId);
-            
-            // Encontra o display numérico correspondente
-            const displayElement = document.querySelector(`[data-size-display-for="${targetId}"]`);
+        formContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('font-size-btn')) {
+                const action = event.target.dataset.action;
+                const targetBaseId = event.target.dataset.target; // Ex: "previewObjetivo"
+                
+                // Pega os dois elementos de parágrafo (o visível e o do PDF)
+                const previewElement = document.getElementById(targetBaseId);
+                const previewElementVisivel = document.getElementById(`${targetBaseId}-visivel`);
+                
+                // Pega o display numérico
+                const displayElement = document.querySelector(`[data-size-display-for="${targetBaseId}"]`);
 
-            if (previewElement) {
-                let currentSize = parseFloat(window.getComputedStyle(previewElement, null).getPropertyValue('font-size'));
-                if (action === 'increase') {
-                    currentSize += 1;
-                } else if (action === 'decrease' && currentSize > 8) {
-                    currentSize -= 1;
-                }
-                previewElement.style.fontSize = `${currentSize}px`;
+                if (previewElement && previewElementVisivel) {
+                    let currentSize = parseFloat(window.getComputedStyle(previewElement, null).getPropertyValue('font-size'));
+                    
+                    if (action === 'increase') {
+                        currentSize += 1;
+                    } else if (action === 'decrease' && currentSize > 8) {
+                        currentSize -= 1;
+                    }
+                    
+                    // Aplica o novo tamanho em AMBOS os previews
+                    const newSize = `${currentSize}px`;
+                    previewElement.style.fontSize = newSize;
+                    previewElementVisivel.style.fontSize = newSize;
 
-                // ATUALIZA O NÚMERO NO DISPLAY
-                if (displayElement) {
-                    displayElement.innerText = currentSize;
-                }
+                    // Atualiza o display numérico
+                    if (displayElement) {
+                        displayElement.innerText = Math.round(currentSize);
+                    }
                 }
             }
         });
@@ -140,13 +148,17 @@ function initializeFontDisplays() {
 
     // --- FUNÇÕES AUXILIARES ---
     function atualizarFoto() {
-        const file = document.getElementById("foto").files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => { document.getElementById("previewFoto").src = e.target.result; };
-            reader.readAsDataURL(file);
-        }
+    const file = document.getElementById("foto").files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            // Atualiza a foto em AMBAS as pré-visualizações
+            document.getElementById("previewFoto").src = e.target.result;
+            document.getElementById("previewFoto-visivel").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
     }
+}
     function calcularIdade(dia, mes, ano) {
         const hoje = new Date();
         const nascimento = new Date(ano, mes - 1, dia);
@@ -171,60 +183,84 @@ function initializeFontDisplays() {
     }
 
     function atualizarPreview() {
-        // Atualiza dados pessoais
-        document.getElementById("previewNome").innerText = document.getElementById("nome").value || "Seu Nome Aqui";
-        let dadosHtml = "";
-        const dia = document.getElementById("dia").value, mes = document.getElementById("mes").value, ano = document.getElementById("ano").value;
-        if (dia && mes && ano) { const idade = calcularIdade(dia, mes, ano); if (!Number.isNaN(idade)) { dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`; } }
-        const nacionalidade = document.getElementById("nacionalidade").value;
-        if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; }
-        const endereco = document.getElementById("endereco").value;
-        if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; }
-        const ddd = document.getElementById("ddd").value, tel = document.getElementById("telefone").value;
-        const telFmt = formatarTelefone(ddd, tel);
-        if (telFmt) { dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; }
-        const email = document.getElementById("email").value;
-        if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; }
-        document.getElementById("previewDados").innerHTML = dadosHtml;
+    // --- Atualiza dados pessoais em ambas as pré-visualizações ---
+    const nome = document.getElementById("nome").value || "Seu Nome Aqui";
+    document.getElementById("previewNome").innerText = nome;
+    document.getElementById("previewNome-visivel").innerText = nome;
+    
+    let dadosHtml = "";
+    const dia = document.getElementById("dia").value, mes = document.getElementById("mes").value, ano = document.getElementById("ano").value;
+    if (dia && mes && ano) { const idade = calcularIdade(dia, mes, ano); if (!Number.isNaN(idade)) { dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`; } }
+    const nacionalidade = document.getElementById("nacionalidade").value;
+    if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; }
+    const endereco = document.getElementById("endereco").value;
+    if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; }
+    const ddd = document.getElementById("ddd").value, tel = document.getElementById("telefone").value;
+    const telFmt = formatarTelefone(ddd, tel);
+    if (telFmt) { dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; }
+    const email = document.getElementById("email").value;
+    if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; }
+    document.getElementById("previewDados").innerHTML = dadosHtml;
+    document.getElementById("previewDados-visivel").innerHTML = dadosHtml;
+    
+    // --- Reordena ambas as pré-visualizações ---
+    if (sortableContainer) {
+        const previewContainer = document.getElementById('preview');
+        const previewContainerVisivel = document.getElementById('preview-visivel');
+        const formSectionsOrdered = sortableContainer.querySelectorAll('.form-section[data-section-id]');
         
-        // Reordena o preview para bater com a ordem ATUAL do formulário
-        if (sortableContainer) {
-            const formSectionsOrdered = sortableContainer.querySelectorAll('.form-section[data-section-id]');
-            formSectionsOrdered.forEach(formSection => {
-                const sectionId = formSection.dataset.sectionId;
-                const previewSectionToMove = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`);
-                if(previewSectionToMove) {
-                    previewContainer.appendChild(previewSectionToMove);
-                }
-            });
-        }
+        formSectionsOrdered.forEach(formSection => {
+            const sectionId = formSection.dataset.sectionId;
+            const capSectionId = capitalizeFirstLetter(sectionId);
 
-        // Atualiza conteúdo e visibilidade
-        const allDraggableSections = document.querySelectorAll('.form-section[data-section-id]');
-        allDraggableSections.forEach(section => {
-            const sectionId = section.dataset.sectionId;
-            const inputElement = document.getElementById(sectionId);
-            const previewElement = document.getElementById(`preview${capitalizeFirstLetter(sectionId)}`);
-            const sectionPreviewContainer = document.getElementById(`secao${capitalizeFirstLetter(sectionId)}`);
-            if (inputElement && previewElement && sectionPreviewContainer) {
-                if (inputElement.value.trim() === "") {
-                    sectionPreviewContainer.style.display = "none";
-                } else {
-                    sectionPreviewContainer.style.display = "block";
-                    previewElement.innerText = inputElement.value;
-                }
-            }
+            const previewSectionToMove = document.getElementById(`secao${capSectionId}`);
+            const previewSectionToMoveVisivel = document.getElementById(`secao${capSectionId}-visivel`);
+
+            if(previewSectionToMove) previewContainer.appendChild(previewSectionToMove);
+            if(previewSectionToMoveVisivel) previewContainerVisivel.appendChild(previewSectionToMoveVisivel);
         });
     }
 
+    // --- Atualiza conteúdo e visibilidade de ambas as pré-visualizações ---
+    const allDraggableSections = document.querySelectorAll('.form-section[data-section-id]');
+    allDraggableSections.forEach(section => {
+        const sectionId = section.dataset.sectionId;
+        const capSectionId = capitalizeFirstLetter(sectionId);
+        const inputElement = document.getElementById(sectionId);
+        
+        // Elementos da fonte do PDF (#preview)
+        const previewElement = document.getElementById(`preview${capSectionId}`);
+        const sectionPreviewContainer = document.getElementById(`secao${capSectionId}`);
+
+        // Elementos da pré-visualização visível (#preview-visivel)
+        const previewElementVisivel = document.getElementById(`preview${capSectionId}-visivel`);
+        const sectionPreviewContainerVisivel = document.getElementById(`secao${capSectionId}-visivel`);
+
+        if (inputElement && previewElement && sectionPreviewContainer) {
+            const valor = inputElement.value;
+            const displayValue = valor.trim() === "" ? "none" : "block";
+
+            sectionPreviewContainer.style.display = displayValue;
+            sectionPreviewContainerVisivel.style.display = displayValue;
+
+            if(displayValue === "block"){
+                previewElement.innerText = valor;
+                previewElementVisivel.innerText = valor;
+            }
+        }
+    });
+}
+
     async function gerarPDF() {
-    console.log("Iniciando geração de PDF a partir do elemento visível...");
+    console.log("Iniciando geração de PDF a partir da fonte invisível...");
+    const button = document.getElementById('baixar-pdf-btn');
+    button.disabled = true;
+    button.innerText = 'Gerando PDF...';
 
     try {
+        // A função agora é simples: apenas aponta para #preview e funciona!
+        const preview = document.getElementById('preview'); 
         const { jsPDF } = window.jspdf;
-        // 1. Pega a pré-visualização visível diretamente, como era antes.
-        const preview = document.getElementById('preview');
-
         const pdf = new jsPDF('p', 'mm', 'a4');
         const marginTop = 15;
         const marginBottom = 10;
@@ -233,7 +269,6 @@ function initializeFontDisplays() {
         const usableWidth = pageWidth - (marginHorizontal * 2);
         const pageHeight = pdf.internal.pageSize.getHeight();
         
-        // 2. Encontra as seções dentro do elemento visível.
         const sections = preview.querySelectorAll('.header, .section');
         let currentY = marginTop;
 
@@ -241,13 +276,7 @@ function initializeFontDisplays() {
             const section = sections[i];
             if (section.style.display === 'none') { continue; }
             
-            // 3. Tira o "print" diretamente da seção visível na página.
-            const canvas = await html2canvas(section, {
-                scale: 2,
-                useCORS: true,
-                scrollY: -window.scrollY // Mantemos esta opção por estabilidade
-            });
-            
+            const canvas = await html2canvas(section, { scale: 2, useCORS: true, scrollY: -window.scrollY });
             const imgHeight = canvas.height * usableWidth / canvas.width;
             
             if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
@@ -260,8 +289,10 @@ function initializeFontDisplays() {
         pdf.save('curriculo.pdf');
     } catch (error) {
         console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+    } finally {
+        button.disabled = false;
+        button.innerText = 'Baixar Currículo';
     }
-    
 }
     
     // Chamar a atualização inicial do preview
