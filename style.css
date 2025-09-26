@@ -686,10 +686,6 @@ body {
     margin: 30px auto;
 }
 
-.curriculo-container .header .header-info {
-    flex: 1; /* Garante que a coluna de texto ocupe todo o espaço disponível */
-}
-
 /* ===================================================================
    ESTILOS ESPECÍFICOS PARA DENUNCIA
    =================================================================== */
