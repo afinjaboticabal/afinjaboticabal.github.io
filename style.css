@@ -1414,9 +1414,6 @@ body {
         width: 900px; 
     }
 
-  .page-guia .guia-image-fixed {
-        width: 900px; 
-
   .page-guia .deslocar-imagem {
         transform: translateX(-50px);
     }
