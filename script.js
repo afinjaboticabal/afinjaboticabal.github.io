@@ -218,37 +218,62 @@ function initializeFontDisplays() {
     }
 
     async function gerarPDF() {
-        console.log("Iniciando geração de PDF com fatiamento de página e margens personalizadas...");
-        try {
-            const { jsPDF } = window.jspdf;
-            const preview = document.getElementById('preview');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const marginTop = 15;
-            const marginBottom = 10;
-            const marginHorizontal = 15;
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const usableWidth = pageWidth - (marginHorizontal * 2);
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const sections = preview.querySelectorAll('.header, .section');
-            let currentY = marginTop;
+    console.log("Iniciando geração de PDF com a técnica do clone em alta resolução...");
+    
+    const originalPreview = document.getElementById('preview');
+    // 1. Cria um clone exato do elemento de pré-visualização.
+    const clone = originalPreview.cloneNode(true);
 
-            for (let i = 0; i < sections.length; i++) {
-                const section = sections[i];
-                if (section.style.display === 'none') { continue; }
-                const canvas = await html2canvas(section, { scale: 2, useCORS: true });
-                const imgHeight = canvas.height * usableWidth / canvas.width;
-                if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
-                    pdf.addPage();
-                    currentY = marginTop;
-                }
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
-                currentY += imgHeight + 5;
+    // 2. Estiliza o clone para renderizar fora da tela e em sua resolução total.
+    //    É importante resetar tanto o 'zoom' quanto o 'transform' para garantir 100% do tamanho.
+    clone.style.zoom = '100%';
+    clone.style.transform = 'none';
+    clone.style.position = 'absolute';
+    clone.style.left = '-9999px'; // Posiciona muito para a esquerda, tornando-o invisível.
+    clone.style.top = '0px';
+    clone.style.width = '700px'; // Define a largura exata para a captura.
+
+    // Adiciona o clone ao corpo do documento para que ele possa ser renderizado pelo navegador.
+    document.body.appendChild(clone);
+
+    try {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const marginTop = 15;
+        const marginBottom = 10;
+        const marginHorizontal = 15;
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const usableWidth = pageWidth - (marginHorizontal * 2);
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        
+        // 3. IMPORTANTE: A captura é feita a partir das seções do CLONE, não do original visível.
+        const sections = clone.querySelectorAll('.header, .section');
+        let currentY = marginTop;
+
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (section.style.display === 'none') { continue; }
+            
+            // 4. Tira o "print" da seção do clone em alta resolução.
+            const canvas = await html2canvas(section, { scale: 2, useCORS: true });
+            const imgHeight = canvas.height * usableWidth / canvas.width;
+            
+            if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
+                pdf.addPage();
+                currentY = marginTop;
             }
-            pdf.save('curriculo.pdf');
-        } catch (error) {
-            console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
+            currentY += imgHeight + 5;
         }
+        pdf.save('curriculo.pdf');
+    } catch (error) {
+        console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
+    } finally {
+        // 5. ESSENCIAL: Remove o clone do documento ao final do processo,
+        //    independentemente de ter dado certo ou errado.
+        document.body.removeChild(clone);
     }
+}
     
     // Chamar a atualização inicial do preview
     initializeFontDisplays();
