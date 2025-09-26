@@ -285,6 +285,7 @@ function desfazerPaginacao() {
 function simularPaginacao() {
     const MAX_PAGE_HEIGHT_PX = 1050;
     const previewContainer = document.getElementById('preview-visivel');
+    const zoomFactor = parseFloat(window.getComputedStyle(previewContainer).zoom) || 1;
     const sections = Array.from(previewContainer.querySelectorAll('.header, .section'));
     
     previewContainer.innerHTML = '';
@@ -295,28 +296,39 @@ function simularPaginacao() {
     let currentPageHeight = 0;
 
     sections.forEach(section => {
-        // A lógica de quebra de página precisa acontecer ANTES de adicionarmos a altura da seção atual.
-        // Primeiro, verificamos se a seção está visível para podermos medir sua altura.
-        if (section.style.display !== 'none') {
-            
-            // Mede a altura da seção atual.
-            const sectionHeight = section.offsetHeight;
+        // --- INÍCIO DA LÓGICA CORRIGIDA ---
 
-            // Se a seção for estourar a página (e não for a primeira coisa na página), criamos uma nova.
-            if (currentPageHeight + sectionHeight > MAX_PAGE_HEIGHT_PX && currentPage.hasChildNodes()) {
+        // 1. PRIMEIRO, anexa a seção à página atual. Agora ela existe no DOM e pode ser medida.
+        currentPage.appendChild(section);
+
+        // 2. SEGUNDO, verifica se a seção está visível para então fazer os cálculos.
+        if (section.style.display !== 'none') {
+            const style = window.getComputedStyle(section);
+            const measuredHeight = section.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
+            const realHeight = measuredHeight / zoomFactor;
+
+            // 3. TERCEIRO, verifica se a seção que acabamos de adicionar estourou o limite.
+            // A condição "currentPage.children.length > 1" impede que uma seção seja movida se ela for a primeira da página, mesmo que seja muito grande.
+            if (currentPageHeight + realHeight > MAX_PAGE_HEIGHT_PX && currentPage.children.length > 1) {
+                
+                // A página estourou. Criamos uma nova página.
                 currentPage = document.createElement('div');
                 currentPage.className = 'preview-page';
                 previewContainer.appendChild(currentPage);
-                currentPageHeight = 0;
+
+                // Movemos a seção que causou o estouro para esta nova página.
+                currentPage.appendChild(section);
+
+                // A altura da nova página começa com a altura desta seção.
+                currentPageHeight = realHeight;
+
+            } else {
+                // A seção coube, então apenas somamos sua altura à contagem da página atual.
+                currentPageHeight += realHeight;
             }
-
-            // Adiciona a altura da seção visível à contagem da página atual.
-            currentPageHeight += sectionHeight;
         }
-
-        // Independentemente de ser visível ou não, SEMPRE adicionamos a seção à página atual.
-        // Isso garante que nenhuma seção seja "perdida" no processo.
-        currentPage.appendChild(section);
+        // Se a seção estiver invisível, ela já foi anexada e simplesmente não fazemos mais nada.
+        // --- FIM DA LÓGICA CORRIGIDA ---
     });
 }
         
