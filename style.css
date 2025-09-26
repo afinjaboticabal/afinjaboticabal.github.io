@@ -1329,7 +1329,7 @@ body {
 
 /* Aumenta o tamanho da janela quando o mouse está sobre ela */
 .guia-square-item:hover {
-    transform: scale(1.05); /* Aumenta a janela em 5% */
+    transform: scale(1.1); /* Aumenta a janela em 5% */
 }
 
 /* --- AJUSTES PARA CELULAR (RESPONSIVIDADE) --- */
