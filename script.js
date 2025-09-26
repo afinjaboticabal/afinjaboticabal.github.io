@@ -218,44 +218,17 @@ function initializeFontDisplays() {
     }
 
     async function gerarPDF() {
-    console.log("Iniciando geração de PDF com a técnica do clone em alta resolução...");
+    console.log("Iniciando geração de PDF com clone e delay de renderização...");
     
     const originalPreview = document.getElementById('preview');
-    // 1. Cria um clone exato do elemento de pré-visualização.
     const clone = originalPreview.cloneNode(true);
 
-    // 2. Estiliza o clone para renderizar fora da tela e em sua resolução total.
     clone.style.zoom = '100%';
     clone.style.transform = 'none';
     clone.style.position = 'absolute';
     clone.style.left = '-9999px';
     clone.style.top = '0px';
     clone.style.width = '700px';
-
-    // ==================================================================
-    //   INÍCIO DA CORREÇÃO (NOVO BLOCO DE CÓDIGO)
-    // ==================================================================
-    // Este bloco corrige as fontes sobrepostas no celular e a fonte errada no desktop.
-    // Ele lê o tamanho real da fonte do elemento original e o aplica no clone.
-    const originalTextElements = originalPreview.querySelectorAll('h2, h3, p');
-    const cloneTextElements = clone.querySelectorAll('h2, h3, p');
-
-    originalTextElements.forEach((el, index) => {
-        const computedStyle = window.getComputedStyle(el);
-        const fontSize = computedStyle.fontSize;
-        const fontFamily = computedStyle.fontFamily;
-        const fontWeight = computedStyle.fontWeight;
-        
-        if (cloneTextElements[index]) {
-            cloneTextElements[index].style.fontSize = fontSize;
-            cloneTextElements[index].style.fontFamily = fontFamily;
-            cloneTextElements[index].style.fontWeight = fontWeight;
-            cloneTextElements[index].style.lineHeight = 'normal'; // Garante o espaçamento correto
-        }
-    });
-    // ==================================================================
-    //   FIM DA CORREÇÃO
-    // ==================================================================
 
     document.body.appendChild(clone);
 
@@ -272,11 +245,30 @@ function initializeFontDisplays() {
         const sections = clone.querySelectorAll('.header, .section');
         let currentY = marginTop;
 
+        // Usamos um loop 'for' tradicional para que o 'await' funcione corretamente
         for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
             if (section.style.display === 'none') { continue; }
             
-            const canvas = await html2canvas(section, { scale: 2, useCORS: true });
+            // ==================================================================
+            //   INÍCIO DA CORREÇÃO (TIMING)
+            // ==================================================================
+            // Criamos uma promessa que espera por um curto período (50ms).
+            // Isso dá ao navegador tempo para renderizar completamente o clone
+            // com todos os seus estilos (bordas, flexbox, etc.) antes da captura.
+            const canvas = await new Promise(resolve => {
+                setTimeout(() => {
+                    html2canvas(section, {
+                        scale: 2,
+                        useCORS: true,
+                        scrollY: -window.scrollY // Melhora a precisão da captura
+                    }).then(resolve);
+                }, 50); // Uma pequena pausa de 50 milissegundos
+            });
+            // ==================================================================
+            //   FIM DA CORREÇÃO
+            // ==================================================================
+
             const imgHeight = canvas.height * usableWidth / canvas.width;
             
             if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
