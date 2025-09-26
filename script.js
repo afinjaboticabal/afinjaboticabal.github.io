@@ -375,34 +375,73 @@ document.addEventListener('DOMContentLoaded', ajustarAlturaPlaylist);
 window.addEventListener('resize', ajustarAlturaPlaylist);
 
 // ===============================================
-//   Bloco 8: ANIMAÇÃO DE SCROLL PARA OS TÓPICOS (MOBILE)
+//   Bloco 8 (VERSÃO AVANÇADA): ANIMAÇÃO PROGRESSIVA DOS TÓPICOS (MOBILE)
 // ===============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Seleciona todas as janelas de tópicos
-    const topicSquares = document.querySelectorAll('.guia-square-item');
 
-    // Só executa o código se existirem janelas de tópicos na página
-    if (topicSquares.length > 0) {
+    // Só executa esta lógica complexa em telas de "celular"
+    if (window.innerWidth <= 768) {
+        
+        const topicSquares = document.querySelectorAll('.guia-square-item');
+        if (topicSquares.length === 0) return; // Sai se não houver tópicos
 
-        // Cria um "observador" que vai vigiar quando as janelas entram e saem da tela
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Se a janela está visível na tela...
-                if (entry.isIntersecting) {
-                    // ...adiciona a classe 'is-active' para ela crescer
-                    entry.target.classList.add('is-active');
-                } else {
-                    // ...caso contrário, remove a classe para ela voltar ao normal
-                    entry.target.classList.remove('is-active');
+        // Função que calcula e aplica a animação
+        function handleScrollAnimation() {
+            const viewportHeight = window.innerHeight;
+
+            topicSquares.forEach(square => {
+                const rect = square.getBoundingClientRect();
+                
+                // Pega a posição do CENTRO do elemento na tela
+                // Um valor de 0 significa que o centro do elemento está no topo da tela
+                // Um valor igual a `viewportHeight` significa que o centro está na base da tela
+                const elementCenterY = rect.top + (rect.height / 2);
+
+                // Converte a posição para a "escala da régua" de 0 a 1 (0 = base, 1 = topo)
+                const positionOnRuler = 1 - (elementCenterY / viewportHeight);
+
+                let scale = 1.0; // Tamanho padrão (sem zoom)
+                const maxScale = 1.05; // O zoom máximo que queremos (5%)
+
+                // Lógica da sua régua de 20-40-60-80
+                // Convertemos para a escala de 0 a 1 (0.2, 0.4, 0.6, 0.8)
+
+                if (positionOnRuler > 0.2 && positionOnRuler < 0.8) {
+                    if (positionOnRuler < 0.4) {
+                        // Fase de "zoom in" (entre 20 e 40)
+                        const progress = (positionOnRuler - 0.2) / (0.4 - 0.2);
+                        scale = 1.0 + (maxScale - 1.0) * progress;
+                    } else if (positionOnRuler >= 0.4 && positionOnRuler <= 0.6) {
+                        // Fase de "zoom máximo" (entre 40 e 60)
+                        scale = maxScale;
+                    } else {
+                        // Fase de "zoom out" (entre 60 e 80)
+                        const progress = (positionOnRuler - 0.6) / (0.8 - 0.6);
+                        scale = maxScale - (maxScale - 1.0) * progress;
+                    }
                 }
+                
+                // Garante que a escala nunca seja menor que 1 ou maior que o máximo
+                scale = Math.max(1.0, Math.min(scale, maxScale));
+
+                // Aplica a transformação de escala diretamente no estilo do elemento
+                square.style.transform = `scale(${scale})`;
             });
-        }, {
-            threshold: 0.6 // A animação dispara quando 60% da janela estiver visível
+        }
+
+        // Otimização: Usa requestAnimationFrame para não sobrecarregar o navegador
+        let isTicking = false;
+        window.addEventListener('scroll', function() {
+            if (!isTicking) {
+                window.requestAnimationFrame(function() {
+                    handleScrollAnimation();
+                    isTicking = false;
+                });
+                isTicking = true;
+            }
         });
 
-        // Pede ao observador para vigiar cada uma das janelas
-        topicSquares.forEach(square => {
-            scrollObserver.observe(square);
-        });
+        // Roda a função uma vez no carregamento da página para definir o estado inicial
+        handleScrollAnimation();
     }
 });
