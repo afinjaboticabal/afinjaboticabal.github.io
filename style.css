@@ -1401,3 +1401,17 @@ body {
     }
 
 }
+
+/* ===================================================================
+   ANIMAÇÃO DE ZOOM PARA AS JANELAS DE TÓPICOS (DESKTOP)
+   =================================================================== */
+
+/* Adiciona uma transição suave para a janela não "pular" de tamanho */
+.guia-square-item {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Aumenta o tamanho da janela quando o mouse está sobre ela */
+.guia-square-item:hover {
+    transform: scale(1.05); /* Aumenta a janela em 5% */
+}
