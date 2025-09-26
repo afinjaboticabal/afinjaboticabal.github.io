@@ -218,22 +218,13 @@ function initializeFontDisplays() {
     }
 
     async function gerarPDF() {
-    console.log("Iniciando geração de PDF com clone e delay de renderização...");
-    
-    const originalPreview = document.getElementById('preview');
-    const clone = originalPreview.cloneNode(true);
-
-    clone.style.zoom = '100%';
-    clone.style.transform = 'none';
-    clone.style.position = 'absolute';
-    clone.style.left = '-9999px';
-    clone.style.top = '0px';
-    clone.style.width = '700px';
-
-    document.body.appendChild(clone);
+    console.log("Iniciando geração de PDF a partir do elemento visível...");
 
     try {
         const { jsPDF } = window.jspdf;
+        // 1. Pega a pré-visualização visível diretamente, como era antes.
+        const preview = document.getElementById('preview');
+
         const pdf = new jsPDF('p', 'mm', 'a4');
         const marginTop = 15;
         const marginBottom = 10;
@@ -242,33 +233,21 @@ function initializeFontDisplays() {
         const usableWidth = pageWidth - (marginHorizontal * 2);
         const pageHeight = pdf.internal.pageSize.getHeight();
         
-        const sections = clone.querySelectorAll('.header, .section');
+        // 2. Encontra as seções dentro do elemento visível.
+        const sections = preview.querySelectorAll('.header, .section');
         let currentY = marginTop;
 
-        // Usamos um loop 'for' tradicional para que o 'await' funcione corretamente
         for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
             if (section.style.display === 'none') { continue; }
             
-            // ==================================================================
-            //   INÍCIO DA CORREÇÃO (TIMING)
-            // ==================================================================
-            // Criamos uma promessa que espera por um curto período (50ms).
-            // Isso dá ao navegador tempo para renderizar completamente o clone
-            // com todos os seus estilos (bordas, flexbox, etc.) antes da captura.
-            const canvas = await new Promise(resolve => {
-                setTimeout(() => {
-                    html2canvas(section, {
-                        scale: 2,
-                        useCORS: true,
-                        scrollY: -window.scrollY // Melhora a precisão da captura
-                    }).then(resolve);
-                }, 50); // Uma pequena pausa de 50 milissegundos
+            // 3. Tira o "print" diretamente da seção visível na página.
+            const canvas = await html2canvas(section, {
+                scale: 2,
+                useCORS: true,
+                scrollY: -window.scrollY // Mantemos esta opção por estabilidade
             });
-            // ==================================================================
-            //   FIM DA CORREÇÃO
-            // ==================================================================
-
+            
             const imgHeight = canvas.height * usableWidth / canvas.width;
             
             if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
@@ -281,9 +260,8 @@ function initializeFontDisplays() {
         pdf.save('curriculo.pdf');
     } catch (error) {
         console.error("ERRO DURANTE A GERAÇÃO DO PDF:", error);
-    } finally {
-        document.body.removeChild(clone);
     }
+    
 }
     
     // Chamar a atualização inicial do preview
