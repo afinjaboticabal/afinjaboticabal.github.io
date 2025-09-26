@@ -1416,6 +1416,8 @@ body {
 
   .page-guia .guia-image-fixed {
         width: 900px; 
+
+  .page-guia .deslocar-imagem {
         transform: translateX(-25px);
     }
 
