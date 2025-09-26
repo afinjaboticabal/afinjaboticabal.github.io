@@ -696,7 +696,14 @@ body {
 /* --- Estilo para as Páginas Virtuais na Pré-visualização --- */
 .preview-page {
     background: #fff;
-    margin-bottom: 25px; /* Espaço entre as páginas */
+    /* O padding cria as margens internas da "folha A4" */
+    padding: 40px; 
+    /* A borda e a sombra devolvem a aparência de uma folha de papel */
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    /* A margem abaixo cria o espaço ENTRE as folhas */
+    margin-bottom: 25px; 
+    box-sizing: border-box;
 }
 
 /* Garante que o primeiro cabeçalho não tenha uma margem estranha no topo da página */
