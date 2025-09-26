@@ -699,7 +699,6 @@ body {
     border: 1px solid #ccc;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-bottom: 25px; /* Espaço entre as páginas */
-    overflow: hidden; /* Garante que a medição de altura seja precisa */
 }
 
 /* Garante que o primeiro cabeçalho não tenha uma margem estranha no topo da página */
