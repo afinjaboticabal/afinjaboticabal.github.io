@@ -1418,4 +1418,16 @@ body {
         transform: translateX(-25px);
     }
 
+  /* --- CORREÇÃO PARA O GERADOR DE CURRÍCULO NO CELULAR --- */
+    .curriculo-container {
+        overflow-x: auto; /* Permite que a área role na horizontal se o conteúdo for maior que a tela */
+        -webkit-overflow-scrolling: touch; /* Melhora a experiência de rolagem em dispositivos Apple */
+    }
+
+    .curriculo-container .curriculo {
+        min-width: 650px; /* Força a prévia a ter uma largura mínima, similar à de um documento */
+        transform: scale(0.98); /* Reduz um pouco o tamanho para caber melhor na tela, mantendo a proporção */
+        transform-origin: top left; /* Garante que o zoom comece do canto superior esquerdo */
+    }
+
 }
