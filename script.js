@@ -236,7 +236,7 @@ function initializeFontDisplays() {
         const previewElementVisivel = document.getElementById(`preview${capSectionId}-visivel`);
         const sectionPreviewContainerVisivel = document.getElementById(`secao${capSectionId}-visivel`);
 
-        if (inputElement && previewElement && sectionPreviewContainer) {
+        if (inputElement && previewElement && sectionPreviewContainer && previewElementVisivel && sectionPreviewContainerVisivel) {
             const valor = inputElement.value;
             const displayValue = valor.trim() === "" ? "none" : "block";
 
