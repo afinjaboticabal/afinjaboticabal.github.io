@@ -1318,6 +1318,20 @@ body {
 .caixa2 { background-image: url('imagens/caixa2.png'); }
 .caixa3 { background-image: url('imagens/caixa3.png'); }
 
+/* ===================================================================
+   ANIMAÇÃO DE ZOOM PARA AS JANELAS DE TÓPICOS (DESKTOP)
+   =================================================================== */
+
+/* Adiciona uma transição suave para a janela não "pular" de tamanho */
+.guia-square-item {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Aumenta o tamanho da janela quando o mouse está sobre ela */
+.guia-square-item:hover {
+    transform: scale(1.05); /* Aumenta a janela em 5% */
+}
+
 /* --- AJUSTES PARA CELULAR (RESPONSIVIDADE) --- */
 @media (max-width: 768px) {
     .content-section h2 {
@@ -1400,18 +1414,13 @@ body {
         width: 900px; 
     }
 
-}
+  .page-guia .guia-image-fixed {
+        width: 900px; 
+    }
 
-/* ===================================================================
-   ANIMAÇÃO DE ZOOM PARA AS JANELAS DE TÓPICOS (DESKTOP)
-   =================================================================== */
+    /* <<< ADICIONE A NOVA REGRA AQUI DENTRO >>> */
+    .guia-square-item.is-active {
+        transform: scale(1.05);
+    }
 
-/* Adiciona uma transição suave para a janela não "pular" de tamanho */
-.guia-square-item {
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Aumenta o tamanho da janela quando o mouse está sobre ela */
-.guia-square-item:hover {
-    transform: scale(1.05); /* Aumenta a janela em 5% */
 }
