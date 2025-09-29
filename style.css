@@ -1445,10 +1445,10 @@ body {
 
 
 /* ===================================================================
-   EFEITO DE LUZ NA PÁGINA GUIA
+   EFEITO DE LUZ NA PÁGINA GUIA (VERSÃO CORRIGIDA)
    =================================================================== */
 
-/* 1. Define a animação de oscilação da luz */
+/* 1. Animação (sem alterações) */
 @keyframes luz-oscilante {
   0%, 100% {
     opacity: 0.7;
@@ -1460,11 +1460,11 @@ body {
   }
 }
 
-/* 2. Cria e estiliza o elemento de luz (NÃO PRECISA MAIS DA REGRA 'main' AQUI) */
+/* 2. O elemento de luz (AGORA COM Z-INDEX POSITIVO) */
 .page-guia main::before {
     content: '';
     position: absolute;
-    z-index: -1;
+    z-index: 1; /* << MUDANÇA IMPORTANTE: Traz a luz para uma camada positiva */
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -1480,13 +1480,14 @@ body {
     filter: blur(60px);
 }
 
-/* 3. Empurra o container da imagem para trás da luz */
+/* 3. A imagem principal (AGORA NA CAMADA 0, ATRÁS DA LUZ) */
 .page-guia .guia-image-container {
     position: relative;
-    z-index: -2;
+    z-index: 0; /* << MUDANÇA IMPORTANTE */
 }
 
-/* REGRA DE TESTE TEMPORÁRIA */
-body.page-guia {
-    border: 10px solid red !important;
+/* 4. O conteúdo de texto (AGORA NA CAMADA 2, NA FRENTE DA LUZ) */
+.page-guia .guia-content-container {
+    position: relative; /* Necessário para o z-index funcionar */
+    z-index: 2; /* << NOVA REGRA: Garante que o texto fique por cima de tudo */
 }
