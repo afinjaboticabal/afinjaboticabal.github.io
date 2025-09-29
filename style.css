@@ -1485,3 +1485,8 @@ body {
     position: relative;
     z-index: -2;
 }
+
+/* REGRA DE TESTE TEMPORÁRIA */
+body.page-guia {
+    border: 10px solid red !important;
+}
