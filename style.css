@@ -1097,6 +1097,13 @@ body {
     color: #333;
     text-align: center;
     margin-bottom: 0px;
+
+    /* Estilos da "janela" adicionados abaixo */
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 15px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: inline-block; /* Faz a janela se ajustar ao tamanho do texto */
 }
 
 .page-guia .content-section {
