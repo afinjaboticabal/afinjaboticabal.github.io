@@ -1071,12 +1071,12 @@ body {
 
 /* 3. Define a imagem da Barra Superior */
 .page-guia .top-bar {
-    background-image: url('imagens/topo-guia.png');
+    background-image: url('imagens/topo-guia2.png');
 }
 
 /* 4. Define a imagem da Barra Inferior */
 .page-guia .bottom-bar {
-    background-image: url('imagens/rodape-guia.png');
+    background-image: url('imagens/rodape-guia2.png');
 }
 
 /* 5. Container principal do conteúdo do guia */
