@@ -1166,7 +1166,7 @@ body {
 
 /* 1. Menu da página GUIA (Marrom) */
 .page-guia .sticky-menu {
-    background-image: linear-gradient(to right, #fbc02d, #ffeb3b, #fbc02d);
+    background-image: linear-gradient(to right,  #ffab00, #ffd600, #ffab00);
     background-size: 200% 100%;
     background-repeat: repeat-x;
     animation: seamless-scroll-200 20s linear infinite;
