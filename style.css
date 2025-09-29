@@ -1466,3 +1466,63 @@ body {
     }
 
 }
+
+/* ===================================================================
+   EFEITO DE LUZ NA PÁGINA GUIA
+   =================================================================== */
+
+/* 1. Define a animação de oscilação da luz */
+@keyframes luz-oscilante {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* 2. Garante que <main> seja um container de posicionamento e esconde
+      qualquer parte da luz que "vaze" para fora da área visível */
+main {
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 3. Cria e estiliza o elemento de luz */
+.page-guia main::before {
+    content: '';
+    position: absolute;
+    z-index: -1; /* Coloca a luz UMA CAMADA atrás do conteúdo de <main> */
+    
+    /* Posicionamento: no centro horizontal, e "subindo" para trás da barra */
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza e puxa metade da altura para cima */
+
+    /* Tamanho e Forma */
+    width: 900px;
+    height: 700px;
+    
+    /* A Mágica da Luz: um gradiente radial que vai de um amarelo claro para transparente */
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 220, 0.6) 0%,   /* Centro da luz: amarelado, quente e claro */
+        rgba(255, 220, 150, 0.3) 40%,  /* Meio da luz: tom mais alaranjado e fraco */
+        transparent 70%                /* Borda: totalmente transparente */
+    );
+    
+    /* Animação */
+    animation: luz-oscilante 7s ease-in-out infinite;
+    
+    /* Efeito extra para suavizar as bordas da luz */
+    filter: blur(60px);
+}
+
+/* 4. Empurra o container da imagem para DUAS CAMADAS atrás,
+      fazendo com que ele fique atrás da luz */
+.page-guia .guia-image-container {
+    position: relative; /* Necessário para o z-index funcionar */
+    z-index: -2;
+}
