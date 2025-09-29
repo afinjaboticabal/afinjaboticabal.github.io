@@ -424,20 +424,27 @@ body {
 
 /* Estilo principal do botão "Página Inicial" */
 #menu-overlay a {
-    background: transparent;      /* Fundo transparente */
-    border: 2px solid black;      /* Contorno preto de 2px */
-    color: white;                 /* Cor da fonte: branca */
-    font-family: 'Comfortaa', sans-serif; /* Fonte Comfortaa */
-    font-weight: 700;             /* Deixei em negrito para melhor leitura */
-    font-size: 1.2rem;            /* Tamanho da fonte */
-    text-decoration: none;        /* Remove o sublinhado do link */
-    padding: 15px 30px;           /* Espaçamento interno do botão */
-    border-radius: 12px;          /* Bordas arredondadas */
-    position: relative;           /* Necessário para a borda colorida funcionar */
+    /* EFEITO DE VIDRO ADICIONADO AQUI */
+    background-color: rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(8px); /* Desfoque mais sutil */
+    backdrop-filter: blur(8px);
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0,0,0,0.15);
+
+    /* O 'border' foi removido para dar espaço à borda animada */
+
+    /* PROPRIEDADES ORIGINAIS MANTIDAS */
+    color: white;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    position: relative;
     text-align: center;
-    width: 80%;                   /* Largura do botão */
-    max-width: 300px;             /* Largura máxima */
-    transition: all 0.2s ease;    /* Transição suave para o hover */
+    width: 80%;
+    max-width: 300px;
+    transition: all 0.2s ease;
 }
 
 /* Efeito ao passar o mouse */
