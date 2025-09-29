@@ -438,6 +438,7 @@ body {
     width: 80%;                   /* Largura do botão */
     max-width: 300px;             /* Largura máxima */
     transition: all 0.2s ease;    /* Transição suave para o hover */
+    gap: 20px;
 }
 
 /* Efeito ao passar o mouse */
