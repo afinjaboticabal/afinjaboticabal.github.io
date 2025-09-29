@@ -24,6 +24,8 @@ body {
 
 main {
     flex-grow: 1;
+    position: relative;
+    overflow-x: hidden;
 }
 
 /* --- FIM DO CARREGAMENTO LOCAL --- */
@@ -1381,41 +1383,26 @@ body {
         flex-direction: column;
         text-align: center;
     }
- /* Diz para a imagem principal crescer e ocupar o espaço livre */
     .portfolio-image {
-        flex-grow: 1;       /* A propriedade principal: faz a imagem se esticar */
-        width: 0;           /* Ajuda o flexbox a calcular o crescimento corretamente */
-        min-width: 150px;   /* Define um tamanho mínimo para a imagem, por segurança */
+        flex-grow: 1;
+        width: 0;
+        min-width: 150px;
     }
-
-    /* Impede que a coluna de ícones seja espremida */
     .social-icons-column {
         flex-shrink: 0;
     }
-  .desktop-only-image {
+    .desktop-only-image {
         display: none;
     }
-    /* =========================================================
-       LAYOUT DO VÍDEO E PLAYLIST P/ CELULAR (VERSÃO FINAL)
-       ========================================================= */
-
-    /* 1. A MUDANÇA PRINCIPAL: Força o container a se tornar um bloco
-       simples, o que obriga seus filhos a se empilharem verticalmente. */
     .page-guia .video-layout-container {
         display: block; 
     }
-
-    /* 2. Adiciona um espaço entre o vídeo e a playlist quando empilhados */
     .page-guia .video-player-column {
         margin-bottom: 25px;
     }
-
-    /* 3. A coluna da playlist tem altura automática (mantido) */
     .page-guia .playlist-column {
         height: auto;
     }
-
-    /* 4. O container da playlist se torna uma "esteira" de rolagem horizontal (mantido) */
     .page-guia .custom-playlist-container {
         display: flex;
         flex-direction: row; 
@@ -1423,8 +1410,6 @@ body {
         overflow-x: auto;    
         padding-bottom: 15px;
     }
-
-    /* 5. Cada item da lista é ajustado para o novo layout (mantido) */
     .page-guia .custom-playlist-item {
         flex-direction: column; 
         flex-shrink: 0;         
@@ -1432,30 +1417,22 @@ body {
         margin-bottom: 0;       
         margin-right: 12px;     
     }
-
-    /* 6. A miniatura (thumbnail) também é ajustada (mantido) */
     .page-guia .playlist-thumbnail {
         width: 140px;          
         height: 79px;          
         margin-right: 0;       
         margin-bottom: 8px;    
     }
-
-    /* 7. O título de cada vídeo é centralizado (mantido) */
     .page-guia .playlist-title {
         text-align: center;
         white-space: normal; 
     }
-
-  .page-guia .guia-image-fixed {
+    .page-guia .guia-image-fixed {
         width: 900px; 
     }
-
-  .page-guia .deslocar-imagem {
+    .page-guia .deslocar-imagem {
         transform: translateX(-25px);
     }
-
-    /* --- Zoom aplicado APENAS na pré-visualização visível --- */
     #preview-visivel {
         width: 700px;
         zoom: 48%;
@@ -1464,6 +1441,8 @@ body {
         margin-top: 30px;
         margin-bottom: 30px; 
     }
+} /* <<< ESTA É A CHAVE QUE FECHA O BLOCO DE CELULAR CORRETAMENTE */
+
 
 /* ===================================================================
    EFEITO DE LUZ NA PÁGINA GUIA
@@ -1481,46 +1460,28 @@ body {
   }
 }
 
-/* 2. Garante que <main> seja um container de posicionamento e esconde
-      qualquer parte da luz que "vaze" para fora da área visível */
-main {
-    position: relative;
-    overflow-x: hidden;
-}
-
-/* 3. Cria e estiliza o elemento de luz */
+/* 2. Cria e estiliza o elemento de luz (NÃO PRECISA MAIS DA REGRA 'main' AQUI) */
 .page-guia main::before {
     content: '';
     position: absolute;
-    z-index: -1; /* Coloca a luz UMA CAMADA atrás do conteúdo de <main> */
-    
-    /* Posicionamento: no centro horizontal, e "subindo" para trás da barra */
+    z-index: -1;
     top: 0;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centraliza e puxa metade da altura para cima */
-
-    /* Tamanho e Forma */
+    transform: translate(-50%, -50%);
     width: 900px;
     height: 700px;
-    
-    /* A Mágica da Luz: um gradiente radial que vai de um amarelo claro para transparente */
     background: radial-gradient(
         circle at center,
-        rgba(255, 255, 220, 0.6) 0%,   /* Centro da luz: amarelado, quente e claro */
-        rgba(255, 220, 150, 0.3) 40%,  /* Meio da luz: tom mais alaranjado e fraco */
-        transparent 70%                /* Borda: totalmente transparente */
+        rgba(255, 255, 220, 0.6) 0%,
+        rgba(255, 220, 150, 0.3) 40%,
+        transparent 70%
     );
-    
-    /* Animação */
     animation: luz-oscilante 7s ease-in-out infinite;
-    
-    /* Efeito extra para suavizar as bordas da luz */
     filter: blur(60px);
 }
 
-/* 4. Empurra o container da imagem para DUAS CAMADAS atrás,
-      fazendo com que ele fique atrás da luz */
+/* 3. Empurra o container da imagem para trás da luz */
 .page-guia .guia-image-container {
-    position: relative; /* Necessário para o z-index funcionar */
+    position: relative;
     z-index: -2;
 }
