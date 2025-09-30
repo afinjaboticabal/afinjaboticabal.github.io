@@ -22,27 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===============================================
-//   NOVO BLOCO: INICIALIZAÇÃO DO VANTA.JS (CELESTIAL)
-// ===============================================
-if (document.getElementById('vanta-bg')) {
-  VANTA.CELESTIAL({
-    el: "#vanta-bg",
-    mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.00,
-    minWidth: 200.00,
-    skyColor: 0xdb9600,       // Cor da "nebulosa" de fundo
-    sunColor: 0xffab00,       // Cor do "sol" principal
-    sunlightColor: 0xffd600,  // Cor dos raios de luz do sol
-    starColor: 0xffffff,      // Cor das estrelas
-    speed: 0.8,
-    scale: 1.0,
-    scaleMobile: 1.0
-  })
-}
-    
-    // ===============================================
     //   Bloco 2: LÓGICA PARA O POP-UP DE COOKIES
     // ===============================================
     const cookiePopup = document.getElementById('cookie-popup');
