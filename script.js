@@ -22,26 +22,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===============================================
-    //   NOVO BLOCO: INICIALIZAÇÃO DO VANTA.JS
-    // ===============================================
-    // Verifica se o elemento #vanta-bg existe na página atual
-    if (document.getElementById('vanta-bg')) {
-      VANTA.FOG({
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        highlightColor: 0xffe66e, // Tom do brilho principal (amarelo claro)
-        midtoneColor: 0xffc300,   // Tom médio (amarelo ouro)
-        lowlightColor: 0xff9800,  // Tom mais escuro (laranja)
-        baseColor: 0xfdf5e6,      // Cor de fundo da sua página
-        blurFactor: 0.60,
-        speed: 1.50,
-        zoom: 0.80
-      });
-    }
+//   NOVO BLOCO: INICIALIZAÇÃO DO VANTA.JS (CELESTIAL)
+// ===============================================
+if (document.getElementById('vanta-bg')) {
+  VANTA.CELESTIAL({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    skyColor: 0xdb9600,       // Cor da "nebulosa" de fundo
+    sunColor: 0xffab00,       // Cor do "sol" principal
+    sunlightColor: 0xffd600,  // Cor dos raios de luz do sol
+    starColor: 0xffffff,      // Cor das estrelas
+    speed: 0.8,
+    scale: 1.0,
+    scaleMobile: 1.0
+  })
+}
     
     // ===============================================
     //   Bloco 2: LÓGICA PARA O POP-UP DE COOKIES
