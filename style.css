@@ -1447,57 +1447,63 @@ body {
 
 
 /* ===================================================================
-   EFEITO DE LUZ NA PÁGINA GUIA (FORTE E POSICIONADO)
+   EFEITO DE LUZ (VERSÃO FINAL COM INTENSIDADE MÁXIMA)
    =================================================================== */
 
-/* 1. Animação de pulsação para a LUZ DE FUNDO */
+/* Regra para a barra do topo fazer parte do sistema de camadas */
+.page-guia .top-bar {
+    position: relative;
+    z-index: 3;
+}
+
+/* Animação de pulsação para a LUZ DE FUNDO */
 @keyframes luz-oscilante {
-  0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  0%, 100% { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 
-/* 2. Animação de pulsação para os RAIOS */
+/* Animação de pulsação para os RAIOS */
 @keyframes raios-pulsando {
   0% { background-size: 110% 110%, 110% 110%, 100% 100%; }
   50% { background-size: 100% 100%, 100% 100%, 100% 100%; }
   100% { background-size: 110% 110%, 110% 110%, 100% 100%; }
 }
 
-/* 3. O elemento de luz com MÚLTIPLAS CAMADAS de gradiente */
+/* O elemento de luz com MÚLTIPLAS CAMADAS de gradiente */
 .page-guia main::before {
     content: '';
     position: absolute;
     z-index: 1;
-    top: -250px; /* << MUDANÇA: Puxa a luz mais para cima ainda */
+    top: -250px;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 900px;
     height: 700px;
 
-    /* Gradientes com intensidade aumentada */
+    /* Gradientes com intensidade máxima (sem transparência) */
     background:
         /* Camada 3 (Topo): Raio Horizontal Forte */
-        radial-gradient(ellipse 100% 20% at center, rgba(255,255,230,0.95), transparent 50%),
+        radial-gradient(ellipse 100% 20% at center, rgba(255,255,230,1), transparent 50%),
         /* Camada 2 (Meio): Raio Vertical Forte */
-        radial-gradient(ellipse 20% 100% at center, rgba(255,255,230,0.95), transparent 50%),
+        radial-gradient(ellipse 20% 100% at center, rgba(255,255,230,1), transparent 50%),
         /* Camada 1 (Fundo): Brilho Suave Principal */
-        radial-gradient(circle at center, rgba(255, 255, 220, 0.9), rgba(255, 220, 150, 0.6), transparent 70%);
+        radial-gradient(circle at center, rgba(255, 255, 220, 1), rgba(255, 220, 150, 0.8), transparent 70%);
 
     /* Animações múltiplas */
     animation:
         luz-oscilante 7s ease-in-out infinite,
         raios-pulsando 4s ease-in-out infinite;
 
-    filter: blur(20px); /* << MUDANÇA: Blur diminuído para raios mais nítidos */
+    filter: none; /* << MUDANÇA: Sem desfoque para máxima nitidez */
 }
 
-/* 4. A imagem principal (sem alterações) */
+/* A imagem principal */
 .page-guia .guia-image-container {
     position: relative;
     z-index: 0;
 }
 
-/* 5. O conteúdo de texto (sem alterações) */
+/* O conteúdo de texto */
 .page-guia .guia-content-container {
     position: relative;
     z-index: 2;
