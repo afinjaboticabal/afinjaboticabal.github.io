@@ -1442,3 +1442,81 @@ body {
         margin-bottom: 30px; 
     }
 } /* <<< ESTA É A CHAVE QUE FECHA O BLOCO DE CELULAR CORRETAMENTE */
+
+/* ===================================================================
+   EFEITO DE FUNDO COM FORMAS FLUTUANTES
+   =================================================================== */
+
+/* 1. O "palco" onde as formas irão viver */
+.formas-fundo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Fica no fundo de tudo */
+  pointer-events: none; /* Não interfere com cliques ou rolagem */
+  overflow: hidden; /* Garante que as formas não criem barras de rolagem */
+}
+
+/* 2. A animação que fará as formas se moverem */
+@keyframes movimento-formas {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.15; /* Opacidade máxima que as formas atingirão */
+  }
+  80% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translate(100px, -150px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* 3. Estilo base para TODAS as formas que criarmos */
+.formas-fundo::before,
+.formas-fundo::after {
+  content: '';
+  position: absolute;
+  background-color: #F39C12; /* Cor base, pode ser alterada por forma */
+  
+  /* Aplica a animação */
+  animation-name: movimento-formas;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* 4. Personalização de CADA forma (aqui a mágica acontece) */
+
+/* Forma 1: Um retângulo grande e lento */
+.formas-fundo::before {
+  width: 200px;
+  height: 100px;
+  background-color: #F1C40F; /* Amarelo mais claro */
+  
+  /* Posição inicial */
+  bottom: -200px; /* Começa fora da tela, embaixo */
+  left: 10%;
+  
+  /* Animação personalizada */
+  animation-duration: 35s;
+}
+
+/* Forma 2: Um quadrado menor e mais rápido */
+.formas-fundo::after {
+  width: 80px;
+  height: 80px;
+  background-color: #E67E22; /* Laranja/dourado escuro */
+  
+  /* Posição inicial */
+  bottom: -150px; /* Começa fora da tela, embaixo */
+  right: 20%;
+  
+  /* Animação personalizada (duração e atraso diferentes) */
+  animation-duration: 25s;
+  animation-delay: -10s; /* Começa a animação em um ponto diferente do ciclo */
+}
