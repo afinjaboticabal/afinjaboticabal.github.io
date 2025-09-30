@@ -1447,12 +1447,12 @@ body {
 
 
 /* ===================================================================
-   EFEITO DE LUZ (VERSÃO POLIDA, MAIS ALTA E INTENSA)
+   EFEITO DE LUZ (VERSÃO COM BLEND-MODE PARA LUZ REALISTA)
    =================================================================== */
 
 /* Animações (sem alteração) */
 @keyframes luz-oscilante {
-  0%, 100% { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
+  0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 @keyframes raios-pulsando {
@@ -1461,7 +1461,7 @@ body {
   100% { background-size: 110% 110%, 110% 110%, 100% 100%; }
 }
 
-/* 1. O ELEMENTO DE LUZ, AGORA ANEXADO AO BODY */
+/* 1. O ELEMENTO DE LUZ, AGORA COM MIX-BLEND-MODE */
 body.page-guia::before {
     content: '';
     position: fixed;
@@ -1469,24 +1469,27 @@ body.page-guia::before {
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1200px;  /* << MUDANÇA: Mais largo */
-    height: 1200px; /* << MUDANÇA: Muito mais alto para se estender pela página */
+    width: 1200px;
+    height: 1200px;
 
-    /* Gradientes retrabalhados para parecer mais com luz */
+    /* Gradientes ajustados para funcionar melhor com o blend-mode */
     background:
-        /* Camada 3 (Topo): Raio Horizontal com hotspot branco */
-        radial-gradient(ellipse 100% 15% at center, rgba(255,255,255,0.9) 10%, rgba(255,255,230,0.7) 30%, transparent 60%),
-        /* Camada 2 (Meio): Raio Vertical com hotspot branco */
-        radial-gradient(ellipse 15% 100% at center, rgba(255,255,255,0.9) 10%, rgba(255,255,230,0.7) 30%, transparent 60%),
-        /* Camada 1 (Fundo): Brilho Suave Principal */
-        radial-gradient(circle at center, rgba(255, 255, 220, 0.8), rgba(255, 220, 150, 0.5) 50%, transparent 80%);
+        /* Raios mais definidos */
+        radial-gradient(ellipse 100% 10% at center, hsl(60, 100%, 80%), transparent 40%),
+        radial-gradient(ellipse 10% 100% at center, hsl(60, 100%, 80%), transparent 40%),
+        /* Brilho suave principal */
+        radial-gradient(circle at center, hsl(55, 100%, 70%), transparent 60%);
 
-    /* Animações múltiplas */
+    /* MUDANÇA PRINCIPAL: MODO DE MISTURA */
+    mix-blend-mode: color-dodge;
+
+    /* Animações */
     animation:
         luz-oscilante 7s ease-in-out infinite,
-        raios-pulsando 4s ease-in-out infinite;
-
-    filter: blur(25px); /* << MUDANÇA: Desfoque de volta para criar a suavidade da luz */
+        raios-pulsando 5s ease-in-out infinite;
+    
+    /* O blur ainda é útil para suavizar, mas não é a estrela principal */
+    filter: blur(5px); 
 }
 
 /* 2. O CONTAINER PRINCIPAL, AGORA NA CAMADA 1 */
