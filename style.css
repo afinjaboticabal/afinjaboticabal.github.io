@@ -1068,6 +1068,7 @@ body {
 
 /* Define a cor de fundo da página */
 .page-guia {
+    position: relative;
     background-color: #FDF5E6; /* Tom de bege claro (Old Lace) */
 }
 
