@@ -1447,7 +1447,7 @@ body {
 
 
 /* ===================================================================
-   EFEITO DE LUZ (VERSÃO FINAL CORRIGIDA E FORTE)
+   EFEITO DE LUZ (VERSÃO POLIDA, MAIS ALTA E INTENSA)
    =================================================================== */
 
 /* Animações (sem alteração) */
@@ -1464,21 +1464,29 @@ body {
 /* 1. O ELEMENTO DE LUZ, AGORA ANEXADO AO BODY */
 body.page-guia::before {
     content: '';
-    position: fixed; /* << MUDANÇA CRUCIAL: Fixa na janela do navegador */
-    z-index: 0;      /* << MUDANÇA: Agora é a camada de fundo */
-    top: 0;          /* << MUDANÇA: Posição simplificada */
+    position: fixed;
+    z-index: 0;
+    top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 900px;
-    height: 700px;
+    width: 1200px;  /* << MUDANÇA: Mais largo */
+    height: 1200px; /* << MUDANÇA: Muito mais alto para se estender pela página */
+
+    /* Gradientes retrabalhados para parecer mais com luz */
     background:
-        radial-gradient(ellipse 100% 20% at center, rgba(255,255,230,1), transparent 50%),
-        radial-gradient(ellipse 20% 100% at center, rgba(255,255,230,1), transparent 50%),
-        radial-gradient(circle at center, rgba(255, 255, 220, 1), rgba(255, 220, 150, 0.8), transparent 70%);
+        /* Camada 3 (Topo): Raio Horizontal com hotspot branco */
+        radial-gradient(ellipse 100% 15% at center, rgba(255,255,255,0.9) 10%, rgba(255,255,230,0.7) 30%, transparent 60%),
+        /* Camada 2 (Meio): Raio Vertical com hotspot branco */
+        radial-gradient(ellipse 15% 100% at center, rgba(255,255,255,0.9) 10%, rgba(255,255,230,0.7) 30%, transparent 60%),
+        /* Camada 1 (Fundo): Brilho Suave Principal */
+        radial-gradient(circle at center, rgba(255, 255, 220, 0.8), rgba(255, 220, 150, 0.5) 50%, transparent 80%);
+
+    /* Animações múltiplas */
     animation:
         luz-oscilante 7s ease-in-out infinite,
         raios-pulsando 4s ease-in-out infinite;
-    filter: none;
+
+    filter: blur(25px); /* << MUDANÇA: Desfoque de volta para criar a suavidade da luz */
 }
 
 /* 2. O CONTAINER PRINCIPAL, AGORA NA CAMADA 1 */
