@@ -1447,64 +1447,42 @@ body {
 
 
 /* ===================================================================
-   EFEITO DE LUZ (VERSÃO FINAL COM INTENSIDADE MÁXIMA)
+   EFEITO DE LUZ (VERSÃO FINAL CORRIGIDA E FORTE)
    =================================================================== */
 
-/* Regra para a barra do topo fazer parte do sistema de camadas */
-.page-guia .top-bar {
-    position: relative;
-    z-index: 3;
-}
-
-/* Animação de pulsação para a LUZ DE FUNDO */
+/* Animações (sem alteração) */
 @keyframes luz-oscilante {
   0%, 100% { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
-
-/* Animação de pulsação para os RAIOS */
 @keyframes raios-pulsando {
   0% { background-size: 110% 110%, 110% 110%, 100% 100%; }
   50% { background-size: 100% 100%, 100% 100%, 100% 100%; }
   100% { background-size: 110% 110%, 110% 110%, 100% 100%; }
 }
 
-/* O elemento de luz com MÚLTIPLAS CAMADAS de gradiente */
-.page-guia main::before {
+/* 1. O ELEMENTO DE LUZ, AGORA ANEXADO AO BODY */
+body.page-guia::before {
     content: '';
-    position: absolute;
-    z-index: 1;
-    top: -250px;
+    position: fixed; /* << MUDANÇA CRUCIAL: Fixa na janela do navegador */
+    z-index: 0;      /* << MUDANÇA: Agora é a camada de fundo */
+    top: 0;          /* << MUDANÇA: Posição simplificada */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 900px;
     height: 700px;
-
-    /* Gradientes com intensidade máxima (sem transparência) */
     background:
-        /* Camada 3 (Topo): Raio Horizontal Forte */
         radial-gradient(ellipse 100% 20% at center, rgba(255,255,230,1), transparent 50%),
-        /* Camada 2 (Meio): Raio Vertical Forte */
         radial-gradient(ellipse 20% 100% at center, rgba(255,255,230,1), transparent 50%),
-        /* Camada 1 (Fundo): Brilho Suave Principal */
         radial-gradient(circle at center, rgba(255, 255, 220, 1), rgba(255, 220, 150, 0.8), transparent 70%);
-
-    /* Animações múltiplas */
     animation:
         luz-oscilante 7s ease-in-out infinite,
         raios-pulsando 4s ease-in-out infinite;
-
-    filter: none; /* << MUDANÇA: Sem desfoque para máxima nitidez */
+    filter: none;
 }
 
-/* A imagem principal */
-.page-guia .guia-image-container {
-    position: relative;
-    z-index: 0;
-}
-
-/* O conteúdo de texto */
-.page-guia .guia-content-container {
-    position: relative;
-    z-index: 2;
+/* 2. O CONTAINER PRINCIPAL, AGORA NA CAMADA 1 */
+.page-guia main {
+    position: relative; /* Mantém a posição para seus filhos */
+    z-index: 1;         /* << MUDANÇA: Coloca o main e todo o seu conteúdo ACIMA da luz */
 }
