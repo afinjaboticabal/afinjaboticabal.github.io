@@ -1445,68 +1445,102 @@ body {
 } /* <<< ESTA É A CHAVE QUE FECHA O BLOCO DE CELULAR CORRETAMENTE */
 
 /* ===================================================================
-   EFEITO DE FUNDO COM FORMAS FLUTUANTES (VERSÃO CORRIGIDA)
+   EFEITO DE FUNDO COM FORMAS FLUTUANTES (VERSÃO COM 5 FORMAS E REGRA DE ALTURA)
    =================================================================== */
 
-/* 1. O "palco" onde as formas irão viver */
+/* O "palco" onde as formas irão viver (sem alterações) */
 .formas-fundo {
-  position: absolute; /* << MUDANÇA CRUCIAL: Para rolar com a página */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* Ocupará a altura total do <body> que agora é relativo */
+  height: 100%;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
 }
 
-/* 2. Animação 1 (sem rotação) */
+/* Animações (sem alterações) */
 @keyframes movimento-formas-1 {
   0% { transform: translate(0, 0); opacity: 0; }
   20% { opacity: 0.15; }
   80% { opacity: 0.15; }
-  100% { transform: translate(50px, -100px); opacity: 0; } /* << ROTAÇÃO REMOVIDA */
+  100% { transform: translate(50px, -100px); opacity: 0; }
 }
-
-/* 3. Animação 2 (para dar variedade, também sem rotação) */
 @keyframes movimento-formas-2 {
   0% { transform: translate(0, 0); opacity: 0; }
-  20% { opacity: 0.1; } /* Um pouco mais sutil */
+  20% { opacity: 0.1; }
   80% { opacity: 0.1; }
-  100% { transform: translate(-80px, -120px); opacity: 0; } /* << ROTAÇÃO REMOVIDA */
+  100% { transform: translate(-80px, -120px); opacity: 0; }
 }
 
-/* 4. Estilo base para TODAS as formas */
+/* Estilo base para TODAS as formas (agora inclui os spans) */
 .formas-fundo::before,
-.formas-fundo::after {
+.formas-fundo::after,
+.formas-fundo span {
   content: '';
   position: absolute;
-  background-color: #F39C12;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-/* 5. Personalização de CADA forma */
+/* Personalização de CADA UMA DAS 5 FORMAS */
 
-/* Forma 1: Um retângulo grande no início da página */
+/* Forma 1 */
 .formas-fundo::before {
-  width: 250px;
-  height: 120px;
+  width: 150px;
+  height: 80px;
   background-color: #F1C40F;
-  top: 15vh; /* << MUDANÇA: Começa a 15% do topo da tela */
-  left: 10%;
+  top: 35%; /* << Todos os 'top' estão entre 30% e 70% */
+  left: 5%;
   animation-name: movimento-formas-1;
   animation-duration: 40s;
 }
 
-/* Forma 2: Um quadrado menor no meio da página */
+/* Forma 2 */
 .formas-fundo::after {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background-color: #E67E22;
-  top: 65vh; /* << MUDANÇA: Começa a 65% do topo da tela */
-  right: 15%;
+  top: 65%;
+  right: 10%;
   animation-name: movimento-formas-2;
   animation-duration: 30s;
   animation-delay: -15s;
+}
+
+/* Forma 3 (o primeiro span) */
+.formas-fundo span:nth-of-type(1) {
+  width: 100px;
+  height: 100px;
+  background-color: #F39C12;
+  top: 40%;
+  right: 25%;
+  animation-name: movimento-formas-2;
+  animation-duration: 50s;
+  animation-delay: -3s;
+}
+
+/* Forma 4 (o segundo span) */
+.formas-fundo span:nth-of-type(2) {
+  width: 180px;
+  height: 60px;
+  background-color: #F1C40F;
+  top: 50%;
+  left: 20%;
+  animation-name: movimento-formas-1;
+  animation-duration: 38s;
+  animation-delay: -20s;
+}
+
+/* Forma 5 (o terceiro span) */
+.formas-fundo span:nth-of-type(3) {
+  width: 40px;
+  height: 40px;
+  background-color: #E67E22;
+  top: 70%;
+  left: 15%;
+  animation-name: movimento-formas-2;
+  animation-duration: 28s;
+  animation-delay: -8s;
 }
