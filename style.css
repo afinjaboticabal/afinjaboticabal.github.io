@@ -1074,24 +1074,12 @@ body {
 /* 3. Define a imagem da Barra Superior */
 .page-guia .top-bar {
     background-image: url('imagens/topo-guia2.png');
-    position: relative;
-    z-index: 3;
 }
 
 /* 4. Define a imagem da Barra Inferior */
 .page-guia .bottom-bar {
     background-image: url('imagens/rodape-guia2.png');
 }
-
-/* Estilo para o fundo animado Vanta.js (Versão Corrigida) */
-#vanta-bg {
-  position: absolute; /* << MUDANÇA: Para que role com a página */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 75vh; /* << MUDANÇA: Ocupa 75% da altura da tela inicial */
-  z-index: 0;
-  pointer-events: none; /* << MUDANÇA CRUCIAL: Libera a rolagem e os cliques */
 
 /* 5. Container principal do conteúdo do guia */
 .guia-content-container {
