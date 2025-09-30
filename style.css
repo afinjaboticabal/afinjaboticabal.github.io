@@ -1445,32 +1445,23 @@ body {
 
 
 /* ===================================================================
-   EFEITO DE LUZ NA PÁGINA GUIA (VERSÃO COM RAIOS OSCILANTES)
+   EFEITO DE LUZ NA PÁGINA GUIA (VERSÃO SIMPLIFICADA COM RAIOS)
    =================================================================== */
 
-/* 1. Animação da LUZ DE FUNDO (sem alterações) */
+/* 1. Animação de pulsação para a LUZ DE FUNDO */
 @keyframes luz-oscilante {
-  0%, 100% {
-    opacity: 0.85;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05);
-  }
+  0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 
-/* 2. NOVA ANIMAÇÃO PARA OS RAIOS */
-@keyframes raios-girando {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+/* 2. NOVA Animação de pulsação para os RAIOS */
+@keyframes raios-pulsando {
+  0% { background-size: 110% 110%, 110% 110%, 100% 100%; }
+  50% { background-size: 100% 100%, 100% 100%, 100% 100%; }
+  100% { background-size: 110% 110%, 110% 110%, 100% 100%; }
 }
 
-/* 3. A LUZ DE FUNDO (::before) - Um pouco mais sutil para os raios se destacarem */
+/* 3. O elemento de luz com MÚLTIPLAS CAMADAS de gradiente */
 .page-guia main::before {
     content: '';
     position: absolute;
@@ -1480,50 +1471,32 @@ body {
     transform: translate(-50%, -50%);
     width: 900px;
     height: 700px;
-    background: radial-gradient(
-        circle at center,
-        rgba(255, 255, 220, 0.7) 0%,   /* << Opacidade levemente reduzida */
-        rgba(255, 220, 150, 0.4) 40%,  /* << Opacidade levemente reduzida */
-        transparent 70%
-    );
-    animation: luz-oscilante 7s ease-in-out infinite;
-    filter: blur(60px);
+
+    /* A mágica acontece aqui: 3 gradientes no mesmo elemento */
+    background:
+        /* Camada 3 (Topo): Raio Horizontal Forte */
+        radial-gradient(ellipse 100% 20% at center, rgba(255,255,230,0.8), transparent 50%),
+        /* Camada 2 (Meio): Raio Vertical Forte */
+        radial-gradient(ellipse 20% 100% at center, rgba(255,255,230,0.8), transparent 50%),
+        /* Camada 1 (Fundo): Brilho Suave Principal */
+        radial-gradient(circle at center, rgba(255, 255, 220, 0.7), rgba(255, 220, 150, 0.4) 40%, transparent 70%);
+
+    /* Animações múltiplas: uma para o elemento, outra para o fundo */
+    animation:
+        luz-oscilante 7s ease-in-out infinite,
+        raios-pulsando 4s ease-in-out infinite;
+
+    filter: blur(30px); /* Blur um pouco menor para dar mais definição aos raios */
 }
 
-/* 4. NOVA CAMADA PARA OS RAIOS DE LUZ (::after) */
-.page-guia main::after {
-    content: '';
-    position: absolute;
-    z-index: 2; /* << Fica em uma camada ACIMA da luz de fundo */
-    top: -180px;
-    left: 50%;
-    width: 1000px; /* Um pouco maior para os raios parecerem mais longos */
-    height: 1000px;
-    
-    /* Múltiplos gradientes lineares para criar o efeito de "raios" */
-    background: 
-        linear-gradient(0deg, transparent, rgba(255,255,220,0.8) 45%, rgba(255,255,220,0.8) 55%, transparent),
-        linear-gradient(45deg, transparent, rgba(255,255,220,0.5) 45%, rgba(255,255,220,0.5) 55%, transparent),
-        linear-gradient(-45deg, transparent, rgba(255,255,220,0.5) 45%, rgba(255,255,220,0.5) 55%, transparent),
-        linear-gradient(90deg, transparent, rgba(255,255,220,0.8) 45%, rgba(255,255,220,0.8) 55%, transparent);
-    
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    
-    /* Animação de rotação contínua */
-    animation: raios-girando 25s linear infinite;
-    filter: blur(5px); /* Um blur bem leve para não deixar as bordas tão duras */
-}
-
-
-/* 5. A imagem principal (sem alterações) */
+/* 4. A imagem principal (sem alterações) */
 .page-guia .guia-image-container {
     position: relative;
     z-index: 0;
 }
 
-/* 6. ATUALIZAÇÃO: Conteúdo agora na camada 3 para ficar sobre os raios */
+/* 5. O conteúdo de texto (voltando para a camada 2) */
 .page-guia .guia-content-container {
     position: relative;
-    z-index: 3; /* << MUDANÇA IMPORTANTE */
+    z-index: 2; /* << VOLTOU PARA 2, pois não temos mais a camada ::after */
 }
