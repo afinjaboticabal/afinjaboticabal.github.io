@@ -1083,6 +1083,16 @@ body {
     background-image: url('imagens/rodape-guia2.png');
 }
 
+/* Estilo para o fundo animado Vanta.js */
+#vanta-bg {
+  position: fixed; /* Fixa o fundo na tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Coloca na camada mais baixa, atrás de todo o conteúdo */
+}
+
 /* 5. Container principal do conteúdo do guia */
 .guia-content-container {
     max-width: 900px;
