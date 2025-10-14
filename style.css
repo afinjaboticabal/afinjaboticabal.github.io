@@ -1445,7 +1445,7 @@ body {
 } /* <<< ESTA É A CHAVE QUE FECHA O BLOCO DE CELULAR CORRETAMENTE */
 
 /* ===================================================================
-   EFEITO DE FUNDO (VERSÃO COM ANIMAÇÃO APRIMORADA E ALEATÓRIA)
+   EFEITO DE FUNDO (VERSÃO COM MAIS VELOCIDADE E VARIEDADE)
    =================================================================== */
 
 /* O "palco" (sem alterações) */
@@ -1460,11 +1460,7 @@ body {
   overflow: hidden;
 }
 
-/* --- NOVAS ANIMAÇÕES INDIVIDUAIS --- */
-
-/* Cada animação tem um fade-in/out mais rápido (10% do tempo)
-   e um tempo de tela maior (de 10% a 90% do ciclo).
-   Cada uma também tem um destino final (transform) diferente. */
+/* --- ANIMAÇÕES INDIVIDUAIS (MAIS RÁPIDAS E SEM ROTAÇÃO) --- */
 
 @keyframes movimento-1 {
   0%   { transform: translate(0, 0); opacity: 0; }
@@ -1501,19 +1497,42 @@ body {
   100% { transform: translate(60px, -120px); opacity: 0; }
 }
 
+/* NOVAS ANIMAÇÕES */
 @keyframes movimento-6 {
-  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  0%   { transform: translate(0, 0); opacity: 0; }
   10%  { opacity: 0.15; }
   90%  { opacity: 0.15; }
-  100% { transform: translate(-80px, 50px) rotate(45deg); opacity: 0; }
+  100% { transform: translate(-90px, 70px); opacity: 0; }
 }
 
 @keyframes movimento-7 {
-  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  0%   { transform: translate(0, 0); opacity: 0; }
   10%  { opacity: 0.1; }
   90%  { opacity: 0.1; }
-  100% { transform: translate(100px, 90px) rotate(-180deg); opacity: 0; }
+  100% { transform: translate(120px, 50px); opacity: 0; }
 }
+
+@keyframes movimento-8 {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.15; }
+  90%  { opacity: 0.15; }
+  100% { transform: translate(-30px, -110px); opacity: 0; }
+}
+
+@keyframes movimento-9 {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.1; }
+  90%  { opacity: 0.1; }
+  100% { transform: translate(100px, -40px); opacity: 0; }
+}
+
+@keyframes movimento-10 {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.15; }
+  90%  { opacity: 0.15; }
+  100% { transform: translate(-100px, -100px); opacity: 0; }
+}
+
 
 /* Estilo base para TODAS as formas (sem alterações) */
 .formas-fundo::before,
@@ -1525,87 +1544,95 @@ body {
   animation-iteration-count: infinite;
 }
 
-/* Personalização de CADA forma, agora com sua própria animação */
+/* Personalização de CADA forma, com velocidades e posições variadas */
 
 /* Forma 1 */
 .formas-fundo::before {
-  width: 150px;
-  height: 80px;
-  background-color: #F1C40F;
-  top: 35%;
-  left: 5%;
-  animation-name: movimento-1; /* << Animação 1 */
-  animation-duration: 25s;
+  width: 150px; height: 80px; background-color: #F1C40F;
+  top: 35%; left: 5%;
+  animation-name: movimento-1;
+  animation-duration: 15s;
 }
 
 /* Forma 2 */
 .formas-fundo::after {
-  width: 50px;
-  height: 50px;
-  background-color: #E67E22;
-  top: 65%;
-  right: 10%;
-  animation-name: movimento-2; /* << Animação 2 */
-  animation-duration: 20s;
-  animation-delay: -10s;
+  width: 50px; height: 50px; background-color: #E67E22;
+  top: 65%; right: 10%;
+  animation-name: movimento-2;
+  animation-duration: 12s;
+  animation-delay: -6s;
 }
 
 /* Forma 3 */
 .formas-fundo span:nth-of-type(1) {
-  width: 100px;
-  height: 100px;
-  background-color: #F39C12;
-  top: 40%;
-  right: 25%;
-  animation-name: movimento-3; /* << Animação 3 */
-  animation-duration: 22s;
+  width: 100px; height: 100px; background-color: #F39C12;
+  top: 40%; right: 25%;
+  animation-name: movimento-3;
+  animation-duration: 14s;
   animation-delay: -3s;
 }
 
 /* Forma 4 */
 .formas-fundo span:nth-of-type(2) {
-  width: 180px;
-  height: 60px;
-  background-color: #F1C40F;
-  top: 50%;
-  left: 20%;
-  animation-name: movimento-4; /* << Animação 4 */
-  animation-duration: 18s;
-  animation-delay: -12s;
+  width: 180px; height: 60px; background-color: #F1C40F;
+  top: 50%; left: 20%;
+  animation-name: movimento-4;
+  animation-duration: 11s;
+  animation-delay: -8s;
 }
 
 /* Forma 5 */
 .formas-fundo span:nth-of-type(3) {
-  width: 40px;
-  height: 40px;
-  background-color: #E67E22;
-  top: 70%;
-  left: 15%;
-  animation-name: movimento-5; /* << Animação 5 */
-  animation-duration: 15s;
-  animation-delay: -5s;
+  width: 40px; height: 40px; background-color: #E67E22;
+  top: 70%; left: 15%;
+  animation-name: movimento-5;
+  animation-duration: 8s;
+  animation-delay: -4s;
 }
+
+/* --- NOVAS FORMAS COM POSIÇÕES E VELOCIDADES DIFERENTES --- */
 
 /* Forma 6 */
 .formas-fundo span:nth-of-type(4) {
-  width: 120px;
-  height: 120px;
-  background-color: #F1C40F;
-  top: 15%;
-  right: 15%;
+  width: 120px; height: 120px; background-color: #F1C40F;
+  top: 15%; right: 15%;
   animation-name: movimento-6;
-  animation-duration: 23s;
+  animation-duration: 13s;
   animation-delay: -2s;
 }
 
 /* Forma 7 */
 .formas-fundo span:nth-of-type(5) {
-  width: 70px;
-  height: 90px;
-  background-color: #F39C12;
-  top: 80%;
-  left: 45%;
+  width: 70px; height: 90px; background-color: #F39C12;
+  top: 80%; left: 45%;
   animation-name: movimento-7;
-  animation-duration: 19s;
+  animation-duration: 12s;
   animation-delay: -7s;
+}
+
+/* Forma 8 */
+.formas-fundo span:nth-of-type(6) {
+  width: 90px; height: 90px; background-color: #E67E22;
+  top: 10%; left: 30%;
+  animation-name: movimento-8;
+  animation-duration: 15s;
+  animation-delay: -1s;
+}
+
+/* Forma 9 */
+.formas-fundo span:nth-of-type(7) {
+  width: 160px; height: 50px; background-color: #F1C40F;
+  top: 85%; right: 35%;
+  animation-name: movimento-9;
+  animation-duration: 10s;
+  animation-delay: -5s;
+}
+
+/* Forma 10 */
+.formas-fundo span:nth-of-type(8) {
+  width: 60px; height: 60px; background-color: #F39C12;
+  top: 25%; left: 55%;
+  animation-name: movimento-10;
+  animation-duration: 14s;
+  animation-delay: -9s;
 }
