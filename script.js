@@ -434,37 +434,45 @@ document.addEventListener('DOMContentLoaded', function() {
         const DURACAO_MOVIMENTO = 6000;
         const DURACAO_FADE = 1000;
 
-        function animarForma(forma) {
-            const posTop = Math.random() * 90;
-            const posLeft = Math.random() * 90;
-            forma.style.top = posTop + '%';
-            forma.style.left = posLeft + '%';
-            forma.style.transform = 'scale(0.5)';
-            forma.style.opacity = '0';
+        // A NOVA FUNÇÃO CORRIGIDA
+    function animarForma(forma) {
+    // ETAPA 1: Define o estado inicial da forma (invisível e fora da tela)
+    const posTop = Math.random() * 90;
+    const posLeft = Math.random() * 90;
+    forma.style.top = posTop + '%';
+    forma.style.left = posLeft + '%';
+    forma.style.transform = 'scale(0.5)';
+    forma.style.opacity = '0';
 
-            void forma.offsetHeight;
-            
+    // ETAPA 2: Dá um "respiro" para o navegador processar o estado inicial.
+    // Um atraso mínimo (20ms) é suficiente para empurrar a animação para o próximo "ciclo" de renderização.
+    setTimeout(() => {
+        // Agora, com o estado inicial garantido, iniciamos a sequência de animação.
+
+        // 2a. A forma aparece na tela
+        forma.style.transform = 'scale(1)';
+        forma.style.opacity = '0.4';
+        
+        // 2b. A forma se move (após ter aparecido)
+        setTimeout(() => {
             const movimentoX = (Math.random() - 0.5) * 150;
             const movimentoY = (Math.random() - 0.5) * 150;
+            forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
+        }, DURACAO_FADE);
 
-            setTimeout(() => {
-                forma.style.transform = 'scale(1)';
-                forma.style.opacity = '0.4';
-            }, 100);
+        // 2c. A forma desaparece (após ter se movido)
+        setTimeout(() => {
+             forma.style.transform = `scale(0.5) translate(${forma.style.transform.split('(')[2].split(')')[0]})`; // Mantém a posição final
+             forma.style.opacity = '0';
+        }, DURACAO_FADE + DURACAO_MOVIMENTO);
 
-            setTimeout(() => {
-                forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
-            }, DURACAO_FADE);
+        // 2d. O ciclo recomeça (após ter desaparecido)
+        setTimeout(() => {
+            animarForma(forma); // Loop
+        }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
 
-            setTimeout(() => {
-                 forma.style.transform = `scale(0.5) translate(${movimentoX}px, ${movimentoY}px)`;
-                 forma.style.opacity = '0';
-            }, DURACAO_FADE + DURACAO_MOVIMENTO);
-
-            setTimeout(() => {
-                animarForma(forma);
-            }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
-        }
+    }, 20); // << Atraso crucial de 20 milissegundos
+}
 
         for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
             const forma = document.createElement('div');
