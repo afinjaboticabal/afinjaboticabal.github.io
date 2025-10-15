@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // =================================================================
     const container = document.querySelector('.formas-fundo');
     if (container) {
-        const NUMERO_DE_FORMAS = 60;
+        const NUMERO_DE_FORMAS = window.innerWidth <= 768 ? 60 : 120;
         const DURACAO_MOVIMENTO = 6000;
         const DURACAO_FADE = 1000;
 
@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
             animarForma(forma); // Loop
         }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
 
-    }, 20); // << Atraso crucial de 20 milissegundos
+    }, 100); // << Atraso crucial de 20 milissegundos
 }
 
         for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
