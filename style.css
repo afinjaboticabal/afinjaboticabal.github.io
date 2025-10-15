@@ -1445,10 +1445,9 @@ body {
 } /* <<< ESTA É A CHAVE QUE FECHA O BLOCO DE CELULAR CORRETAMENTE */
 
 /* ===================================================================
-   EFEITO DE FUNDO (VERSÃO HIPER RÁPIDA COM DURAÇÃO DE 1-5 SEGUNDOS)
+   EFEITO DE FUNDO (CONTROLADO VIA JAVASCRIPT)
    =================================================================== */
 
-/* O "palco" (sem alterações) */
 .formas-fundo {
   position: absolute;
   top: 0;
@@ -1460,57 +1459,15 @@ body {
   overflow: hidden;
 }
 
-/* --- ANIMAÇÕES INDIVIDUAIS (sem alterações) --- */
-
-@keyframes movimento-1 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(40px, -80px); opacity: 0; } }
-@keyframes movimento-2 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(-50px, -100px); opacity: 0; } }
-@keyframes movimento-3 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(80px, -60px); opacity: 0; } }
-@keyframes movimento-4 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(-40px, -90px); opacity: 0; } }
-@keyframes movimento-5 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(60px, -120px); opacity: 0; } }
-@keyframes movimento-6 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-90px, 70px); opacity: 0; } }
-@keyframes movimento-7 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(120px, 50px); opacity: 0; } }
-@keyframes movimento-8 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-30px, -110px); opacity: 0; } }
-@keyframes movimento-9 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(100px, -40px); opacity: 0; } }
-@keyframes movimento-10 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-100px, -100px); opacity: 0; } }
-@keyframes movimento-11 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(70px, 90px); opacity: 0; } }
-@keyframes movimento-12 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-110px, -50px); opacity: 0; } }
-@keyframes movimento-13 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(50px, -130px); opacity: 0; } }
-@keyframes movimento-14 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-130px, 60px); opacity: 0; } }
-@keyframes movimento-15 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(90px, 90px); opacity: 0; } }
-@keyframes movimento-16 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-80px, -80px); opacity: 0; } }
-@keyframes movimento-17 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(110px, -70px); opacity: 0; } }
-@keyframes movimento-18 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-60px, 120px); opacity: 0; } }
-@keyframes movimento-19 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.1; } 90% { opacity: 0.1; } 100% { transform: translate(130px, -30px); opacity: 0; } }
-@keyframes movimento-20 { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translate(-100px, 100px); opacity: 0; } }
-
-/* Estilo base para TODAS as formas */
-.formas-fundo::before,
-.formas-fundo::after,
-.formas-fundo span {
-  content: '';
+.forma-animada {
   position: absolute;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
+  display: block;
+  list-style: none;
+  background-color: rgba(243, 156, 18, 0.15); /* Cor base com opacidade */
 
-/* --- VELOCIDADES AJUSTADAS PARA 1-5 SEGUNDOS --- */
-.formas-fundo::before { width: 150px; height: 80px; background-color: #F1C40F; top: 35%; left: 5%; animation-name: movimento-1; animation-duration: 4s; }
-.formas-fundo::after { width: 50px; height: 50px; background-color: #E67E22; top: 65%; right: 10%; animation-name: movimento-2; animation-duration: 3s; animation-delay: -2s; }
-.formas-fundo span:nth-of-type(1) { width: 100px; height: 100px; background-color: #F39C12; top: 40%; right: 25%; animation-name: movimento-3; animation-duration: 5s; animation-delay: -1s; }
-.formas-fundo span:nth-of-type(2) { width: 180px; height: 60px; background-color: #F1C40F; top: 50%; left: 20%; animation-name: movimento-4; animation-duration: 3s; animation-delay: -3s; }
-.formas-fundo span:nth-of-type(3) { width: 40px; height: 40px; background-color: #E67E22; top: 70%; left: 15%; animation-name: movimento-5; animation-duration: 2s; animation-delay: -1s; }
-.formas-fundo span:nth-of-type(4) { width: 120px; height: 120px; background-color: #F1C40F; top: 15%; right: 15%; animation-name: movimento-6; animation-duration: 4s; }
-.formas-fundo span:nth-of-type(5) { width: 70px; height: 90px; background-color: #F39C12; top: 80%; left: 45%; animation-name: movimento-7; animation-duration: 3s; animation-delay: -2s; }
-.formas-fundo span:nth-of-type(6) { width: 90px; height: 90px; background-color: #E67E22; top: 10%; left: 30%; animation-name: movimento-8; animation-duration: 5s; animation-delay: -4s; }
-.formas-fundo span:nth-of-type(7) { width: 160px; height: 50px; background-color: #F1C40F; top: 85%; right: 35%; animation-name: movimento-9; animation-duration: 2s; animation-delay: -1s; }
-.formas-fundo span:nth-of-type(8) { width: 60px; height: 60px; background-color: #F39C12; top: 25%; left: 55%; animation-name: movimento-10; animation-duration: 4s; animation-delay: -3s; }
-.formas-fundo span:nth-of-type(9) { width: 80px; height: 110px; background-color: #F39C12; top: 5%; left: 10%; animation-name: movimento-11; animation-duration: 3s; animation-delay: -2s; }
-.formas-fundo span:nth-of-type(10) { width: 130px; height: 130px; background-color: #E67E22; top: 90%; left: 25%; animation-name: movimento-12; animation-duration: 5s; }
-.formas-fundo span:nth-of-type(11) { width: 70px; height: 70px; background-color: #F1C40F; top: 20%; right: 5%; animation-name: movimento-13; animation-duration: 2s; animation-delay: -1s; }
-.formas-fundo span:nth-of-type(12) { width: 100px; height: 60px; background-color: #F39C12; top: 60%; right: 40%; animation-name: movimento-14; animation-duration: 4s; animation-delay: -2s; }
-.formas-fundo span:nth-of-type(13) { width: 50px; height: 150px; background-color: #E67E22; top: 75%; left: 5%; animation-name: movimento-15; animation-duration: 3s; animation-delay: -1s; }
-.formas-fundo span:nth-of-type(14) { width: 140px; height: 140px; background-color: #F1C40F; top: 5%; left: 45%; animation-name: movimento-16; animation-duration: 5s; animation-delay: -3s; }
-.formas-fundo span:nth-of-type(15) { width: 90px; height: 90px; background-color: #F39C12; top: 95%; right: 5%; animation-name: movimento-17; animation-duration: 2s; animation-delay: -2s; }
-.formas-fundo span:nth-of-type(16) { width: 110px; height: 80px; background-color: #E67E22; top: 30%; left: 70%; animation-name: movimento-18; animation-duration: 4s; }
-.formas-fundo span:nth-of-type(17) { width: 60px; height: 60px; background-color: #F1C40F; top: 55%; left: 35%; animation-name: movimento-19; animation-duration: 1s; animation-delay: -1s; }
-.formas-fundo span:nth-of-type(18) { width: 150px; height: 70px; background-color: #F39C12; top: 80%; right: 20%; animation-name: movimento-20; animation-duration: 5s; animation-delay: -3s; }
+  /* A MÁGICA ESTÁ AQUI: 
+     Qualquer mudança em 'transform' levará 5s.
+     Qualquer mudança em 'opacity' levará 1s.
+  */
+  transition: transform 5s linear, opacity 1s ease-in-out;
+}
