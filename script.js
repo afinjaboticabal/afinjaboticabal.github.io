@@ -440,65 +440,52 @@ document.addEventListener('DOMContentLoaded', function() {
         const DURACAO_MOVIMENTO = 10000;
         const DURACAO_FADE = 1000;
 
-    // A VERSÃO FINAL E CORRIGIDA com a Web Animations API
     function animarForma(forma) {
     // ETAPA 1: Define o estado inicial da forma (invisível e fora da tela)
     const posTop = Math.random() * 90;
     const posLeft = Math.random() * 90;
     forma.style.top = posTop + '%';
     forma.style.left = posLeft + '%';
-    forma.style.transform = 'scale(0.5)';
     forma.style.opacity = '0';
+    // O transform inicial é zerado para garantir que não haja scale
+    forma.style.transform = 'translate(0, 0)';
 
-    // ETAPA 2: Define os Keyframes (pontos de início e fim) da animação.
-    const keyframesAparecer = [
-        { transform: 'scale(0.5)', opacity: 0 }, // Estado inicial
-        { transform: 'scale(1)', opacity: 0.4 }  // Estado final
-    ];
-    const timingAparecer = {
-        duration: DURACAO_FADE, // 1000ms
-        easing: 'ease-out'
-    };
+    // NOVO: A duração do movimento é recalculada a cada ciclo para evitar sincronização
+    const duracaoMovimentoAleatoria = DURACAO_MOVIMENTO + (Math.random() - 0.5) * 4000; // Varia em +/- 2 segundos
 
-    // ETAPA 3: Executa a primeira animação (aparecer)
-    const animacaoAparecer = forma.animate(keyframesAparecer, timingAparecer);
+    // ETAPA 2: Animação de APARECER (somente opacidade)
+    const animacaoAparecer = forma.animate(
+        [ { opacity: 0 }, { opacity: 0.4 } ], // Keyframes só de opacidade
+        { duration: DURACAO_FADE, easing: 'ease-out' }
+    );
 
-    // ETAPA 4: Quando a primeira animação TERMINAR, executa a segunda (mover).
+    // ETAPA 3: Quando a forma TERMINA de aparecer, ela começa a se mover.
     animacaoAparecer.onfinish = () => {
-        // Aplica o estado final da animação para que não volte ao início
-        forma.style.transform = 'scale(1)';
-        forma.style.opacity = '0.4';
+        forma.style.opacity = '0.4'; // Garante o estado final
 
         const movimentoX = (Math.random() - 0.5) * 150;
         const movimentoY = (Math.random() - 0.5) * 150;
 
-        const keyframesMover = [
-            { transform: `scale(1) translate(0, 0)` },
-            { transform: `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)` }
-        ];
-        const timingMover = {
-            duration: DURACAO_MOVIMENTO, // 10000ms
-            easing: 'linear'
-        };
+        // Animação de MOVER (somente translação, sem scale)
+        const animacaoMover = forma.animate(
+            [
+                { transform: 'translate(0, 0)' },
+                { transform: `translate(${movimentoX}px, ${movimentoY}px)` }
+            ],
+            { duration: duracaoMovimentoAleatoria, easing: 'linear' }
+        );
 
-        const animacaoMover = forma.animate(keyframesMover, timingMover);
-
-        // ETAPA 5: Quando a animação de mover TERMINAR, executa a de sumir.
+        // ETAPA 4: Quando a forma TERMINA de se mover, ela começa a sumir.
         animacaoMover.onfinish = () => {
-            forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
+            forma.style.transform = `translate(${movimentoX}px, ${movimentoY}px)`; // Garante a posição final
 
-            const keyframesSumir = [
-                { opacity: 0.4, transform: forma.style.transform },
-                { opacity: 0, transform: `scale(0.5) translate(${movimentoX}px, ${movimentoY}px)` }
-            ];
-            const timingSumir = {
-                duration: DURACAO_FADE,
-                easing: 'ease-in'
-            };
-
-            const animacaoSumir = forma.animate(keyframesSumir, timingSumir);
+            // Animação de SUMIR (somente opacidade)
+            const animacaoSumir = forma.animate(
+                [ { opacity: 0.4 }, { opacity: 0 } ],
+                { duration: DURACAO_FADE, easing: 'ease-in' }
+            );
             
-            // ETAPA 6: Quando a animação de sumir TERMINAR, reinicia todo o ciclo.
+            // ETAPA 5: Quando a forma TERMINA de sumir, reinicia todo o ciclo.
             animacaoSumir.onfinish = () => {
                 animarForma(forma); // Loop
             };
