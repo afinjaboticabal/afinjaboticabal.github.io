@@ -432,73 +432,72 @@ document.addEventListener('DOMContentLoaded', function() {
     if (container) {
 
         // Adiciona o fade-in de 2s após 4s de espera
-    setTimeout(() => {
-        container.style.opacity = '1';
-    }, 4000);
+        setTimeout(() => {
+            container.style.opacity = '1';
+        }, 4000);
         
         const NUMERO_DE_FORMAS = window.innerWidth <= 768 ? 60 : 120;
         const DURACAO_MOVIMENTO = 10000;
         const DURACAO_FADE = 1000;
 
        // A VERSÃO FINAL E CORRIGIDA com duplo requestAnimationFrame
-function animarForma(forma) {
-    // ETAPA 1: Define o estado inicial da forma
-    const posTop = Math.random() * 90;
-    const posLeft = Math.random() * 90;
-    forma.style.top = posTop + '%';
-    forma.style.left = posLeft + '%';
-    forma.style.transform = 'scale(0.5)';
-    forma.style.opacity = '0';
+        function animarForma(forma) {
+            // ETAPA 1: Define o estado inicial da forma
+            const posTop = Math.random() * 90;
+            const posLeft = Math.random() * 90;
+            forma.style.top = posTop + '%';
+            forma.style.left = posLeft + '%';
+            forma.style.transform = 'scale(0.5)';
+            forma.style.opacity = '0';
 
-    // ETAPA 2: Pede ao navegador para, no próximo frame, se preparar para animar.
-    requestAnimationFrame(() => {
-        // ETAPA 3: Pede novamente para, no frame SEGUINTE, executar a animação.
-        // Isso garante 100% que o estado da ETAPA 1 foi renderizado primeiro.
-        requestAnimationFrame(() => {
-            // ETAPA 4: Inicia a animação de "aparecer".
-            forma.style.transform = 'scale(1)';
-            forma.style.opacity = '0.4';
+            // ETAPA 2: Pede ao navegador para, no próximo frame, se preparar para animar.
+            requestAnimationFrame(() => {
+                // ETAPA 3: Pede novamente para, no frame SEGUINTE, executar a animação.
+                // Isso garante 100% que o estado da ETAPA 1 foi renderizado primeiro.
+                requestAnimationFrame(() => {
+                    // ETAPA 4: Inicia a animação de "aparecer".
+                    forma.style.transform = 'scale(1)';
+                    forma.style.opacity = '0.4';
 
-            // O resto da lógica de tempo continua normalmente.
+                    // O resto da lógica de tempo continua normalmente.
+                    setTimeout(() => {
+                        const movimentoX = (Math.random() - 0.5) * 150;
+                        const movimentoY = (Math.random() - 0.5) * 150;
+                        forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
+                    }, DURACAO_FADE);
+
+                    setTimeout(() => {
+                         // Pequena correção para manter a posição final ao sumir
+                         const currentTransform = window.getComputedStyle(forma).transform;
+                         const matrix = new DOMMatrix(currentTransform);
+                         forma.style.transform = `translate(${matrix.e}px, ${matrix.f}px) scale(0.5)`;
+                         forma.style.opacity = '0';
+                    }, DURACAO_FADE + DURACAO_MOVIMENTO);
+
+                    setTimeout(() => {
+                        animarForma(forma); // Loop para recomeçar
+                    }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
+                });
+            });
+        }
+
+        // O loop que cria e inicia a animação para cada forma
+        for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
+            const forma = document.createElement('div');
+            forma.classList.add('forma-animada');
+
+            const tamanho = Math.random() * 100 + 20;
+            forma.style.width = `${tamanho}px`;
+            forma.style.height = `${tamanho}px`;
+            const cores = ['rgba(241, 196, 15, 0.4)', 'rgba(230, 126, 34, 0.4)', 'rgba(243, 156, 18, 0.4)'];
+            forma.style.backgroundColor = cores[i % cores.length];
+
+            container.appendChild(forma);
+            
+            // O atraso interno continua funcionando, garantindo o aparecimento gradual
             setTimeout(() => {
-                const movimentoX = (Math.random() - 0.5) * 150;
-                const movimentoY = (Math.random() - 0.5) * 150;
-                forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
-            }, DURACAO_FADE);
-
-            setTimeout(() => {
-                 // Pequena correção para manter a posição final ao sumir
-                 const currentTransform = window.getComputedStyle(forma).transform;
-                 const matrix = new DOMMatrix(currentTransform);
-                 forma.style.transform = `translate(${matrix.e}px, ${matrix.f}px) scale(0.5)`;
-                 forma.style.opacity = '0';
-            }, DURACAO_FADE + DURACAO_MOVIMENTO);
-
-            setTimeout(() => {
-                animarForma(forma); // Loop para recomeçar
-            }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
-        });
-    });
-}
-
-// ... (início do Bloco 9) ...
-
-            // O loop que cria e inicia a animação para cada forma
-            for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
-                const forma = document.createElement('div');
-                forma.classList.add('forma-animada');
-
-                const tamanho = Math.random() * 100 + 20;
-                forma.style.width = `${tamanho}px`;
-                forma.style.height = `${tamanho}px`;
-                const cores = ['rgba(241, 196, 15, 0.4)', 'rgba(230, 126, 34, 0.4)', 'rgba(243, 156, 18, 0.4)'];
-                forma.style.backgroundColor = cores[i % cores.length];
-
-                container.appendChild(forma);
-                
-                // O atraso interno continua funcionando, garantindo o aparecimento gradual
-                setTimeout(() => {
-                    animarForma(forma);
-                }, i * 200);
-            }
+                animarForma(forma);
+            }, i * 200);
+        }
     }
+});
