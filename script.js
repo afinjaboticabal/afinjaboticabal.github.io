@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.formas-fundo');
     if (container) {
         const NUMERO_DE_FORMAS = window.innerWidth <= 768 ? 60 : 120;
-        const DURACAO_MOVIMENTO = 6000;
+        const DURACAO_MOVIMENTO = 10000;
         const DURACAO_FADE = 1000;
 
         // A NOVA FUNÇÃO CORRIGIDA
