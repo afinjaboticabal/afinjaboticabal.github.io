@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Adiciona o fade-in de 2s após 4s de espera
         setTimeout(() => {
             container.style.opacity = '1';
-        }, 4000);
+        }, 1000);
         
         const NUMERO_DE_FORMAS = window.innerWidth <= 768 ? 60 : 120;
         const DURACAO_MOVIMENTO = 10000;
