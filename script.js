@@ -440,46 +440,71 @@ document.addEventListener('DOMContentLoaded', function() {
         const DURACAO_MOVIMENTO = 10000;
         const DURACAO_FADE = 1000;
 
-       // A VERSÃO FINAL E CORRIGIDA com duplo requestAnimationFrame
-        function animarForma(forma) {
-            // ETAPA 1: Define o estado inicial da forma
-            const posTop = Math.random() * 90;
-            const posLeft = Math.random() * 90;
-            forma.style.top = posTop + '%';
-            forma.style.left = posLeft + '%';
-            forma.style.transform = 'scale(0.5)';
-            forma.style.opacity = '0';
+    // A VERSÃO FINAL E CORRIGIDA com a Web Animations API
+    function animarForma(forma) {
+    // ETAPA 1: Define o estado inicial da forma (invisível e fora da tela)
+    const posTop = Math.random() * 90;
+    const posLeft = Math.random() * 90;
+    forma.style.top = posTop + '%';
+    forma.style.left = posLeft + '%';
+    forma.style.transform = 'scale(0.5)';
+    forma.style.opacity = '0';
 
-            // ETAPA 2: Pede ao navegador para, no próximo frame, se preparar para animar.
-            requestAnimationFrame(() => {
-                // ETAPA 3: Pede novamente para, no frame SEGUINTE, executar a animação.
-                // Isso garante 100% que o estado da ETAPA 1 foi renderizado primeiro.
-                requestAnimationFrame(() => {
-                    // ETAPA 4: Inicia a animação de "aparecer".
-                    forma.style.transform = 'scale(1)';
-                    forma.style.opacity = '0.4';
+    // ETAPA 2: Define os Keyframes (pontos de início e fim) da animação.
+    const keyframesAparecer = [
+        { transform: 'scale(0.5)', opacity: 0 }, // Estado inicial
+        { transform: 'scale(1)', opacity: 0.4 }  // Estado final
+    ];
+    const timingAparecer = {
+        duration: DURACAO_FADE, // 1000ms
+        easing: 'ease-out'
+    };
 
-                    // O resto da lógica de tempo continua normalmente.
-                    setTimeout(() => {
-                        const movimentoX = (Math.random() - 0.5) * 150;
-                        const movimentoY = (Math.random() - 0.5) * 150;
-                        forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
-                    }, DURACAO_FADE);
+    // ETAPA 3: Executa a primeira animação (aparecer)
+    const animacaoAparecer = forma.animate(keyframesAparecer, timingAparecer);
 
-                    setTimeout(() => {
-                         // Pequena correção para manter a posição final ao sumir
-                         const currentTransform = window.getComputedStyle(forma).transform;
-                         const matrix = new DOMMatrix(currentTransform);
-                         forma.style.transform = `translate(${matrix.e}px, ${matrix.f}px) scale(0.5)`;
-                         forma.style.opacity = '0';
-                    }, DURACAO_FADE + DURACAO_MOVIMENTO);
+    // ETAPA 4: Quando a primeira animação TERMINAR, executa a segunda (mover).
+    animacaoAparecer.onfinish = () => {
+        // Aplica o estado final da animação para que não volte ao início
+        forma.style.transform = 'scale(1)';
+        forma.style.opacity = '0.4';
 
-                    setTimeout(() => {
-                        animarForma(forma); // Loop para recomeçar
-                    }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
-                });
-            });
-        }
+        const movimentoX = (Math.random() - 0.5) * 150;
+        const movimentoY = (Math.random() - 0.5) * 150;
+
+        const keyframesMover = [
+            { transform: `scale(1) translate(0, 0)` },
+            { transform: `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)` }
+        ];
+        const timingMover = {
+            duration: DURACAO_MOVIMENTO, // 10000ms
+            easing: 'linear'
+        };
+
+        const animacaoMover = forma.animate(keyframesMover, timingMover);
+
+        // ETAPA 5: Quando a animação de mover TERMINAR, executa a de sumir.
+        animacaoMover.onfinish = () => {
+            forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
+
+            const keyframesSumir = [
+                { opacity: 0.4, transform: forma.style.transform },
+                { opacity: 0, transform: `scale(0.5) translate(${movimentoX}px, ${movimentoY}px)` }
+            ];
+            const timingSumir = {
+                duration: DURACAO_FADE,
+                easing: 'ease-in'
+            };
+
+            const animacaoSumir = forma.animate(keyframesSumir, timingSumir);
+            
+            // ETAPA 6: Quando a animação de sumir TERMINAR, reinicia todo o ciclo.
+            animacaoSumir.onfinish = () => {
+                animarForma(forma); // Loop
+            };
+        };
+    };
+}
 
         // O loop que cria e inicia a animação para cada forma
         for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
