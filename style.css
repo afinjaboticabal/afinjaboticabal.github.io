@@ -1465,9 +1465,4 @@ body {
   position: absolute;
   display: block;
   list-style: none;
-
-  /* AJUSTE PRINCIPAL: 
-     A transição do movimento agora leva 6s para combinar com o JS.
-  */
-  transition: transform 10s linear, opacity 1s ease-in-out;
 }
