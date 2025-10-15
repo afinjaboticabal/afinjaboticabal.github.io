@@ -494,10 +494,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             container.appendChild(forma);
             
-            // O atraso interno continua funcionando, garantindo o aparecimento gradual
-            setTimeout(() => {
-                animarForma(forma);
-            }, i * 200);
+            // AGORA, a animação de cada forma é chamada IMEDIATAMENTE.
+            // Isso força o "carregamento instantâneo" de todas elas.
+            animarForma(forma); // <<<<<<< AQUI ESTÁ A MUDANÇA
         }
     }
 });
