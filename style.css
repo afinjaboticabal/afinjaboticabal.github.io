@@ -1463,11 +1463,10 @@ body {
   position: absolute;
   display: block;
   list-style: none;
-  background-color: rgba(243, 156, 18, 0.15); /* Cor base com opacidade */
 
-  /* A MÁGICA ESTÁ AQUI: 
-     Qualquer mudança em 'transform' levará 5s.
-     Qualquer mudança em 'opacity' levará 1s.
+  /* A MÁGICA ATUALIZADA: 
+     A mudança de posição ('transform') agora levará 8 segundos.
+     A mudança de opacidade ('opacity') continua levando 1 segundo.
   */
-  transition: transform 5s linear, opacity 1s ease-in-out;
+  transition: transform 8s linear, opacity 1s ease-in-out;
 }
