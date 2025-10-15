@@ -1467,5 +1467,5 @@ body {
   /* AJUSTE PRINCIPAL: 
      A transição do movimento agora leva 6s para combinar com o JS.
   */
-  transition: transform 6s linear, opacity 1s ease-in-out;
+  transition: transform 10s linear, opacity 1s ease-in-out;
 }
