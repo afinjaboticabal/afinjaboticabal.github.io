@@ -434,8 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const DURACAO_MOVIMENTO = 10000;
         const DURACAO_FADE = 1000;
 
-        // A NOVA FUNÇÃO CORRIGIDA
-    // A VERSÃO FINAL COM requestAnimationFrame
+       // A VERSÃO FINAL E CORRIGIDA com duplo requestAnimationFrame
 function animarForma(forma) {
     // ETAPA 1: Define o estado inicial da forma
     const posTop = Math.random() * 90;
@@ -445,45 +444,59 @@ function animarForma(forma) {
     forma.style.transform = 'scale(0.5)';
     forma.style.opacity = '0';
 
-    // ETAPA 2: Pede ao navegador para, na próxima pintura de tela, iniciar a animação.
+    // ETAPA 2: Pede ao navegador para, no próximo frame, se preparar para animar.
     requestAnimationFrame(() => {
-        // Esta etapa garante que o navegador já processou o estado inicial da ETAPA 1.
-        
-        // ETAPA 3: Inicia a animação de "aparecer".
-        forma.style.transform = 'scale(1)';
-        forma.style.opacity = '0.4';
+        // ETAPA 3: Pede novamente para, no frame SEGUINTE, executar a animação.
+        // Isso garante 100% que o estado da ETAPA 1 foi renderizado primeiro.
+        requestAnimationFrame(() => {
+            // ETAPA 4: Inicia a animação de "aparecer".
+            forma.style.transform = 'scale(1)';
+            forma.style.opacity = '0.4';
 
-        // O resto da lógica de animação continua com setTimeout, pois
-        // o problema crítico do "salto" inicial já foi resolvido.
-        setTimeout(() => {
-            const movimentoX = (Math.random() - 0.5) * 150;
-            const movimentoY = (Math.random() - 0.5) * 150;
-            forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
-        }, DURACAO_FADE);
+            // O resto da lógica de tempo continua normalmente.
+            setTimeout(() => {
+                const movimentoX = (Math.random() - 0.5) * 150;
+                const movimentoY = (Math.random() - 0.5) * 150;
+                forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
+            }, DURACAO_FADE);
 
-        setTimeout(() => {
-             forma.style.transform = `scale(0.5) translate(${forma.style.transform.split('(')[2].split(')')[0]})`;
-             forma.style.opacity = '0';
-        }, DURACAO_FADE + DURACAO_MOVIMENTO);
+            setTimeout(() => {
+                 // Pequena correção para manter a posição final ao sumir
+                 const currentTransform = window.getComputedStyle(forma).transform;
+                 const matrix = new DOMMatrix(currentTransform);
+                 forma.style.transform = `translate(${matrix.e}px, ${matrix.f}px) scale(0.5)`;
+                 forma.style.opacity = '0';
+            }, DURACAO_FADE + DURACAO_MOVIMENTO);
 
-        setTimeout(() => {
-            animarForma(forma); // Loop para recomeçar
-        }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
+            setTimeout(() => {
+                animarForma(forma); // Loop para recomeçar
+            }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
+        });
     });
 }
 
-        for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
-            const forma = document.createElement('div');
-            forma.classList.add('forma-animada');
-            const tamanho = Math.random() * 100 + 20;
-            forma.style.width = `${tamanho}px`;
-            forma.style.height = `${tamanho}px`;
-            const cores = ['rgba(241, 196, 15, 0.4)', 'rgba(230, 126, 34, 0.4)', 'rgba(243, 156, 18, 0.4)'];
-            forma.style.backgroundColor = cores[i % cores.length];
-            container.appendChild(forma);
-            setTimeout(() => {
-                animarForma(forma);
-            }, i * 200);
-        }
+// ... (início do Bloco 9) ...
+
+        // Atraso inicial de 3 segundos antes de começar a criar as formas
+        setTimeout(() => {
+            // O loop que cria e inicia a animação para cada forma
+            for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
+                const forma = document.createElement('div');
+                forma.classList.add('forma-animada');
+
+                const tamanho = Math.random() * 100 + 20;
+                forma.style.width = `${tamanho}px`;
+                forma.style.height = `${tamanho}px`;
+                const cores = ['rgba(241, 196, 15, 0.4)', 'rgba(230, 126, 34, 0.4)', 'rgba(243, 156, 18, 0.4)'];
+                forma.style.backgroundColor = cores[i % cores.length];
+
+                container.appendChild(forma);
+                
+                // O atraso interno continua funcionando, garantindo o aparecimento gradual
+                setTimeout(() => {
+                    animarForma(forma);
+                }, i * 200);
+            }
+        }, 3000); // 3000 milissegundos = 3 segundos
     }
 });
