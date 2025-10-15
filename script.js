@@ -430,6 +430,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // =================================================================
     const container = document.querySelector('.formas-fundo');
     if (container) {
+
+        // Adiciona o fade-in de 2s após 4s de espera
+    setTimeout(() => {
+        container.style.opacity = '1';
+    }, 4000);
+        
         const NUMERO_DE_FORMAS = window.innerWidth <= 768 ? 60 : 120;
         const DURACAO_MOVIMENTO = 10000;
         const DURACAO_FADE = 1000;
@@ -477,8 +483,6 @@ function animarForma(forma) {
 
 // ... (início do Bloco 9) ...
 
-        // Atraso inicial de 3 segundos antes de começar a criar as formas
-        setTimeout(() => {
             // O loop que cria e inicia a animação para cada forma
             for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
                 const forma = document.createElement('div');
@@ -497,6 +501,4 @@ function animarForma(forma) {
                     animarForma(forma);
                 }, i * 200);
             }
-        }, 3000); // 3000 milissegundos = 3 segundos
     }
-});
