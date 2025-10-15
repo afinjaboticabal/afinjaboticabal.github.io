@@ -574,87 +574,66 @@ document.addEventListener('DOMContentLoaded', function() {
         // Roda a função uma vez no carregamento da página para definir o estado inicial
         handleScrollAnimation();
     }
-});
+}
 
-// =================================================================
-//   Bloco 9 (CORRIGIDO): ANIMAÇÃO DE FUNDO ALEATÓRIA E COM LOOP
-// =================================================================
-document.addEventListener('DOMContentLoaded', function() {
+ // =================================================================
+    //   Bloco 9: ANIMAÇÃO DE FUNDO (VERSÃO FINAL E AJUSTADA)
+    // =================================================================
     const container = document.querySelector('.formas-fundo');
-    if (!container) return;
+    if (container) {
+        // --- PARÂMETROS AJUSTADOS ---
+        const NUMERO_DE_FORMAS = 20;
+        const DURACAO_MOVIMENTO = 6000; // 6 segundos (mais rápido)
+        const DURACAO_FADE = 1000;      // 1 segundo para aparecer/desaparecer
 
-    // --- CONFIGURAÇÕES ---
-    const NUMERO_DE_FORMAS = 20; // Total de formas na tela.
-    // Duração da animação de movimento em milissegundos. 
-    // A forma ficará visível por este tempo. Aumente se quiser que dure mais.
-    const DURACAO_MOVIMENTO = 8000; // 8 segundos
-    const DURACAO_FADE = 1000; // 1 segundo para aparecer/desaparecer
+        function animarForma(forma) {
+            const posTop = Math.random() * 90;
+            const posLeft = Math.random() * 90;
 
-    // Função principal que anima uma única forma em um ciclo infinito
-    function animarForma(forma) {
+            forma.style.top = posTop + '%';
+            forma.style.left = posLeft + '%';
+            forma.style.transform = 'scale(0.5)';
+            forma.style.opacity = '0';
 
-        // 1. Gera uma posição inicial aleatória
-        const posTop = Math.random() * 90;
-        const posLeft = Math.random() * 90;
+            const movimentoX = (Math.random() - 0.5) * 150;
+            const movimentoY = (Math.random() - 0.5) * 150;
 
-        // 2. Define o estado inicial (invisível e no novo local aleatório)
-        forma.style.top = posTop + '%';
-        forma.style.left = posLeft + '%';
-        forma.style.transform = 'scale(0.5)';
-        forma.style.opacity = '0';
+            setTimeout(() => {
+                forma.style.transform = 'scale(1)';
+                forma.style.opacity = '0.4'; // Mais visível
+            }, 100);
 
-        // 3. Define o destino do movimento
-        const movimentoX = (Math.random() - 0.5) * 150;
-        const movimentoY = (Math.random() - 0.5) * 150;
+            setTimeout(() => {
+                forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
+            }, DURACAO_FADE);
 
-        // ORQUESTRAÇÃO DAS ANIMAÇÕES COM TIMEOUTS
+            setTimeout(() => {
+                 forma.style.transform = `scale(0.5) translate(${movimentoX}px, ${movimentoY}px)`;
+                 forma.style.opacity = '0';
+            }, DURACAO_FADE + DURACAO_MOVIMENTO);
 
-        // ETAPA A: FAZ A FORMA APARECER
-        // Um pequeno atraso para o navegador registrar o estado inicial antes de animar
-        setTimeout(() => {
-            forma.style.transform = 'scale(1)';
-            forma.style.opacity = '0.15';
-        }, 100);
+            setTimeout(() => {
+                animarForma(forma);
+            }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
+        }
 
-        // ETAPA B: FAZ A FORMA SE MOVER
-        // Isso acontece depois que a forma já apareceu (após DURACAO_FADE)
-        setTimeout(() => {
-            forma.style.transform = `scale(1.2) translate(${movimentoX}px, ${movimentoY}px)`;
-        }, DURACAO_FADE);
+        for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
+            const forma = document.createElement('div');
+            forma.classList.add('forma-animada');
 
-        // ETAPA C: FAZ A FORMA DESAPARECER
-        // Isso acontece no final do movimento
-        setTimeout(() => {
-             forma.style.transform = `scale(0.5) translate(${movimentoX}px, ${movimentoY}px)`;
-             forma.style.opacity = '0';
-        }, DURACAO_FADE + DURACAO_MOVIMENTO);
+            const tamanho = Math.random() * 100 + 20;
+            forma.style.width = `${tamanho}px`;
+            forma.style.height = `${tamanho}px`;
+            // Cores mais visíveis
+            const cores = ['rgba(241, 196, 15, 0.4)', 'rgba(230, 126, 34, 0.4)', 'rgba(243, 156, 18, 0.4)'];
+            forma.style.backgroundColor = cores[i % cores.length];
 
-        // ETAPA D: REINICIA O CICLO
-        // Quando todo o ciclo termina, a função chama a si mesma para começar de novo
-        // em um novo local aleatório.
-        setTimeout(() => {
-            animarForma(forma);
-        }, DURACAO_FADE + DURACAO_MOVIMENTO + DURACAO_FADE);
+            container.appendChild(forma);
+            // Início mais rápido para todas as formas
+            setTimeout(() => {
+                animarForma(forma);
+            }, i * 200);
+        }
     }
 
-    // --- INICIALIZAÇÃO ---
-    // Cria as 20 formas e inicia a animação de cada uma com um atraso
-    for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
-        const forma = document.createElement('div');
-        forma.classList.add('forma-animada');
-
-        // Define tamanhos e cores aleatórios
-        const tamanho = Math.random() * 100 + 20;
-        forma.style.width = `${tamanho}px`;
-        forma.style.height = `${tamanho}px`;
-        const cores = ['rgba(241, 196, 15, 0.2)', 'rgba(230, 126, 34, 0.2)', 'rgba(243, 156, 18, 0.2)'];
-        forma.style.backgroundColor = cores[i % cores.length];
-
-        container.appendChild(forma);
-
-        // Inicia a animação para cada forma com um atraso diferente para não começarem todas juntas
-        setTimeout(() => {
-            animarForma(forma);
-        }, i * 500); // Atraso de meio segundo entre o início de cada forma
-    }
 });
