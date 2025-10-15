@@ -1457,6 +1457,8 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
 }
 
 .forma-animada {
