@@ -494,9 +494,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             container.appendChild(forma);
             
-            // AGORA, a animação de cada forma é chamada IMEDIATAMENTE.
-            // Isso força o "carregamento instantâneo" de todas elas.
-            animarForma(forma); // <<<<<<< AQUI ESTÁ A MUDANÇA
+            // GERA UM ATRASO INICIAL ALEATÓRIO PARA CADA FORMA
+            // Um valor entre 0 e 10 segundos (10000ms) é ideal para espalhar bem as animações.
+            const atrasoInicialAleatorio = Math.random() * 10000; 
+
+            // Inicia a animação de cada forma após seu atraso aleatório único.
+            setTimeout(() => {
+                animarForma(forma);
+            }, atrasoInicialAleatorio);
         }
     }
 });
