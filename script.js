@@ -575,3 +575,119 @@ document.addEventListener('DOMContentLoaded', function() {
         handleScrollAnimation();
     }
 });
+
+// ===============================================
+//   Bloco 9: ANIMAÇÃO DE FUNDO ALEATÓRIA E DINÂMICA
+// ===============================================
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.formas-fundo');
+
+    // Se a página não tiver o container de fundo, não faz nada.
+    if (!container) return;
+
+    // --- CONFIGURAÇÕES ---
+    const NUMERO_DE_FORMAS = 20; // Quantas formas você quer na tela
+    const DISTANCIA_MINIMA = 15; // Em porcentagem da tela. Evita que as formas fiquem muito coladas.
+
+    const posicoesAtuais = [];
+    const formas = [];
+
+    // Função que verifica se uma nova posição está muito perto de outras já existentes
+    function isPosicaoValida(novaPos, posicoes) {
+        for (const pos of posicoes) {
+            const a = novaPos.left - pos.left;
+            const b = novaPos.top - pos.top;
+            // Usando o Teorema de Pitágoras para calcular a distância
+            const distancia = Math.sqrt(a * a + b * b);
+
+            if (distancia < DISTANCIA_MINIMA) {
+                return false; // Posição inválida, está muito perto!
+            }
+        }
+        return true; // Posição válida
+    }
+
+    // Função que gera uma posição aleatória e válida
+    function gerarPosicaoAleatoriaUnica() {
+        let novaPos;
+        let tentativas = 0;
+        do {
+            novaPos = {
+                top: Math.random() * 90,  // de 0 a 90%
+                left: Math.random() * 90 // de 0 a 90%
+            };
+            tentativas++;
+        // Tenta gerar uma nova posição até encontrar uma válida ou atingir 50 tentativas
+        } while (!isPosicaoValida(novaPos, posicoesAtuais) && tentativas < 50);
+        return novaPos;
+    }
+
+    // Função principal que anima uma forma individualmente
+    function animarForma(forma, index) {
+        // 1. Gera uma posição inicial aleatória e válida
+        const posInicial = gerarPosicaoAleatoriaUnica();
+        posicoesAtuais[index] = posInicial;
+
+        // 2. Define o estado inicial da forma (invisível e pequena)
+        forma.style.top = posInicial.top + '%';
+        forma.style.left = posInicial.left + '%';
+        forma.style.transform = 'scale(0) translate(0, 0)';
+        forma.style.opacity = '0';
+
+        // Pequeno atraso para garantir que o CSS aplique o estado inicial
+        setTimeout(() => {
+            // 3. FAZ A FORMA APARECER (animação de opacidade e escala)
+            forma.style.transform = 'scale(1) translate(0, 0)';
+            forma.style.opacity = '0.15';
+        }, 100);
+
+        // 4. Define o tempo de espera antes de iniciar o movimento
+        const tempoDeEspera = Math.random() * 2000; // Espera até 2s
+        setTimeout(() => {
+            // 5. GERA UM DESTINO ALEATÓRIO PARA O MOVIMENTO
+            const movimentoX = (Math.random() - 0.5) * 200; // Move até 100px para qualquer lado
+            const movimentoY = (Math.random() - 0.5) * 200; // Move até 100px para qualquer lado
+
+            // 6. INICIA A ANIMAÇÃO DE MOVIMENTO (a transição do CSS faz a mágica)
+            forma.style.transform = `scale(1) translate(${movimentoX}px, ${movimentoY}px)`;
+        }, tempoDeEspera);
+
+        // 7. Define o tempo para a forma começar a desaparecer
+        // (Deve ser um pouco antes da animação de movimento terminar)
+        const tempoParaSumir = 4000 + tempoDeEspera;
+         setTimeout(() => {
+            // 8. FAZ A FORMA DESAPARECER
+             forma.style.opacity = '0';
+         }, tempoParaSumir);
+
+        // 9. QUANDO A ANIMAÇÃO TERMINA, RECOMEÇA O PROCESSO
+        const duracaoTotalDoCiclo = 6000 + tempoDeEspera; // Duração total + tempo de espera
+        setTimeout(() => {
+            // A função chama a si mesma para criar um loop infinito e aleatório
+            animarForma(forma, index);
+        }, duracaoTotalDoCiclo);
+    }
+
+    // --- INICIALIZAÇÃO ---
+    // Cria as formas dinamicamente
+    for (let i = 0; i < NUMERO_DE_FORMAS; i++) {
+        const forma = document.createElement('div');
+        forma.classList.add('forma-animada');
+
+        // Define tamanhos e cores aleatórios para maior variedade
+        const tamanho = Math.random() * 100 + 20; // Tamanho entre 20px e 120px
+        forma.style.width = `${tamanho}px`;
+        forma.style.height = `${tamanho}px`;
+        // Alterna entre as cores da sua paleta
+        const cores = ['rgba(241, 196, 15, 0.15)', 'rgba(230, 126, 34, 0.15)', 'rgba(243, 156, 18, 0.15)'];
+        forma.style.backgroundColor = cores[i % cores.length];
+
+        container.appendChild(forma);
+        formas.push(forma);
+
+        // Inicia a animação para cada forma com um atraso diferente
+        setTimeout(() => {
+            animarForma(forma, i);
+        }, i * 200); // Espalha o início das animações
+    }
+});
