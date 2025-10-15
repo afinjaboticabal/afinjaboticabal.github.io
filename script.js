@@ -441,6 +441,9 @@ document.addEventListener('DOMContentLoaded', function() {
             forma.style.left = posLeft + '%';
             forma.style.transform = 'scale(0.5)';
             forma.style.opacity = '0';
+
+            void forma.offsetHeight;
+            
             const movimentoX = (Math.random() - 0.5) * 150;
             const movimentoY = (Math.random() - 0.5) * 150;
 
