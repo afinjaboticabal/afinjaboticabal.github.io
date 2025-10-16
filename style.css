@@ -1499,8 +1499,8 @@ body {
     background-color: #fff; /* Fundo branco, igual ao de fonte */
     color: black; /* Texto preto */
     cursor: pointer;
-    font-weight: bold;
-    font-size: 1.2rem; /* Mantive um pouco maior para o + e - ficarem visíveis */
+    font-weight: normal;
+    font-size: 1.5rem; /* Mantive um pouco maior para o + e - ficarem visíveis */
     display: flex;
     align-items: center;
     justify-content: center;
