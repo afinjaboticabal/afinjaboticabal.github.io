@@ -233,8 +233,21 @@ if (telefonesContainer) {
 });
 
             // Se houver pelo menos um número, adiciona o título e a lista de números
+            // Se houver pelo menos um número, adiciona o título e a lista de números
             if (telefonesFormatados.length > 0) {
-                dadosHtml += `<p><strong>Telefone para contato:</strong><br>${telefonesFormatados.join('<br>')}</p>`;
+                // Começa com o primeiro número na mesma linha do título
+                let telefonesHtml = `<strong>Telefone para contato:</strong> ${telefonesFormatados[0]}`;
+
+                // Se houver mais de um número, adiciona os restantes em linhas separadas
+                if (telefonesFormatados.length > 1) {
+                // Pega os números a partir do segundo (índice 1)
+                const outrosTelefones = telefonesFormatados.slice(1);
+                // Junta os números restantes com uma quebra de linha entre eles
+                telefonesHtml += `<br>${outrosTelefones.join('<br>')}`;
+    }
+
+                // Adiciona o resultado final ao HTML
+                dadosHtml += `<p>${telefonesHtml}</p>`;
 }
             const email = document.getElementById("email").value;
             if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; }
