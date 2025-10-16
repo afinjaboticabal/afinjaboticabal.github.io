@@ -1487,3 +1487,42 @@ body {
     background-position: center center; /* Centraliza a imagem antes de cortar */
     background-repeat: no-repeat; /* Evita que a imagem se repita */
 }
+
+/* ===================================================================
+   ESTILOS PARA BOTÕES DE ADICIONAR/REMOVER TELEFONE
+   =================================================================== */
+
+.curriculo-container .telefone-row button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Deixa o botão redondo */
+    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0; /* Impede que o botão encolha */
+}
+
+.curriculo-container .add-telefone-btn {
+    background-color: #28a745; /* Verde */
+    color: white;
+    border-color: #218838;
+}
+
+.curriculo-container .add-telefone-btn:hover {
+    background-color: #218838;
+}
+
+.curriculo-container .remove-telefone-btn {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    border-color: #c82333;
+}
+
+.curriculo-container .remove-telefone-btn:hover {
+    background-color: #c82333;
+}
