@@ -1466,3 +1466,24 @@ body {
   display: block;
   list-style: none;
 }
+
+/* ===================================================================
+   CORREÇÃO PARA A FOTO NA GERAÇÃO DO PDF
+   =================================================================== */
+
+#previewFoto-container {
+    /* Dimensões e bordas iguais às da imagem original */
+    width: 100px;
+    height: 120px;
+    margin-right: 20px;
+    border-radius: 6px;
+    border: 1px solid #333;
+
+    /* Cor de fundo caso nenhuma imagem seja enviada */
+    background-color: #f0f0f0;
+
+    /* A mágica acontece aqui: */
+    background-size: cover; /* Garante que a imagem cubra a área sem distorcer */
+    background-position: center center; /* Centraliza a imagem antes de cortar */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+}
