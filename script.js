@@ -221,21 +221,21 @@ if (telefonesContainer) {
             if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; }
             const endereco = document.getElementById("endereco").value;
             if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; }
-            const telefoneRows = document.querySelectorAll('.telefone-row');
-            telefoneRows.forEach((row, index) => {
-                const dddInput = row.querySelector('.ddd-input');
-                const telInput = row.querySelector('.telefone-input');
-                if (dddInput && telInput) {
-                    const ddd = dddInput.value;
-                    const tel = telInput.value;
-                    const telFmt = formatarTelefone(ddd, tel);
-                    if (telFmt) {
-            // Adiciona um número ao rótulo se houver mais de um telefone
-            const label = telefoneRows.length > 1 ? `Telefone ${index + 1}:` : 'Telefone:';
-            dadosHtml += `<p><strong>${label}</strong> ${telFmt}</p>`;
-        }
+            // Coleta todos os números de telefone formatados primeiro
+            const telefonesFormatados = [];
+            document.querySelectorAll('.telefone-row').forEach(row => {
+                const ddd = row.querySelector('.ddd-input').value;
+                const tel = row.querySelector('.telefone-input').value;
+                const telFmt = formatarTelefone(ddd, tel);
+                if (telFmt) {
+                    telefonesFormatados.push(telFmt);
     }
 });
+
+            // Se houver pelo menos um número, adiciona o título e a lista de números
+            if (telefonesFormatados.length > 0) {
+                dadosHtml += `<p><strong>Telefone para contato:</strong><br>${telefonesFormatados.join('<br>')}</p>`;
+}
             const email = document.getElementById("email").value;
             if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; }
             document.getElementById("previewDados").innerHTML = dadosHtml;
