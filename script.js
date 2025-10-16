@@ -85,6 +85,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
+
+        const telefonesContainer = document.getElementById('telefones-container');
+if (telefonesContainer) {
+    telefonesContainer.addEventListener('click', function(event) {
+        // Lógica para ADICIONAR um campo de telefone
+        if (event.target.classList.contains('add-telefone-btn')) {
+            const newRow = document.createElement('div');
+            newRow.className = 'telefone-row';
+            newRow.style.display = 'flex';
+            newRow.style.gap = '10px';
+            newRow.style.alignItems = 'center';
+            newRow.style.marginBottom = '10px';
+
+            newRow.innerHTML = `
+                <input type="number" class="ddd-input" placeholder="DDD" min="10" max="99" style="width: 80px;" />
+                <input type="text" class="telefone-input" placeholder="Número" style="flex: 1;" />
+                <button type="button" class="remove-telefone-btn">-</button>
+            `;
+
+            // Adiciona o novo campo ao container
+            telefonesContainer.appendChild(newRow);
+            
+            // Adiciona o listener de input para os novos campos atualizarem o preview
+            newRow.querySelectorAll('input').forEach(input => input.addEventListener('input', atualizarPreview));
+        }
+
+        // Lógica para REMOVER um campo de telefone
+        if (event.target.classList.contains('remove-telefone-btn')) {
+            const rowToRemove = event.target.closest('.telefone-row');
+            rowToRemove.remove();
+            atualizarPreview(); // Atualiza o preview após remover
+        }
+    });
+}
         
         if (formContainer) {
             formContainer.addEventListener('click', function(event) {
@@ -187,9 +221,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; }
             const endereco = document.getElementById("endereco").value;
             if (endereco) { dadosHtml += `<p><strong>Endereço:</strong> ${endereco}</p>`; }
-            const ddd = document.getElementById("ddd").value, tel = document.getElementById("telefone").value;
-            const telFmt = formatarTelefone(ddd, tel);
-            if (telFmt) { dadosHtml += `<p><strong>Telefone:</strong> ${telFmt}</p>`; }
+            const telefoneRows = document.querySelectorAll('.telefone-row');
+            telefoneRows.forEach((row, index) => {
+                const dddInput = row.querySelector('.ddd-input');
+                const telInput = row.querySelector('.telefone-input');
+                if (dddInput && telInput) {
+                    const ddd = dddInput.value;
+                    const tel = telInput.value;
+                    const telFmt = formatarTelefone(ddd, tel);
+                    if (telFmt) {
+            // Adiciona um número ao rótulo se houver mais de um telefone
+            const label = telefoneRows.length > 1 ? `Telefone ${index + 1}:` : 'Telefone:';
+            dadosHtml += `<p><strong>${label}</strong> ${telFmt}</p>`;
+        }
+    }
+});
             const email = document.getElementById("email").value;
             if (email) { dadosHtml += `<p><strong>Email:</strong> ${email}</p>`; }
             document.getElementById("previewDados").innerHTML = dadosHtml;
