@@ -236,7 +236,7 @@ if (telefonesContainer) {
             // Se houver pelo menos um número, adiciona o título e a lista de números
             if (telefonesFormatados.length > 0) {
                 // Começa com o primeiro número na mesma linha do título
-                let telefonesHtml = `<strong>Telefone para contato:</strong> ${telefonesFormatados[0]}`;
+                let telefonesHtml = `<strong>Telefone para Contato:</strong> ${telefonesFormatados[0]}`;
 
                 // Se houver mais de um número, adiciona os restantes em linhas separadas
                 if (telefonesFormatados.length > 1) {
