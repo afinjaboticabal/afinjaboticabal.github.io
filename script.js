@@ -175,7 +175,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("previewNome-visivel").innerText = nome;
             let dadosHtml = "";
             const dia = document.getElementById("dia").value, mes = document.getElementById("mes").value, ano = document.getElementById("ano").value;
-            if (dia && mes && ano) { const idade = calcularIdade(dia, mes, ano); if (!Number.isNaN(idade)) { dadosHtml += `<p><strong>Idade:</strong> ${idade} anos</p>`; } }
+            if (dia && mes && ano) {
+    // Formata o dia e o mês para garantir que tenham dois dígitos (ex: 05)
+    const diaFormatado = String(dia).padStart(2, '0');
+    const mesFormatado = String(mes).padStart(2, '0');
+
+    // Adiciona a data formatada ao HTML com o novo rótulo
+    dadosHtml += `<p><strong>Data de Nascimento:</strong> ${diaFormatado}/${mesFormatado}/${ano}</p>`;
+}
             const nacionalidade = document.getElementById("nacionalidade").value;
             if (nacionalidade) { dadosHtml += `<p><strong>Nacionalidade:</strong> ${nacionalidade}</p>`; }
             const endereco = document.getElementById("endereco").value;
