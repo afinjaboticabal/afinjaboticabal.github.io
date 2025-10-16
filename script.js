@@ -133,8 +133,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    document.getElementById("previewFoto").src = e.target.result;
-                    document.getElementById("previewFoto-visivel").src = e.target.result;
+                    const imageUrl = e.target.result;
+                    
+                    // Mantém a lógica para a imagem visível, que já funciona
+                    document.getElementById("previewFoto-visivel").src = imageUrl;
+
+                    // MUDANÇA AQUI: Altera a lógica para o container da versão de impressão
+                    const fotoContainer = document.getElementById("previewFoto-container");
+                    fotoContainer.style.backgroundImage = `url('${imageUrl}')`;
                 };
                 reader.readAsDataURL(file);
             }
