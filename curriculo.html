@@ -50,9 +50,12 @@
                         <label>Endereço</label>
                         <input type="text" id="endereco" />
                         <label>Telefone</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="number" id="ddd" placeholder="DDD" min="10" max="99" style="width: 80px;" />
-                            <input type="text" id="telefone" placeholder="Número" style="flex: 1;" />
+                         <div id="telefones-container">
+                            <div class="telefone-row" style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+                                <input type="number" class="ddd-input" placeholder="DDD" min="10" max="99" style="width: 80px;" />
+                                <input type="text" class="telefone-input" placeholder="Número" style="flex: 1;" />
+                                <button type="button" class="add-telefone-btn">+</button>
+                            </div>
                         </div>
                         <label>E-mail</label>
                         <input type="email" id="email" />
