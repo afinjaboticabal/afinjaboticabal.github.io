@@ -1518,3 +1518,23 @@ body {
 .curriculo-container .add-telefone-btn:hover {
     background-color: #e6e6e6; /* Mesmo cinza claro */
 }
+
+/* ===================================================================
+   ESTILOS PARA AS NOVAS COLUNAS DUPLAS (GUIA INTERATIVO)
+   =================================================================== */
+
+.colunas-container {
+    display: flex;
+    gap: 20px; /* Cria um espaço de 20px entre as colunas */
+    width: 100%; /* Faz o container ocupar todo o espaço do pai */
+}
+
+/* * Esta regra é a mais importante.
+ * Ela diz que qualquer .portfolio-text-box DENTRO de .colunas-container
+ * deve ser flexível (flex: 1) e não ter 100% de largura.
+ */
+.colunas-container .portfolio-text-box {
+    flex: 1; /* Isso faz as duas colunas dividirem o espaço igualmente */
+    width: auto; /* Sobrescreve o "width: 100%" que essa classe tinha */
+    text-align: left; /* Alinha o texto à esquerda (acho que fica melhor para colunas) */
+}
