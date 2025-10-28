@@ -1529,12 +1529,20 @@ body {
     width: 100%; /* Faz o container ocupar todo o espaço do pai */
 }
 
-/* * Esta regra é a mais importante.
- * Ela diz que qualquer .portfolio-text-box DENTRO de .colunas-container
- * deve ser flexível (flex: 1) e não ter 100% de largura.
- */
+/* Esta regra diz que as "caixas de texto" dentro das colunas
+   devem dividir o espaço igualmente */
 .colunas-container .portfolio-text-box {
-    flex: 1; /* Isso faz as duas colunas dividirem o espaço igualmente */
-    width: auto; /* Sobrescreve o "width: 100%" que essa classe tinha */
-    text-align: left; /* Alinha o texto à esquerda (acho que fica melhor para colunas) */
+    flex: 1; 
+    width: auto; 
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+/* ===================================================================
+   RESPONSIVIDADE DAS NOVAS COLUNAS (PARA CELULAR)
+   =================================================================== */
+
+@media (max-width: 768px) {
+    .colunas-container {
+        flex-direction: column; /* Empilha as colunas em telas de celular */
+    }
 }
