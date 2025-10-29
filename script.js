@@ -713,15 +713,6 @@ if (document.getElementById('formulario-guia')) {
         salvarBtn.addEventListener('click', gerarPDFGuiaDiario);
     }
 
-    // 2. Faz os textareas crescerem automaticamente
-    const textareasGuia = document.querySelectorAll('#formulario-guia .auto-resize-textarea');
-    textareasGuia.forEach(textarea => {
-        textarea.addEventListener('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-    });
-
     // 3. Função principal para gerar o PDF (adaptada do Bloco 4)
     async function gerarPDFGuiaDiario() {
         const button = document.getElementById('salvar-guia-pdf-btn');
@@ -776,6 +767,57 @@ if (document.getElementById('formulario-guia')) {
                 // Adiciona o elemento atual
                 pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
                 currentY += imgHeight + 5; // Adiciona um pequeno espaço após o elemento
+
+                // 4. Função para simular a paginação visual do formulário (Folha 1, Folha 2, etc.)
+    function paginarGuiaDiario() {
+        const MAX_PAGE_HEIGHT_PX = 1050; // Altura A4 (igual ao currículo)
+        const formContainer = document.getElementById('formulario-guia');
+        
+        // Pega todos os blocos, incluindo o cabeçalho e todas as seções
+        const sections = Array.from(formContainer.querySelectorAll('.header-guia, .section-guia'));
+        
+        if (sections.length === 0) return; // Sai se não houver nada
+
+        formContainer.innerHTML = ''; // Limpa o container
+
+        let currentPage = document.createElement('div');
+        currentPage.className = 'guia-page'; // A "folha" de papel
+        formContainer.appendChild(currentPage);
+
+        let currentPageHeight = 0;
+
+        sections.forEach(section => {
+            // Adiciona a seção à página atual ANTES de medir
+            currentPage.appendChild(section);
+            
+            if (section.style.display !== 'none') {
+                // Mede a altura real do elemento
+                const style = window.getComputedStyle(section);
+                const marginTop = parseInt(style.marginTop) || 0;
+                const marginBottom = parseInt(style.marginBottom) || 0;
+                const measuredHeight = section.offsetHeight + marginTop + marginBottom;
+                
+                // Verifica se ESTOUROU o limite
+                // (currentPage.children.length > 1 significa: não crie uma pág nova se for o PRIMEIRO item)
+                if (currentPageHeight + measuredHeight > MAX_PAGE_HEIGHT_PX && currentPage.children.length > 1) {
+                    // Estourou. Cria uma nova página
+                    currentPage = document.createElement('div');
+                    currentPage.className = 'guia-page';
+                    formContainer.appendChild(currentPage);
+                    
+                    // Move a seção que estourou para a nova página
+                    currentPage.appendChild(section);
+                    currentPageHeight = measuredHeight; // Reseta a altura
+                } else {
+                    // Ainda cabe, apenas soma a altura
+                    currentPageHeight += measuredHeight;
+                }
+            }
+        });
+    }
+
+    // 5. Executa a paginação assim que a página carregar
+    paginarGuiaDiario();
             }
 
             // --- FIM DA FUNÇÃO AUXILIAR ---
