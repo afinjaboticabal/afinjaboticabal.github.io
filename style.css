@@ -1779,3 +1779,174 @@ body {
 .guia-square-item[data-imagem-popup] {
     cursor: pointer;
 }
+
+/* ===================================================================
+   ESTILOS DA NOVA PÁGINA (GUIA DIÁRIO)
+   =================================================================== */
+
+/* 1. Faz a 'page-guia-diario' ter o MESMO menu da 'page-guia' */
+.page-guia .sticky-menu,
+.page-guia-diario .sticky-menu {
+    background-image: linear-gradient(to right,  #ffab00, #ffd600, #ffab00);
+    background-size: 200% 100%;
+    background-repeat: repeat-x;
+    animation: seamless-scroll-200 20s linear infinite;
+}
+
+/* 2. Faz ter as MESMAS barras superior/inferior da 'page-guia' */
+.page-guia .top-bar,
+.page-guia-diario .top-bar {
+    background-image: url('imagens/topo-guia2.png');
+}
+
+.page-guia .bottom-bar,
+.page-guia-diario .bottom-bar {
+    background-image: url('imagens/rodape-guia2.png');
+}
+
+/* 3. Garante o espaçamento correto abaixo do menu fixo */
+.page-cadastro .top-bar,
+.page-profissionais .top-bar,
+.page-privacidade .top-bar,
+.page-denuncia .top-bar,
+.page-portifolio .top-bar,
+.page-guia .top-bar,
+.page-guia-diario .top-bar { /* <-- REGRA ADICIONADA AQUI */
+    margin-top: 49px; 
+}
+
+/* 4. Estilos do Formulário do Guia */
+#formulario-guia {
+    text-align: left; /* Alinha o texto do formulário à esquerda */
+}
+
+.guia-diario-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.guia-diario-subtitle {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #555;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+
+/* Cabeçalho que se repete no PDF */
+.header-guia {
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 20px;
+}
+
+/* Define que cada seção é um bloco que pode quebrar a página */
+.section-guia {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f9f9f9;
+    /* Isso ajuda o PDF a quebrar a página ANTES da seção, se ela for muito grande */
+    page-break-inside: avoid;
+}
+
+.section-guia h3 {
+    font-size: 1.3rem;
+    color: #000;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.guia-descricao {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+#formulario-guia label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.guia-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+}
+
+.check-item input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    margin-right: 10px;
+    /* Deixa o checkbox um pouco maior */
+    transform: scale(1.2);
+}
+
+.check-item label {
+    font-weight: normal;
+    margin: 0;
+}
+
+.guia-input,
+#formulario-guia textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+/* Faz os textareas crescerem com o conteúdo */
+#formulario-guia textarea {
+    min-height: 80px;
+    resize: none;
+    overflow-y: hidden;
+}
+
+.section-guia-data {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.section-guia-data label {
+    margin: 0;
+    flex-shrink: 0; /* Impede que o label encolha */
+}
+.section-guia-data input[type="date"] {
+    max-width: 200px;
+}
+
+.footer-guia p {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+#salvar-guia-pdf-btn {
+    display: block;
+    margin: 20px auto 0 auto;
+    width: 80%;
+    max-width: 300px;
+    font-size: 1.1rem;
+}
