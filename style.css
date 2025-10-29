@@ -1781,7 +1781,7 @@ body {
 }
 
 /* ===================================================================
-   ESTILOS DA NOVA PÁGINA (GUIA DIÁRIO) - VERSÃO AJUSTADA
+   ESTILOS DA NOVA PÁGINA (GUIA DIÁRIO) - BASEADO NO MOCKUP PDF
    =================================================================== */
 
 /* 1. Faz a 'page-guia-diario' ter o MESMO menu da 'page-guia' */
@@ -1831,81 +1831,94 @@ body {
     background: #fff;
     border: 1px solid #e0e0e0;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 30px; /* REDUZIDO (era 40px) */
+    padding: 30px; /* Margens internas */
     margin-bottom: 25px;
     box-sizing: border-box;
 }
 
+/* --- ESTILOS DE FONTE E ESPAÇAMENTO COMPACTOS --- */
+
 .guia-diario-title {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 1.8rem; /* REDUZIDO (era 2rem) */
+    font-size: 1.6rem; /* BEM MENOR */
     font-weight: 700;
     color: #333;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .guia-diario-subtitle {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 1rem; /* REDUZIDO (era 1.1rem) */
+    font-size: 0.9rem; /* BEM MENOR */
     font-weight: 400;
     color: #555;
     text-align: center;
     margin-top: 0;
-    margin-bottom: 15px; /* REDUZIDO (era 25px) */
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 15px; /* REDUZIDO (era 20px) */
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0; /* Linha mais fina */
+    padding-bottom: 10px;
 }
 
-/* Cabeçalho que se repete no PDF */
-.header-guia {
-    border-bottom: 2px solid #f0f0f0;
-    margin-bottom: 15px; /* REDUZIDO (era 20px) */
-}
-
-/* NOVA REGRA para reduzir o texto de introdução */
+/* Parágrafo de introdução */
 .header-guia p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.4;
+    text-align: center;
 }
 
-/* Define que cada seção é um bloco que pode quebrar a página */
+.header-guia {
+    border-bottom: none; /* Remove a borda dupla */
+    margin-bottom: 15px;
+}
+
+/* Seções individuais */
 .section-guia {
-    margin-bottom: 15px; /* REDUZIDO (era 25px) */
-    padding-bottom: 15px; /* REDUZIDO (era 20px) */
-    border-bottom: 1px solid #f9f9f9;
+    margin-bottom: 10px; /* BEM MENOR */
+    padding-bottom: 10px; /* BEM MENOR */
+    border-bottom: 1px solid #f4f4f4;
     page-break-inside: avoid;
 }
 
 .section-guia h3 {
-    font-size: 1.15rem; /* REDUZIDO (era 1.3rem) */
+    font-size: 1.05rem; /* BEM MENOR */
     color: #000;
-    margin-bottom: 5px; /* REDUZIDO (era 8px) */
+    margin-bottom: 5px;
     border-bottom: 1px solid #eee;
-    padding-bottom: 3px; /* REDUZIDO (era 5px) */
+    padding-bottom: 3px;
 }
 
 .guia-descricao {
-    font-size: 0.85rem; /* REDUZIDO (era 0.9rem) */
+    font-size: 0.8rem; /* BEM MENOR */
     color: #555;
     margin-top: 0;
-    margin-bottom: 10px; /* REDUZIDO (era 15px) */
+    margin-bottom: 8px;
     font-style: italic;
+    line-height: 1.4;
 }
 
 #formulario-guia label {
     font-weight: bold;
     display: block;
-    margin-bottom: 8px; /* REDUZIDO (era 10px) */
+    margin-top: 8px; /* Espaço antes da caixa de texto */
+    margin-bottom: 5px; /* BEM MENOR */
     color: #333;
-    font-size: 0.95rem; /* REDUZIDO (era 1rem implícito) */
+    font-size: 0.9rem; /* MENOR */
 }
+
+/* --- ESTILOS DOS CHECKLISTS --- */
 
 .guia-checklist {
     display: flex;
-    flex-direction: column;
-    gap: 5px; /* REDUZIDO (era 8px) */
-    margin-bottom: 12px; /* REDUZIDO (era 15px) */
+    flex-direction: column; /* Padrão de 1 coluna (para Comunicação) */
+    gap: 3px; /* BEM MENOR */
+    margin-bottom: 8px;
+}
+
+/* NOVO: Estilo para checklists de 2 colunas */
+.guia-checklist-col2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 10px; /* 3px entre linhas, 10px entre colunas */
 }
 
 .check-item {
@@ -1916,32 +1929,61 @@ body {
 .check-item input[type="checkbox"] {
     width: auto;
     margin: 0;
-    margin-right: 10px;
-    transform: scale(1.1); /* Mantido (era 1.2, mas 1.1 fica mais sutil) */
+    margin-right: 8px;
+    transform: scale(1.0); /* Tamanho normal */
 }
 
 .check-item label {
     font-weight: normal;
     margin: 0;
-    font-size: 0.9rem; /* REDUZIDO (era 1rem implícito) */
+    font-size: 0.85rem; /* BEM MENOR */
+    line-height: 1.4; /* Espaçamento entre linhas mais justo */
 }
 
+
+/* --- NOVO: ESTILO DAS COLUNAS --- */
+.guia-colunas {
+    display: flex;
+    gap: 25px; /* Espaço entre a coluna da esquerda e da direita */
+    width: 100%;
+    /* Adiciona a borda que remov_emos das seções filhas */
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f4f4f4;
+}
+.guia-colunas .section-guia {
+    flex: 1; /* Faz as seções dividirem o espaço */
+    min-width: 0; /* Impede que o flexbox estoure a página */
+    border-bottom: none; /* Remove a borda de baixo das seções internas */
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+/* --- CAMPOS DE TEXTO E DATA --- */
 .guia-input,
 #formulario-guia textarea {
     width: 100%;
-    padding: 10px;
+    padding: 8px; /* MENOR */
     border: 1px solid #ccc;
     border-radius: 6px;
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 0.9rem; /* MENOR */
     box-sizing: border-box; 
 }
 
+/* Caixa de texto padrão (full-width) */
 #formulario-guia textarea {
     min-height: 80px; 
     max-height: 80px; 
     resize: none;
-    overflow-y: hidden; /* Mantido como você pediu (sem barra de rolagem) */
+    overflow-y: hidden; 
+}
+
+/* NOVO: Caixas de texto nas colunas são menores */
+.guia-colunas textarea {
+    min-height: 60px;
+    max-height: 60px;
 }
 
 .section-guia-data {
@@ -1954,20 +1996,23 @@ body {
     flex-shrink: 0; 
 }
 .section-guia-data input[type="date"] {
-    max-width: 200px;
+    max-width: 180px;
+    font-size: 0.9rem;
+    padding: 6px;
 }
 
+/* --- RODAPÉ E BOTÃO --- */
 .footer-guia p {
     text-align: center;
-    font-size: 0.75rem; /* REDUZIDO (era 0.8rem) */
+    font-size: 0.75rem;
     color: #888;
     font-style: italic;
-    margin-top: 15px; /* REDUZIDO (era 20px) */
+    margin-top: 10px;
 }
 
 .section-guia-botao {
     text-align: center; 
-    padding-top: 15px; /* REDUZIDO (era 20px) */
+    padding-top: 15px;
     border-top: 1px solid #eee; 
     border-bottom: none !important;
     margin-bottom: 0;
@@ -1977,5 +2022,4 @@ body {
 #salvar-guia-pdf-btn {
     display: inline-block; 
     margin: 0; 
-    /* Tamanho do botão mantido (do .cta-button) */
 }
