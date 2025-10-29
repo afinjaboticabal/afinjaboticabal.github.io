@@ -1601,10 +1601,13 @@ body {
     margin: 0 auto;
     /* Adiciona o espaçamento que existia antes no .guia-squares-container */
     margin-top: 20px; 
+    padding-top: 15px;    /* <-- Adicione esta linha (dá espaço em cima) */
+    padding-bottom: 15px; /* <-- Adicione esta linha (dá espaço embaixo) */
 }
 
 .topicos-window {
-    overflow: hidden; /* Esconde os cards fora da área visível (Desktop) */
+    overflow-x: visible;  
+    overflow-y: visible; /* <-- E esta (deixa "vazar" na vertical) */
     scroll-behavior: smooth;
     margin: 0 40px; /* Deixa espaço para os botões laterais em desktop */
 }
