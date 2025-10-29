@@ -1781,7 +1781,7 @@ body {
 }
 
 /* ===================================================================
-   ESTILOS DA NOVA PÁGINA (GUIA DIÁRIO)
+   ESTILOS DA NOVA PÁGINA (GUIA DIÁRIO) - VERSÃO AJUSTADA
    =================================================================== */
 
 /* 1. Faz a 'page-guia-diario' ter o MESMO menu da 'page-guia' */
@@ -1811,14 +1811,14 @@ body {
 .page-denuncia .top-bar,
 .page-portifolio .top-bar,
 .page-guia .top-bar,
-.page-guia-diario .top-bar { /* <-- REGRA ADICIONADA AQUI */
+.page-guia-diario .top-bar {
     margin-top: 49px; 
 }
 
 /* 4. Estilos do Formulário do Guia (AGORA COMO CONTAINER DE PÁGINA) */
 #formulario-guia {
-    width: 700px; /* Largura A4 simulada (semelhante ao currículo) */
-    margin: 30px auto; /* Centraliza o "papel" */
+    width: 700px;
+    margin: 30px auto;
     padding: 0;
     background: none;
     border: none;
@@ -1831,14 +1831,14 @@ body {
     background: #fff;
     border: 1px solid #e0e0e0;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 40px; /* Margens internas do papel */
-    margin-bottom: 25px; /* Espaço ENTRE as folhas */
+    padding: 30px; /* REDUZIDO (era 40px) */
+    margin-bottom: 25px;
     box-sizing: border-box;
 }
 
 .guia-diario-title {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 2rem;
+    font-size: 1.8rem; /* REDUZIDO (era 2rem) */
     font-weight: 700;
     color: #333;
     text-align: center;
@@ -1847,59 +1847,65 @@ body {
 
 .guia-diario-subtitle {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem; /* REDUZIDO (era 1.1rem) */
     font-weight: 400;
     color: #555;
     text-align: center;
     margin-top: 0;
-    margin-bottom: 25px;
+    margin-bottom: 15px; /* REDUZIDO (era 25px) */
     border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 20px;
+    padding-bottom: 15px; /* REDUZIDO (era 20px) */
 }
 
 /* Cabeçalho que se repete no PDF */
 .header-guia {
     border-bottom: 2px solid #f0f0f0;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* REDUZIDO (era 20px) */
+}
+
+/* NOVA REGRA para reduzir o texto de introdução */
+.header-guia p {
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
 /* Define que cada seção é um bloco que pode quebrar a página */
 .section-guia {
-    margin-bottom: 25px;
-    padding-bottom: 20px;
+    margin-bottom: 15px; /* REDUZIDO (era 25px) */
+    padding-bottom: 15px; /* REDUZIDO (era 20px) */
     border-bottom: 1px solid #f9f9f9;
-    /* Isso ajuda o PDF a quebrar a página ANTES da seção, se ela for muito grande */
     page-break-inside: avoid;
 }
 
 .section-guia h3 {
-    font-size: 1.3rem;
+    font-size: 1.15rem; /* REDUZIDO (era 1.3rem) */
     color: #000;
-    margin-bottom: 8px;
+    margin-bottom: 5px; /* REDUZIDO (era 8px) */
     border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
+    padding-bottom: 3px; /* REDUZIDO (era 5px) */
 }
 
 .guia-descricao {
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* REDUZIDO (era 0.9rem) */
     color: #555;
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* REDUZIDO (era 15px) */
     font-style: italic;
 }
 
 #formulario-guia label {
     font-weight: bold;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* REDUZIDO (era 10px) */
     color: #333;
+    font-size: 0.95rem; /* REDUZIDO (era 1rem implícito) */
 }
 
 .guia-checklist {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 5px; /* REDUZIDO (era 8px) */
+    margin-bottom: 12px; /* REDUZIDO (era 15px) */
 }
 
 .check-item {
@@ -1911,13 +1917,13 @@ body {
     width: auto;
     margin: 0;
     margin-right: 10px;
-    /* Deixa o checkbox um pouco maior */
-    transform: scale(1.2);
+    transform: scale(1.1); /* Mantido (era 1.2, mas 1.1 fica mais sutil) */
 }
 
 .check-item label {
     font-weight: normal;
     margin: 0;
+    font-size: 0.9rem; /* REDUZIDO (era 1rem implícito) */
 }
 
 .guia-input,
@@ -1928,15 +1934,14 @@ body {
     border-radius: 6px;
     font-family: Arial, sans-serif;
     font-size: 1rem;
-    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+    box-sizing: border-box; 
 }
 
-/* Faz os textareas crescerem com o conteúdo */
 #formulario-guia textarea {
-    min-height: 80px; /* Altura inicial de ~4 linhas */
-    max-height: 80px; /* Altura MÁXIMA de ~4 linhas */
+    min-height: 80px; 
+    max-height: 80px; 
     resize: none;
-    overflow-y: hidden; /* ESCONDE a barra de rolagem */
+    overflow-y: hidden; /* Mantido como você pediu (sem barra de rolagem) */
 }
 
 .section-guia-data {
@@ -1946,7 +1951,7 @@ body {
 }
 .section-guia-data label {
     margin: 0;
-    flex-shrink: 0; /* Impede que o label encolha */
+    flex-shrink: 0; 
 }
 .section-guia-data input[type="date"] {
     max-width: 200px;
@@ -1954,30 +1959,23 @@ body {
 
 .footer-guia p {
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.75rem; /* REDUZIDO (era 0.8rem) */
     color: #888;
     font-style: italic;
-    margin-top: 20px;
-}
-
-#salvar-guia-pdf-btn {
-    display: block;
-    margin: 20px auto 0 auto;
-    width: 80%;
-    max-width: 300px;
-    font-size: 1.1rem;
+    margin-top: 15px; /* REDUZIDO (era 20px) */
 }
 
 .section-guia-botao {
-    text-align: center; /* Centraliza o botão de salvar */
-    padding-top: 20px;
-    border-top: 1px solid #eee; /* Adiciona uma linha antes do botão */
-    border-bottom: none !important; /* Remove a borda dupla */
+    text-align: center; 
+    padding-top: 15px; /* REDUZIDO (era 20px) */
+    border-top: 1px solid #eee; 
+    border-bottom: none !important;
     margin-bottom: 0;
     padding-bottom: 0;
 }
 
 #salvar-guia-pdf-btn {
-    display: inline-block; /* Altera de 'block' para 'inline-block' para o text-align funcionar */
-    margin: 0; /* Remove as margens automáticas */
+    display: inline-block; 
+    margin: 0; 
+    /* Tamanho do botão mantido (do .cta-button) */
 }
