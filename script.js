@@ -702,4 +702,104 @@ if (telefonesContainer) {
             }
         });
     }
+    // =================================================================
+//   Bloco 12: LÓGICA DO GUIA DIÁRIO (GERAR PDF)
+// =================================================================
+if (document.getElementById('formulario-guia')) {
+
+    // 1. Adiciona o listener no botão de salvar
+    const salvarBtn = document.getElementById('salvar-guia-pdf-btn');
+    if (salvarBtn) {
+        salvarBtn.addEventListener('click', gerarPDFGuiaDiario);
+    }
+
+    // 2. Faz os textareas crescerem automaticamente
+    const textareasGuia = document.querySelectorAll('#formulario-guia .auto-resize-textarea');
+    textareasGuia.forEach(textarea => {
+        textarea.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
+
+    // 3. Função principal para gerar o PDF (adaptada do Bloco 4)
+    async function gerarPDFGuiaDiario() {
+        const button = document.getElementById('salvar-guia-pdf-btn');
+        button.disabled = true;
+        button.innerText = 'Gerando PDF...';
+
+        try {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            
+            // Margens do documento
+            const marginTop = 15;
+            const marginBottom = 15;
+            const marginHorizontal = 15;
+            const usableWidth = pageWidth - (marginHorizontal * 2);
+
+            let currentY = marginTop; // Onde começamos a desenhar
+
+            // Pega o formulário principal
+            const formulario = document.getElementById('formulario-guia');
+            
+            // Pega o cabeçalho (título) e as seções (blocos)
+            const headerElement = formulario.querySelector('.header-guia');
+            const sections = formulario.querySelectorAll('.section-guia');
+
+            // --- FUNÇÃO AUXILIAR PARA ADICIONAR UM ELEMENTO AO PDF ---
+            // Esta função desenha um elemento e verifica se precisa de uma nova página
+            async function addElementToPdf(element, isHeader = false) {
+                if (element.style.display === 'none') { return; }
+
+                const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+                const imgHeight = canvas.height * usableWidth / canvas.width;
+
+                // Verifica se o elemento (mesmo que seja o cabeçalho)
+                // cabe na página atual.
+                if (currentY + imgHeight > pageHeight - marginBottom) {
+                    pdf.addPage();
+                    currentY = marginTop;
+                    
+                    // Se for uma nova página E não for o próprio cabeçalho,
+                    // redesenha o cabeçalho no topo.
+                    if (!isHeader && headerElement) {
+                        const headerCanvas = await html2canvas(headerElement, { scale: 2, useCORS: true });
+                        const headerImgHeight = headerCanvas.height * usableWidth / headerCanvas.width;
+                        pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, headerImgHeight);
+                        currentY += headerImgHeight + 5; // Adiciona espaço após o cabeçalho
+                    }
+                }
+
+                // Adiciona o elemento atual
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
+                currentY += imgHeight + 5; // Adiciona um pequeno espaço após o elemento
+            }
+
+            // --- FIM DA FUNÇÃO AUXILIAR ---
+
+            // 1. Adiciona o cabeçalho na primeira página
+            if (headerElement) {
+                await addElementToPdf(headerElement, true);
+            }
+
+            // 2. Itera sobre todas as outras seções e as adiciona
+            for (let i = 0; i < sections.length; i++) {
+                await addElementToPdf(sections[i], false);
+            }
+
+            // 3. Salva o arquivo
+            pdf.save('guia-observacoes.pdf');
+
+        } catch (error) {
+            console.error("ERRO DURANTE A GERAÇÃO DO PDF (Guia):", error);
+        
+        } finally {
+            button.disabled = false;
+            button.innerText = 'Salvar Formulário';
+        }
+    }
+}
 });
