@@ -703,96 +703,59 @@ if (telefonesContainer) {
         });
     }
 // =================================================================
-//   Bloco 12: LÓGICA DO GUIA DIÁRIO (GERAR PDF) - VERSÃO CORRIGIDA
+//   Bloco 12: LÓGICA DO GUIA DIÁRIO (GERAR PDF) - VERSÃO "EXATA DO PDF"
 // =================================================================
-if (document.getElementById('formulario-guia')) {
+if (document.getElementById('form-wrapper')) { // Verifica se o novo container existe
 
-    // --- FUNÇÃO 1: Paginar o formulário visualmente (Folha 1, Folha 2...) ---
-    // (Esta função agora está no lugar certo e será executada no carregamento)
-    function paginarGuiaDiario() {
-        const MAX_PAGE_HEIGHT_PX = 1050; // Altura A4 (igual ao currículo)
-        const formContainer = document.getElementById('formulario-guia');
-        
-        const sections = Array.from(formContainer.querySelectorAll('.header-guia, .section-guia'));
-        
-        if (sections.length === 0) return; 
-
-        formContainer.innerHTML = ''; // Limpa o container
-
-        let currentPage = document.createElement('div');
-        currentPage.className = 'guia-page'; // A "folha" de papel
-        formContainer.appendChild(currentPage);
-
-        let currentPageHeight = 0;
-
-        sections.forEach(section => {
-            currentPage.appendChild(section);
-            
-            if (section.style.display !== 'none') {
-                const style = window.getComputedStyle(section);
-                const marginTop = parseInt(style.marginTop) || 0;
-                const marginBottom = parseInt(style.marginBottom) || 0;
-                const measuredHeight = section.offsetHeight + marginTop + marginBottom;
-                
-                if (currentPageHeight + measuredHeight > MAX_PAGE_HEIGHT_PX && currentPage.children.length > 1) {
-                    currentPage = document.createElement('div');
-                    currentPage.className = 'guia-page';
-                    formContainer.appendChild(currentPage);
-                    
-                    currentPage.appendChild(section);
-                    currentPageHeight = measuredHeight; 
-                } else {
-                    currentPageHeight += measuredHeight;
-                }
-            }
-        });
-    }
-
-    // --- FUNÇÃO 2: Gerar o PDF quando o botão é clicado ---
-    async function gerarPDFGuiaDiario() {
+    // --- Função para Gerar o PDF (agora com 2 páginas manuais) ---
+    async function gerarPDFGuiaDiarioExato() {
         const button = document.getElementById('salvar-guia-pdf-btn');
         button.disabled = true;
         button.innerText = 'Gerando PDF...';
 
         try {
             const { jsPDF } = window.jspdf;
+            // Cria um PDF em A4 (210 x 297 mm)
             const pdf = new jsPDF('p', 'mm', 'a4');
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const pageWidth = pdf.internal.pageSize.getWidth();
             
-            const marginTop = 15;
-            const marginBottom = 15;
-            const marginHorizontal = 15;
-            const usableWidth = pageWidth - (marginHorizontal * 2);
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const margin = 0; // Vamos imprimir a página inteira, sem margem
 
-            let currentY = marginTop; 
+            // Pega as duas folhas
+            const page1 = document.getElementById('form-page-1');
+            const page2 = document.getElementById('form-page-2');
 
-            const formulario = document.getElementById('formulario-guia');
-            const headerElement = formulario.querySelector('.header-guia');
-            
-            // NOVO: Seleciona as páginas visuais que o JS criou
-            const paginasVisuais = formulario.querySelectorAll('.guia-page');
-            
-            for (let i = 0; i < paginasVisuais.length; i++) {
-                const pagina = paginasVisuais[i];
-                
-                // Renderiza a página inteira
-                const canvas = await html2canvas(pagina, { scale: 2, useCORS: true });
-                const imgHeight = canvas.height * usableWidth / canvas.width;
+            // --- Processa a Folha 1 ---
+            const canvas1 = await html2canvas(page1, { 
+                scale: 3, // Aumenta a resolução da captura
+                useCORS: true,
+                width: page1.scrollWidth, // Captura a largura total
+                height: page1.scrollHeight // Captura a altura total
+            });
+            const imgData1 = canvas1.toDataURL('image/png');
+            // Adiciona a imagem à Folha 1, esticando para caber no A4
+            pdf.addImage(imgData1, 'PNG', margin, margin, pageWidth, pageHeight);
 
-                // Se não for a primeira página, adiciona uma nova página no PDF
-                if (i > 0) {
-                    pdf.addPage();
-                }
-                
-                // Adiciona a imagem da página ao PDF
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, marginTop, usableWidth, imgHeight);
-            }
-            
+
+            // --- Processa a Folha 2 ---
+            pdf.addPage(); // Adiciona a segunda página no PDF
+            const canvas2 = await html2canvas(page2, { 
+                scale: 3,
+                useCORS: true,
+                width: page2.scrollWidth,
+                height: page2.scrollHeight
+            });
+            const imgData2 = canvas2.toDataURL('image/png');
+            // Adiciona a imagem à Folha 2
+            pdf.addImage(imgData2, 'PNG', margin, margin, pageWidth, pageHeight);
+
+
+            // 3. Salva o arquivo
             pdf.save('guia-observacoes.pdf');
 
         } catch (error) {
-            console.error("ERRO DURANTE A GERAÇÃO DO PDF (Guia):", error);
+            console.error("ERRO DURANTE A GERAÇÃO DO PDF (Guia Exato):", error);
         
         } finally {
             button.disabled = false;
@@ -805,10 +768,11 @@ if (document.getElementById('formulario-guia')) {
     // 1. Adiciona o listener no botão de salvar
     const salvarBtn = document.getElementById('salvar-guia-pdf-btn');
     if (salvarBtn) {
-        salvarBtn.addEventListener('click', gerarPDFGuiaDiario);
+        // Aponta para a nossa NOVA função de salvar
+        salvarBtn.addEventListener('click', gerarPDFGuiaDiarioExato);
     }
     
-    // 2. Executa a paginação visual ASSIM que a página carregar
-    paginarGuiaDiario();
+    // NÃO PRECISAMOS MAIS DA FUNÇÃO paginarGuiaDiario()
+    // porque o HTML já está dividido em duas folhas.
 }
 });
