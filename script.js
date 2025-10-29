@@ -456,7 +456,7 @@ if (telefonesContainer) {
     // ===============================================
     //   Bloco 8: ANIMAÇÃO PROGRESSIVA DOS TÓPICOS (MOBILE)
     // ===============================================
-    if (window.innerWidth <= 768) {
+    /*if (window.innerWidth <= 768) {
         const topicSquares = document.querySelectorAll('.guia-square-item');
         if (topicSquares.length === 0) return;
 
@@ -496,7 +496,7 @@ if (telefonesContainer) {
         });
         handleScrollAnimation();
     }
-
+*/
     // =================================================================
     //   Bloco 9: ANIMAÇÃO DE FUNDO (VERSÃO FINAL E AJUSTADA)
     // =================================================================
@@ -587,5 +587,80 @@ if (telefonesContainer) {
                 animarForma(forma);
             }, atrasoInicialAleatorio);
         }
+    }
+    // =================================================================
+    //   Bloco 10: LÓGICA DO SLIDER DE TÓPICOS (GUIA INTERATIVO)
+    // =================================================================
+    if (document.querySelector('.topicos-slider-container')) {
+        const sliderWindow = document.querySelector('.topicos-window');
+        
+        // Botões Desktop
+        const btnPrev = document.getElementById('topicos-prev');
+        const btnNext = document.getElementById('topicos-next');
+        
+        // Botões Mobile
+        const btnPrevMobile = document.getElementById('topicos-prev-mobile');
+        const btnNextMobile = document.getElementById('topicos-next-mobile');
+    
+        const cardWidth = 250; // Largura do card (.guia-square-item)
+        const cardGap = 20; // Espaço entre os cards (gap)
+    
+        // Calcula o quanto rolar
+        // Em desktop, rola 3 cards (um "slide" completo)
+        // Em mobile, rola 1 card
+        function getScrollAmount() {
+            if (window.innerWidth <= 768) {
+                // Mobile: rola 1 card + gap
+                return cardWidth + cardGap;
+            } else {
+                // Desktop: rola 3 cards + 3 gaps
+                // Ajuste para rolar pelo tamanho da "janela" visível
+                return sliderWindow.clientWidth;
+            }
+        }
+    
+        function updateButtonState() {
+            if (!sliderWindow) return;
+    
+            const scrollLeft = sliderWindow.scrollLeft;
+            const maxScroll = sliderWindow.scrollWidth - sliderWindow.clientWidth;
+            
+            // Usamos uma pequena tolerância (ex: 5px) para evitar erros de arredondamento
+            const isAtStart = scrollLeft < 5;
+            const isAtEnd = scrollLeft > maxScroll - 5;
+    
+            // Botões Desktop
+            if (btnPrev) btnPrev.disabled = isAtStart;
+            if (btnNext) btnNext.disabled = isAtEnd;
+    
+            // Botões Mobile
+            if (btnPrevMobile) btnPrevMobile.disabled = isAtStart;
+            if (btnNextMobile) btnNextMobile.disabled = isAtEnd;
+        }
+    
+        // --- Event Listeners para os botões ---
+    
+        function scrollNext() {
+            sliderWindow.scrollLeft += getScrollAmount();
+        }
+    
+        function scrollPrev() {
+            sliderWindow.scrollLeft -= getScrollAmount();
+        }
+    
+        if (btnNext) btnNext.addEventListener('click', scrollNext);
+        if (btnPrev) btnPrev.addEventListener('click', scrollPrev);
+        if (btnNextMobile) btnNextMobile.addEventListener('click', scrollNext);
+        if (btnPrevMobile) btnPrevMobile.addEventListener('click', scrollPrev);
+    
+        // Atualiza os botões ao rolar (especialmente no mobile com swipe)
+        if (sliderWindow) {
+            sliderWindow.addEventListener('scroll', updateButtonState);
+        }
+        
+        // Atualiza ao carregar a página e ao redimensionar
+        window.addEventListener('resize', updateButtonState);
+        // Espera um instante para o layout carregar e chama a atualização
+        setTimeout(updateButtonState, 100); 
     }
 });
