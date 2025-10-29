@@ -1589,3 +1589,129 @@ body {
         gap: 15px;
     }
 }
+
+/* ===================================================================
+   ESTILOS DO NOVO SLIDER DE TÓPICOS (GUIA INTERATIVO)
+   =================================================================== */
+
+.topicos-slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* Garante que se alinhe ao resto do conteúdo */
+    margin: 0 auto;
+    /* Adiciona o espaçamento que existia antes no .guia-squares-container */
+    margin-top: 20px; 
+}
+
+.topicos-window {
+    overflow: hidden; /* Esconde os cards fora da área visível (Desktop) */
+    scroll-behavior: smooth;
+    margin: 0 40px; /* Deixa espaço para os botões laterais em desktop */
+}
+
+.guia-squares-container {
+    /* Modificações */
+    display: flex;
+    flex-wrap: nowrap; /* Impede a quebra de linha, forçando a rolagem */
+    justify-content: flex-start; /* Alinha os cards ao início */
+    width: auto; /* A largura será determinada pelo conteúdo */
+    padding-bottom: 10px; /* Espaço para a barra de rolagem (se aparecer) */
+    
+    /* Remove o espaçamento que agora está no .topicos-slider-container */
+    margin-top: 0; 
+    
+    /* Adiciona um padding nas pontas para não colar */
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.guia-square-item {
+    /* Modificação */
+    flex-shrink: 0; /* Impede que os cards encolham */
+}
+
+/* --- Botões do Slider (Desktop) --- */
+.topicos-slider-container .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: none; /* Escondido por padrão, JS controla */
+}
+
+.topicos-slider-container .slider-btn:hover {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.topicos-slider-container .slider-btn.prev { left: 0; }
+.topicos-slider-container .slider-btn.next { right: 0; }
+
+.topicos-slider-container .slider-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* --- Botões do Slider (Mobile) --- */
+.slider-nav-mobile {
+    display: none; /* Escondido em desktop */
+    text-align: center;
+    margin-top: 15px;
+}
+
+.slider-nav-mobile .slider-btn-mobile {
+    background-color: #007bff; /* Usando a cor .cta-button */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.slider-nav-mobile .slider-btn-mobile:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* --- Responsividade do Slider --- */
+@media (max-width: 768px) {
+    .topicos-window {
+        overflow-x: auto; /* Habilita o scroll com o dedo (swipe) */
+        margin: 0; /* Remove as margens laterais */
+        /* Esconde a barra de rolagem visualmente */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    
+    .topicos-window::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .topicos-slider-container .slider-btn {
+        display: none; /* Esconde os botões laterais (desktop) */
+    }
+
+    .slider-nav-mobile {
+        display: block; /* Mostra os botões (mobile) */
+    }
+}
+
+/* Mostra os botões de desktop apenas em telas maiores */
+@media (min-width: 769px) {
+    .topicos-slider-container .slider-btn {
+        display: block; /* Mostra os botões laterais */
+    }
+}
