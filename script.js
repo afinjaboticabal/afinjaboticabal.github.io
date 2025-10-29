@@ -702,18 +702,53 @@ if (telefonesContainer) {
             }
         });
     }
-    // =================================================================
-//   Bloco 12: LÓGICA DO GUIA DIÁRIO (GERAR PDF)
+// =================================================================
+//   Bloco 12: LÓGICA DO GUIA DIÁRIO (GERAR PDF) - VERSÃO CORRIGIDA
 // =================================================================
 if (document.getElementById('formulario-guia')) {
 
-    // 1. Adiciona o listener no botão de salvar
-    const salvarBtn = document.getElementById('salvar-guia-pdf-btn');
-    if (salvarBtn) {
-        salvarBtn.addEventListener('click', gerarPDFGuiaDiario);
+    // --- FUNÇÃO 1: Paginar o formulário visualmente (Folha 1, Folha 2...) ---
+    // (Esta função agora está no lugar certo e será executada no carregamento)
+    function paginarGuiaDiario() {
+        const MAX_PAGE_HEIGHT_PX = 1050; // Altura A4 (igual ao currículo)
+        const formContainer = document.getElementById('formulario-guia');
+        
+        const sections = Array.from(formContainer.querySelectorAll('.header-guia, .section-guia'));
+        
+        if (sections.length === 0) return; 
+
+        formContainer.innerHTML = ''; // Limpa o container
+
+        let currentPage = document.createElement('div');
+        currentPage.className = 'guia-page'; // A "folha" de papel
+        formContainer.appendChild(currentPage);
+
+        let currentPageHeight = 0;
+
+        sections.forEach(section => {
+            currentPage.appendChild(section);
+            
+            if (section.style.display !== 'none') {
+                const style = window.getComputedStyle(section);
+                const marginTop = parseInt(style.marginTop) || 0;
+                const marginBottom = parseInt(style.marginBottom) || 0;
+                const measuredHeight = section.offsetHeight + marginTop + marginBottom;
+                
+                if (currentPageHeight + measuredHeight > MAX_PAGE_HEIGHT_PX && currentPage.children.length > 1) {
+                    currentPage = document.createElement('div');
+                    currentPage.className = 'guia-page';
+                    formContainer.appendChild(currentPage);
+                    
+                    currentPage.appendChild(section);
+                    currentPageHeight = measuredHeight; 
+                } else {
+                    currentPageHeight += measuredHeight;
+                }
+            }
+        });
     }
 
-    // 3. Função principal para gerar o PDF (adaptada do Bloco 4)
+    // --- FUNÇÃO 2: Gerar o PDF quando o botão é clicado ---
     async function gerarPDFGuiaDiario() {
         const button = document.getElementById('salvar-guia-pdf-btn');
         button.disabled = true;
@@ -725,114 +760,35 @@ if (document.getElementById('formulario-guia')) {
             const pageHeight = pdf.internal.pageSize.getHeight();
             const pageWidth = pdf.internal.pageSize.getWidth();
             
-            // Margens do documento
             const marginTop = 15;
             const marginBottom = 15;
             const marginHorizontal = 15;
             const usableWidth = pageWidth - (marginHorizontal * 2);
 
-            let currentY = marginTop; // Onde começamos a desenhar
+            let currentY = marginTop; 
 
-            // Pega o formulário principal
             const formulario = document.getElementById('formulario-guia');
-            
-            // Pega o cabeçalho (título) e as seções (blocos)
             const headerElement = formulario.querySelector('.header-guia');
-            const sections = formulario.querySelectorAll('.section-guia');
-
-            // --- FUNÇÃO AUXILIAR PARA ADICIONAR UM ELEMENTO AO PDF ---
-            // Esta função desenha um elemento e verifica se precisa de uma nova página
-            async function addElementToPdf(element, isHeader = false) {
-                if (element.style.display === 'none') { return; }
-
-                const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+            
+            // NOVO: Seleciona as páginas visuais que o JS criou
+            const paginasVisuais = formulario.querySelectorAll('.guia-page');
+            
+            for (let i = 0; i < paginasVisuais.length; i++) {
+                const pagina = paginasVisuais[i];
+                
+                // Renderiza a página inteira
+                const canvas = await html2canvas(pagina, { scale: 2, useCORS: true });
                 const imgHeight = canvas.height * usableWidth / canvas.width;
 
-                // Verifica se o elemento (mesmo que seja o cabeçalho)
-                // cabe na página atual.
-                if (currentY + imgHeight > pageHeight - marginBottom) {
+                // Se não for a primeira página, adiciona uma nova página no PDF
+                if (i > 0) {
                     pdf.addPage();
-                    currentY = marginTop;
-                    
-                    // Se for uma nova página E não for o próprio cabeçalho,
-                    // redesenha o cabeçalho no topo.
-                    if (!isHeader && headerElement) {
-                        const headerCanvas = await html2canvas(headerElement, { scale: 2, useCORS: true });
-                        const headerImgHeight = headerCanvas.height * usableWidth / headerCanvas.width;
-                        pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, headerImgHeight);
-                        currentY += headerImgHeight + 5; // Adiciona espaço após o cabeçalho
-                    }
                 }
-
-                // Adiciona o elemento atual
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, currentY, usableWidth, imgHeight);
-                currentY += imgHeight + 5; // Adiciona um pequeno espaço após o elemento
-
-                // 4. Função para simular a paginação visual do formulário (Folha 1, Folha 2, etc.)
-    function paginarGuiaDiario() {
-        const MAX_PAGE_HEIGHT_PX = 1050; // Altura A4 (igual ao currículo)
-        const formContainer = document.getElementById('formulario-guia');
-        
-        // Pega todos os blocos, incluindo o cabeçalho e todas as seções
-        const sections = Array.from(formContainer.querySelectorAll('.header-guia, .section-guia'));
-        
-        if (sections.length === 0) return; // Sai se não houver nada
-
-        formContainer.innerHTML = ''; // Limpa o container
-
-        let currentPage = document.createElement('div');
-        currentPage.className = 'guia-page'; // A "folha" de papel
-        formContainer.appendChild(currentPage);
-
-        let currentPageHeight = 0;
-
-        sections.forEach(section => {
-            // Adiciona a seção à página atual ANTES de medir
-            currentPage.appendChild(section);
-            
-            if (section.style.display !== 'none') {
-                // Mede a altura real do elemento
-                const style = window.getComputedStyle(section);
-                const marginTop = parseInt(style.marginTop) || 0;
-                const marginBottom = parseInt(style.marginBottom) || 0;
-                const measuredHeight = section.offsetHeight + marginTop + marginBottom;
                 
-                // Verifica se ESTOUROU o limite
-                // (currentPage.children.length > 1 significa: não crie uma pág nova se for o PRIMEIRO item)
-                if (currentPageHeight + measuredHeight > MAX_PAGE_HEIGHT_PX && currentPage.children.length > 1) {
-                    // Estourou. Cria uma nova página
-                    currentPage = document.createElement('div');
-                    currentPage.className = 'guia-page';
-                    formContainer.appendChild(currentPage);
-                    
-                    // Move a seção que estourou para a nova página
-                    currentPage.appendChild(section);
-                    currentPageHeight = measuredHeight; // Reseta a altura
-                } else {
-                    // Ainda cabe, apenas soma a altura
-                    currentPageHeight += measuredHeight;
-                }
+                // Adiciona a imagem da página ao PDF
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', marginHorizontal, marginTop, usableWidth, imgHeight);
             }
-        });
-    }
-
-    // 5. Executa a paginação assim que a página carregar
-    paginarGuiaDiario();
-            }
-
-            // --- FIM DA FUNÇÃO AUXILIAR ---
-
-            // 1. Adiciona o cabeçalho na primeira página
-            if (headerElement) {
-                await addElementToPdf(headerElement, true);
-            }
-
-            // 2. Itera sobre todas as outras seções e as adiciona
-            for (let i = 0; i < sections.length; i++) {
-                await addElementToPdf(sections[i], false);
-            }
-
-            // 3. Salva o arquivo
+            
             pdf.save('guia-observacoes.pdf');
 
         } catch (error) {
@@ -843,5 +799,16 @@ if (document.getElementById('formulario-guia')) {
             button.innerText = 'Salvar Formulário';
         }
     }
+
+    // --- EXECUÇÃO ---
+    
+    // 1. Adiciona o listener no botão de salvar
+    const salvarBtn = document.getElementById('salvar-guia-pdf-btn');
+    if (salvarBtn) {
+        salvarBtn.addEventListener('click', gerarPDFGuiaDiario);
+    }
+    
+    // 2. Executa a paginação visual ASSIM que a página carregar
+    paginarGuiaDiario();
 }
 });
