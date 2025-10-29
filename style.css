@@ -1779,9 +1779,8 @@ body {
 .guia-square-item[data-imagem-popup] {
     cursor: pointer;
 }
-
 /* ===================================================================
-   ESTILOS DA NOVA PÁGINA (GUIA DIÁRIO) - BASEADO NO MOCKUP PDF
+   ESTILOS DA NOVA PÁGINA (GUIA DIÁRIO) - RECRIADOS DO PDF
    =================================================================== */
 
 /* 1. Faz a 'page-guia-diario' ter o MESMO menu da 'page-guia' */
@@ -1815,211 +1814,215 @@ body {
     margin-top: 49px; 
 }
 
-/* 4. Estilos do Formulário do Guia (AGORA COMO CONTAINER DE PÁGINA) */
-#formulario-guia {
-    width: 700px;
-    margin: 30px auto;
-    padding: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
+/* 4. Container que centraliza as folhas de papel */
+#form-wrapper {
+    width: 100%;
+    /* Remove o padding da .content-section para a folha A4 ficar mais larga */
+    margin: 0 -20px; 
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 5. A Folha de Papel A4 */
+.form-a4 {
+    background: #fff;
+    /* Define o tamanho exato de um A4. A altura é mínima. */
+    width: 210mm; 
+    min-height: 297mm;
+    max-width: 90%; /* Limite em telas muito pequenas */
+    padding: 20mm 15mm; /* Margens internas como no PDF */
+    margin-bottom: 30px; /* Espaço entre a Folha 1 e a Folha 2 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
     text-align: left;
 }
 
-/* 5. Estilo da "Folha de Papel" virtual que o JS vai criar */
-.guia-page {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 30px; /* Margens internas */
-    margin-bottom: 25px;
-    box-sizing: border-box;
+/* 6. Cabeçalho (Título, Subtítulo, Intro) */
+.form-header {
+    text-align: center;
+    margin-bottom: 10px;
 }
-
-/* --- ESTILOS DE FONTE E ESPAÇAMENTO COMPACTOS --- */
-
-.guia-diario-title {
-    font-family: 'Comfortaa', sans-serif;
-    font-size: 1.6rem; /* BEM MENOR */
+.form-main-title {
+    font-size: 1.6rem;
     font-weight: 700;
     color: #333;
-    text-align: center;
-    margin-bottom: 2px;
+    margin: 0;
 }
-
-.guia-diario-subtitle {
-    font-family: 'Comfortaa', sans-serif;
-    font-size: 0.9rem; /* BEM MENOR */
-    font-weight: 400;
+.form-main-subtitle {
+    font-size: 1rem;
     color: #555;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #f0f0f0; /* Linha mais fina */
-    padding-bottom: 10px;
+    margin: 0;
 }
-
-/* Parágrafo de introdução */
-.header-guia p {
-    font-size: 0.85rem;
+.form-intro {
+    font-size: 0.8rem;
+    color: #444;
     line-height: 1.4;
-    text-align: center;
+    margin-top: 5px;
 }
 
-.header-guia {
-    border-bottom: none; /* Remove a borda dupla */
+/* 7. A Barra Floral Colorida */
+.form-floral-bar {
+    height: 6px;
+    width: 100%;
+    background-image: linear-gradient(to right, #e8c3a0, #d8e2dc, #a2aab8, #bfa6a3);
+    margin-top: 10px;
     margin-bottom: 15px;
 }
 
-/* Seções individuais */
-.section-guia {
-    margin-bottom: 10px; /* BEM MENOR */
-    padding-bottom: 10px; /* BEM MENOR */
-    border-bottom: 1px solid #f4f4f4;
-    page-break-inside: avoid;
+/* 8. Seções de Largura Total (Data, Comunicação, Perguntas) */
+.form-section-full {
+    margin-bottom: 15px;
 }
 
-.section-guia h3 {
-    font-size: 1.05rem; /* BEM MENOR */
-    color: #000;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 3px;
-}
-
-.guia-descricao {
-    font-size: 0.8rem; /* BEM MENOR */
-    color: #555;
-    margin-top: 0;
-    margin-bottom: 8px;
-    font-style: italic;
-    line-height: 1.4;
-}
-
-#formulario-guia label {
-    font-weight: bold;
-    display: block;
-    margin-top: 8px; /* Espaço antes da caixa de texto */
-    margin-bottom: 5px; /* BEM MENOR */
-    color: #333;
-    font-size: 0.9rem; /* MENOR */
-}
-
-/* --- ESTILOS DOS CHECKLISTS --- */
-
-.guia-checklist {
-    display: flex;
-    flex-direction: column; /* Padrão de 1 coluna (para Comunicação) */
-    gap: 3px; /* BEM MENOR */
-    margin-bottom: 8px;
-}
-
-/* NOVO: Estilo para checklists de 2 colunas */
-.guia-checklist-col2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px 10px; /* 3px entre linhas, 10px entre colunas */
-}
-
-.check-item {
-    display: flex;
-    align-items: center;
-}
-
-.check-item input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-    margin-right: 8px;
-    transform: scale(1.0); /* Tamanho normal */
-}
-
-.check-item label {
-    font-weight: normal;
-    margin: 0;
-    font-size: 0.85rem; /* BEM MENOR */
-    line-height: 1.4; /* Espaçamento entre linhas mais justo */
-}
-
-
-/* --- NOVO: ESTILO DAS COLUNAS --- */
-.guia-colunas {
-    display: flex;
-    gap: 25px; /* Espaço entre a coluna da esquerda e da direita */
-    width: 100%;
-    /* Adiciona a borda que remov_emos das seções filhas */
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #f4f4f4;
-}
-.guia-colunas .section-guia {
-    flex: 1; /* Faz as seções dividirem o espaço */
-    min-width: 0; /* Impede que o flexbox estoure a página */
-    border-bottom: none; /* Remove a borda de baixo das seções internas */
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-
-/* --- CAMPOS DE TEXTO E DATA --- */
-.guia-input,
-#formulario-guia textarea {
-    width: 100%;
-    padding: 8px; /* MENOR */
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-family: Arial, sans-serif;
-    font-size: 0.9rem; /* MENOR */
-    box-sizing: border-box; 
-}
-
-/* Caixa de texto padrão (full-width) */
-#formulario-guia textarea {
-    min-height: 80px; 
-    max-height: 80px; 
-    resize: none;
-    overflow-y: hidden; 
-}
-
-/* NOVO: Caixas de texto nas colunas são menores */
-.guia-colunas textarea {
-    min-height: 60px;
-    max-height: 60px;
-}
-
-.section-guia-data {
+.form-section-data {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-.section-guia-data label {
-    margin: 0;
-    flex-shrink: 0; 
-}
-.section-guia-data input[type="date"] {
-    max-width: 180px;
     font-size: 0.9rem;
-    padding: 6px;
+    font-weight: bold;
+}
+.form-section-data label {
+    flex-shrink: 0; /* Impede que o label encolha */
+}
+.form-section-data input[type="date"] {
+    font-size: 0.9rem;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-/* --- RODAPÉ E BOTÃO --- */
-.footer-guia p {
+/* 9. Títulos das Seções (com a barra floral embaixo) */
+h3.form-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 12px;
+    padding-bottom: 3px;
+    position: relative; /* Necessário para a barra floral */
+}
+/* A barra floral embaixo do título */
+h3.form-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px; /* Largura da barra */
+    height: 3px;
+    background-image: linear-gradient(to right, #e8c3a0, #d8e2dc, #a2aab8);
+}
+
+/* 10. Texto de Descrição (abaixo do título da seção) */
+p.form-desc {
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.4;
+    margin: -5px 0 10px 0;
+    font-style: italic;
+}
+
+/* 11. Lista de Checklist */
+.form-checklist {
+    list-style-type: none; /* Remove bolinhas */
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: flex; /* Layout de 1 coluna (padrão) */
+    flex-direction: column;
+    gap: 2px; /* Espaço mínimo entre itens */
+}
+/* Layout de 2 colunas para os checklists */
+.form-checklist.checklist-col2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 15px; /* 2px entre linhas, 15px entre colunas */
+}
+.form-item {
+    display: flex;
+    align-items: center;
+}
+.form-item input[type="checkbox"] {
+    margin: 0 8px 0 0;
+    /* Recria o "quadrado" do PDF */
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #888;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    top: -1px; /* Alinhamento fino */
+}
+/* O "check" que aparece quando marcado */
+.form-item input[type="checkbox"]:checked::after {
+    content: '✔';
+    color: #333;
+    font-size: 10px;
+    position: absolute;
+    top: -1px;
+    left: 1px;
+}
+.form-item label {
+    font-size: 0.85rem; /* Fonte pequena como no PDF */
+    color: #333;
+    line-height: 1.5;
+}
+
+/* 12. Caixas de Observação (Textarea) */
+label.form-obs-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+textarea.form-obs-area {
+    width: 100%;
+    min-height: 100px;
+    max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    resize: none;
+    overflow-y: hidden; /* Como você pediu */
+    box-sizing: border-box;
+}
+/* Caixas de texto nas colunas são mais curtas */
+textarea.form-obs-area.area-col {
+    min-height: 80px;
+    max-height: 80px;
+}
+
+
+/* 13. Layout de Colunas (para Interação, Brincadeiras, etc.) */
+.form-col-container {
+    display: flex;
+    flex-direction: row;
+    gap: 25px; /* Espaço entre as colunas */
+    margin-bottom: 15px;
+}
+.form-col-left, .form-col-right {
+    flex: 1; /* Divide o espaço igualmente */
+    min-width: 0; /* Impede que as colunas quebrem o layout */
+}
+
+/* 14. Rodapé e Botão de Salvar */
+.form-footer-note {
     text-align: center;
     font-size: 0.75rem;
     color: #888;
     font-style: italic;
-    margin-top: 10px;
+    margin-top: 20px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 10px;
 }
-
-.section-guia-botao {
-    text-align: center; 
-    padding-top: 15px;
-    border-top: 1px solid #eee; 
-    border-bottom: none !important;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-#salvar-guia-pdf-btn {
-    display: inline-block; 
-    margin: 0; 
+#form-save-button-container {
+    text-align: center;
+    margin-top: -10px; /* Puxa o botão para mais perto da Folha 2 */
+    margin-bottom: 30px;
 }
