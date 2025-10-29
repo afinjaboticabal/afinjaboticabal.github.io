@@ -1815,9 +1815,25 @@ body {
     margin-top: 49px; 
 }
 
-/* 4. Estilos do Formulário do Guia */
+/* 4. Estilos do Formulário do Guia (AGORA COMO CONTAINER DE PÁGINA) */
 #formulario-guia {
-    text-align: left; /* Alinha o texto do formulário à esquerda */
+    width: 700px; /* Largura A4 simulada (semelhante ao currículo) */
+    margin: 30px auto; /* Centraliza o "papel" */
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    text-align: left;
+}
+
+/* 5. Estilo da "Folha de Papel" virtual que o JS vai criar */
+.guia-page {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 40px; /* Margens internas do papel */
+    margin-bottom: 25px; /* Espaço ENTRE as folhas */
+    box-sizing: border-box;
 }
 
 .guia-diario-title {
@@ -1917,9 +1933,10 @@ body {
 
 /* Faz os textareas crescerem com o conteúdo */
 #formulario-guia textarea {
-    min-height: 80px;
+    min-height: 80px; /* Altura inicial de ~4 linhas */
+    max-height: 80px; /* Altura MÁXIMA de ~4 linhas */
     resize: none;
-    overflow-y: hidden;
+    overflow-y: auto; /* MOSTRA A BARRA DE ROLAGEM se passar de 4 linhas */
 }
 
 .section-guia-data {
@@ -1949,4 +1966,18 @@ body {
     width: 80%;
     max-width: 300px;
     font-size: 1.1rem;
+}
+
+.section-guia-botao {
+    text-align: center; /* Centraliza o botão de salvar */
+    padding-top: 20px;
+    border-top: 1px solid #eee; /* Adiciona uma linha antes do botão */
+    border-bottom: none !important; /* Remove a borda dupla */
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#salvar-guia-pdf-btn {
+    display: inline-block; /* Altera de 'block' para 'inline-block' para o text-align funcionar */
+    margin: 0; /* Remove as margens automáticas */
 }
