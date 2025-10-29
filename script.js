@@ -658,4 +658,48 @@ if (telefonesContainer) {
         // Espera um instante para o layout carregar e chama a atualização
         setTimeout(updateButtonState, 100); 
     }
+    // =================================================================
+    //   Bloco 11: LÓGICA DO MODAL (POP-UP) DE IMAGEM
+    // =================================================================
+    const modal = document.getElementById('meuModal');
+    if (modal) {
+        const btnFecharModal = document.getElementById('fechar-modal');
+        const imagemModal = document.getElementById('imagem-do-modal');
+        const cardsComPopup = document.querySelectorAll('.guia-square-item[data-imagem-popup]');
+
+        function abrirModal(imagemSrc) {
+            if (!imagemModal || !modal) return;
+            imagemModal.src = imagemSrc; // Define a imagem
+            modal.classList.add('modal-ativo'); // Mostra o modal
+            document.body.style.overflow = 'hidden'; // Trava o scroll da página
+        }
+
+        function fecharModal() {
+            if (!modal) return;
+            modal.classList.remove('modal-ativo'); // Esconde o modal
+            document.body.style.overflow = ''; // Libera o scroll
+        }
+
+        // Adiciona o "escutador" de clique em cada card
+        cardsComPopup.forEach(card => {
+            card.addEventListener('click', () => {
+                const imagemSrc = card.dataset.imagemPopup;
+                if (imagemSrc) {
+                    abrirModal(imagemSrc);
+                }
+            });
+        });
+
+        // Adiciona os eventos para fechar
+        if (btnFecharModal) {
+            btnFecharModal.addEventListener('click', fecharModal);
+        }
+        
+        // Fecha o modal se clicar fora da imagem (no fundo branco)
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                fecharModal();
+            }
+        });
+    }
 });
