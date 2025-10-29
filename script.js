@@ -609,14 +609,9 @@ if (telefonesContainer) {
         // Em desktop, rola 3 cards (um "slide" completo)
         // Em mobile, rola 1 card
         function getScrollAmount() {
-            if (window.innerWidth <= 768) {
-                // Mobile: rola 1 card + gap
-                return cardWidth + cardGap;
-            } else {
-                // Desktop: rola 3 cards + 3 gaps
-                // Ajuste para rolar pelo tamanho da "janela" visível
-                return sliderWindow.clientWidth;
-            }
+            // Retorna o valor de 1 card + gap.
+            // Isso agora se aplica tanto ao desktop quanto ao mobile.
+            return cardWidth + cardGap;
         }
     
         function updateButtonState() {
