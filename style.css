@@ -1718,3 +1718,64 @@ body {
         display: block; /* Mostra os botões laterais */
     }
 }
+
+/* ===================================================================
+   ESTILOS DO MODAL (POP-UP) DE TELA CHEIA
+   =================================================================== */
+
+.modal-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* Fundo totalmente branco */
+    z-index: 3000; /* Mais alto que o menu (que é 2000) */
+    
+    /* Centraliza o conteúdo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Controlado pelo JS */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-popup.modal-ativo {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #333; /* Cor escura para contrastar com o fundo branco */
+    font-size: 3rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-conteudo {
+    position: relative;
+    max-width: 90%;  /* Máximo 90% da largura da tela */
+    max-height: 90%; /* Máximo 90% da altura da tela */
+}
+
+.modal-conteudo img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Garante que a imagem inteira apareça */
+}
+
+/* Faz com que os cards tenham o cursor de "link" */
+.guia-square-item[data-imagem-popup] {
+    cursor: pointer;
+}
