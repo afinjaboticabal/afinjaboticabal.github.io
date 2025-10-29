@@ -1546,3 +1546,46 @@ body {
         flex-direction: column; /* Empilha as colunas em telas de celular */
     }
 }
+
+/* ===================================================================
+   ESTILOS PARA O LAYOUT DE 4 DIVISÕES (2x2)
+   =================================================================== */
+
+.grid-4-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas de largura igual */
+    gap: 20px; /* Espaço entre as divisões */
+    margin-top: 30px; /* Espaço acima da grade, abaixo do título principal */
+}
+
+.grid-item {
+    padding: 15px;
+    border: 1px solid #ccc; /* Bordas para as divisões, como no desenho */
+    text-align: left; /* Alinha o texto à esquerda */
+    background-color: #fff; /* Fundo branco para as "células" */
+    border-radius: 8px; /* Bordas arredondadas para combinar com as outras caixas */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra suave para destacar */
+}
+
+.grid-item h4 {
+    font-size: 1.2em; /* Título um pouco maior */
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.grid-item p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* ===================================================================
+   RESPONSIVIDADE DO LAYOUT DE 4 DIVISÕES (PARA CELULAR)
+   =================================================================== */
+
+@media (max-width: 768px) {
+    .grid-4-cols {
+        grid-template-columns: 1fr; /* Em telas menores, uma coluna só (empilha) */
+        gap: 15px;
+    }
+}
