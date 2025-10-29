@@ -1606,7 +1606,7 @@ body {
 }
 
 .topicos-window {
-    overflow-x: visible;  
+    overflow-x: hidden;  
     overflow-y: visible; /* <-- E esta (deixa "vazar" na vertical) */
     scroll-behavior: smooth;
     margin: 0 40px; /* Deixa espaço para os botões laterais em desktop */
