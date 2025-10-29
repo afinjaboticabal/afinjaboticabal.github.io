@@ -2026,3 +2026,7 @@ textarea.form-obs-area.area-col {
     margin-top: -10px; /* Puxa o botão para mais perto da Folha 2 */
     margin-bottom: 30px;
 }
+
+.page-guia-diario {
+    position: relative;
+}
