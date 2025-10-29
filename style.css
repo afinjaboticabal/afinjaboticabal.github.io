@@ -1936,7 +1936,7 @@ body {
     min-height: 80px; /* Altura inicial de ~4 linhas */
     max-height: 80px; /* Altura MÁXIMA de ~4 linhas */
     resize: none;
-    overflow-y: auto; /* MOSTRA A BARRA DE ROLAGEM se passar de 4 linhas */
+    overflow-y: hidden; /* ESCONDE a barra de rolagem */
 }
 
 .section-guia-data {
