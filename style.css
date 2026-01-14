@@ -2030,3 +2030,14 @@ textarea.form-obs-area.area-col {
 .page-guia-diario {
     position: relative;
 }
+
+/* Esta regra só afeta a foto interna do PDF, não mexe no layout mobile */
+#previewFoto-print {
+    width: 100px;
+    height: 120px;
+    margin-right: 20px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    object-fit: cover; /* Mantém o enquadramento correto sem deformar */
+    image-rendering: -webkit-optimize-contrast;
+}
