@@ -353,7 +353,7 @@ if (telefonesContainer) {
                 for (let i = 0; i < sections.length; i++) {
                     const section = sections[i];
                     if (section.style.display === 'none') { continue; }
-                    const canvas = await html2canvas(section, { scale: 2, useCORS: true, scrollY: -window.scrollY });
+                    const canvas = await html2canvas(section, { scale: 4, useCORS: true, scrollY: -window.scrollY });
                     const imgHeight = canvas.height * usableWidth / canvas.width;
                     if (currentY + imgHeight > pageHeight - marginBottom && i > 0) {
                         pdf.addPage();
