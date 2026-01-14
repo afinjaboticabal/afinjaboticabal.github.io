@@ -163,22 +163,23 @@ if (telefonesContainer) {
         document.getElementById('baixar-pdf-btn').addEventListener('click', gerarPDF);
 
         function atualizarFoto() {
-            const file = document.getElementById("foto").files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const imageUrl = e.target.result;
-                    
-                    // Mantém a lógica para a imagem visível, que já funciona
-                    document.getElementById("previewFoto-visivel").src = imageUrl;
+    const file = document.getElementById("foto").files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const imageUrl = e.target.result;
+            
+            // 1. Atualiza a foto que o usuário vê na tela (Mobile/Desktop)
+            document.getElementById("previewFoto-visivel").src = imageUrl;
 
-                    // MUDANÇA AQUI: Altera a lógica para o container da versão de impressão
-                    const fotoContainer = document.getElementById("previewFoto-container");
-                    fotoContainer.style.backgroundImage = `url('${imageUrl}')`;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
+            // 2. Atualiza a foto interna que vai para o PDF
+            const fotoPrint = document.getElementById("previewFoto-print");
+            fotoPrint.src = imageUrl;
+            fotoPrint.style.display = "block"; 
+        };
+        reader.readAsDataURL(file);
+    }
+}
         function calcularIdade(dia, mes, ano) {
             const hoje = new Date();
             const nascimento = new Date(ano, mes - 1, dia);
