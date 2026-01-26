@@ -2063,9 +2063,9 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (DESIGNER STYLE - JS WAVE) */
+/* 3. Título Flutuante (DESIGNER STYLE - JS WAVE) - CORRIGIDO */
 
-/* O Container */
+/* O Container Principal */
 .page-guia .titulo-flutuante {
     background-color: transparent !important;
     box-shadow: none !important;
@@ -2073,43 +2073,44 @@ textarea.form-obs-area.area-col {
     text-align: center;
     margin-top: 40px;
     margin-bottom: 20px;
-    perspective: 1000px; /* Prepara para efeitos 3D se necessário */
+    perspective: 1000px;
 }
 
-/* O Texto em si */
+/* O Texto (Container das letras) */
 .page-guia .titulo-flutuante .portfolio-title {
-    font-size: 2.2rem; /* Tamanho grande */
-    font-weight: 800;  /* Extra negrito */
+    font-size: 2.2rem; 
+    font-weight: 800;  
     text-transform: uppercase;
     letter-spacing: 2px;
-    display: inline-block; /* Necessário para o efeito funcionar */
-    
-    /* EFEITO DE COR: Gradiente Dourado/Laranja */
-    background: linear-gradient(45deg, #FF8C00, #FFD700, #FF4500, #FF8C00);
-    background-size: 300% 300%;
-    -webkit-background-clip: text; /* Corta o fundo no formato da letra */
-    background-clip: text;
-    color: transparent; /* Deixa o texto transparente para mostrar o fundo */
-    
-    /* Animação do Gradiente (Brilho passando) */
-    animation: gradient-shift 5s ease infinite;
+    display: inline-block;
+    /* Removemos o background daqui para não bugar */
+    background: none;
+    color: inherit; 
 }
 
-/* Animação das Cores */
-@keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* A Classe que o JS vai criar para cada letra */
+/* A Classe de CADA LETRA (Onde a mágica acontece) */
 .letra-flutuante {
     display: inline-block;
     position: relative;
-    /* A animação 'wave' fará a letra subir e descer */
+    
+    /* 1. O Efeito de Cor (Aplicado letra por letra agora) */
+    /* Degradê vertical: Laranja -> Ouro -> Vermelho Alaranjado */
+    background: linear-gradient(180deg, #FF8C00 0%, #FFD700 50%, #FF4500 100%);
+    
+    /* 2. Recorta o fundo no formato da letra */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Deixa a letra transparente para o fundo aparecer */
+    color: transparent;
+    -webkit-text-fill-color: transparent; /* Garante compatibilidade */
+
+    /* 4. A Animação de Onda */
     animation: wave 2.5s ease-in-out infinite;
-    /* O delay será injetado pelo JS via variável CSS var(--i) */
     animation-delay: calc(0.1s * var(--i));
+    
+    /* Sombra suave atrás para destacar do fundo bege (opcional) */
+    filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.5));
 }
 
 /* O movimento da onda */
@@ -2122,7 +2123,7 @@ textarea.form-obs-area.area-col {
     }
 }
 
-/* Ajuste para Mobile (reduz a fonte e o movimento) */
+/* Ajuste para Mobile */
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante .portfolio-title {
         font-size: 1.5rem;
