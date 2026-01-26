@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (VERSÃO 5.0 - AJUSTE MATEMÁTICO PERFEITO) */
+/* 3. Título Flutuante (VERSÃO FINAL GOLD EDITION - EFEITO METÁLICO/VIDRO) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2074,7 +2074,6 @@ textarea.form-obs-area.area-col {
     margin-top: 40px;
     margin-bottom: 20px;
     perspective: 1000px;
-    
     /* Desktop: Comportamento padrão */
     width: 100%;
 }
@@ -2092,6 +2091,7 @@ textarea.form-obs-area.area-col {
     display: block; 
     line-height: 1.5; 
     
+    /* Removemos background e cor base daqui */
     background: none;
     color: inherit; 
 }
@@ -2103,16 +2103,35 @@ textarea.form-obs-area.area-col {
     width: 100%;
 }
 
-/* A Classe de CADA LETRA */
+/* A Classe de CADA LETRA - AQUI ESTÁ O BRILHO */
 .letra-flutuante {
     display: inline-block;
     position: relative;
     white-space: pre; 
-    color: #E6B325; 
-    text-shadow: 1px 1px 0px #9A7D0A, 2px 2px 5px rgba(0, 0, 0, 0.25);
-    -webkit-background-clip: border-box;
-    background-clip: border-box;
-    -webkit-text-fill-color: initial;
+
+    /* === O EFEITO DE OURO METÁLICO/VIDRO === */
+    
+    /* 1. O Gradiente "Sanduíche" */
+    background: linear-gradient(
+        180deg,
+        #FFD700 10%,   /* Topo: Ouro Amarelo Brilhante */
+        #FDB931 45%,   /* Meio: Laranja Ouro Rico */
+        #FFFFF0 50%,   /* O REFLEXO: Uma linha quase branca no meio (efeito vidro) */
+        #FDB931 55%,   /* Meio: Volta para Laranja Ouro */
+        #C49102 90%    /* Base: Bronze/Ouro Escuro para dar peso */
+    );
+
+    /* 2. Recorta o fundo no formato da letra */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* 3. Deixa o texto transparente para mostrar o gradiente */
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    /* 4. Sombra realista para destacar o "objeto de metal" do fundo */
+    /* Usamos filter: drop-shadow pois funciona melhor com o preenchimento transparente */
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
 
     /* Velocidade da onda */
     animation: wave 5s ease-in-out infinite;
@@ -2124,36 +2143,21 @@ textarea.form-obs-area.area-col {
     50% { transform: translateY(-8px); }
 }
 
-/* === AJUSTE FINO PARA MOBILE === */
+/* === AJUSTE FINO PARA MOBILE (Mantido da versão anterior) === */
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante {
-        /* TRUQUE MATEMÁTICO:
-           O container pai tem 20px de padding de cada lado.
-           Então a largura total disponível é 100% + 40px. */
         width: calc(100% + 40px);
-        
-        /* Puxamos 20px para a esquerda para "encaixar" nas bordas da tela */
         margin-left: -20px;
         margin-right: -20px;
-        
-        /* Removemos posicionamentos absolutos que causavam o desalinhamento */
         position: static;
         transform: none;
         left: auto;
     }
 
     .page-guia .titulo-flutuante .portfolio-title {
-        /* AJUSTE DE FONTE:
-           4.5vw é o "número mágico" para a Comfortaa.
-           Garante que a frase longa caiba sem cortar as bordas. */
         font-size: 4.5vw; 
-        
-        /* Remove espaçamento extra para ganhar espaço */
         letter-spacing: 0px; 
-        
         line-height: 1.4;
-        
-        /* Adiciona um micro padding invisível para a letra não colar no pixel da borda */
         padding-left: 2px;
         padding-right: 2px;
     }
