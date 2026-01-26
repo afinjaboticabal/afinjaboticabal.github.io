@@ -2063,44 +2063,74 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (ATUALIZADO PARA DAR DESTAQUE) */
+/* 3. Título Flutuante (DESIGNER STYLE - JS WAVE) */
+
+/* O Container */
 .page-guia .titulo-flutuante {
     background-color: transparent !important;
     box-shadow: none !important;
     padding: 0 !important;
-    text-align: center; /* Garante que o container esteja centralizado */
-    margin-top: 20px;   /* Um pouco de respiro acima */
-    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    perspective: 1000px; /* Prepara para efeitos 3D se necessário */
 }
 
+/* O Texto em si */
 .page-guia .titulo-flutuante .portfolio-title {
-    font-size: 2rem;       /* Aumentamos bastante a fonte (era padrão) */
-    font-weight: 800;      /* Extra negrito */
-    color: #e65100;        /* Um laranja tijolo forte (contraste alto) */
-    text-transform: uppercase; /* Letras maiúsculas dão autoridade */
-    letter-spacing: 1px;   /* Espaçamento leve entre letras */
+    font-size: 2.2rem; /* Tamanho grande */
+    font-weight: 800;  /* Extra negrito */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block; /* Necessário para o efeito funcionar */
     
-    /* Sombra branca dura para "descolar" do fundo animado */
-    text-shadow: 3px 3px 0px #ffffff; 
+    /* EFEITO DE COR: Gradiente Dourado/Laranja */
+    background: linear-gradient(45deg, #FF8C00, #FFD700, #FF4500, #FF8C00);
+    background-size: 300% 300%;
+    -webkit-background-clip: text; /* Corta o fundo no formato da letra */
+    background-clip: text;
+    color: transparent; /* Deixa o texto transparente para mostrar o fundo */
     
-    position: relative;
-    display: inline-block;
-    padding-bottom: 20px; /* Espaço para o detalhe abaixo */
+    /* Animação do Gradiente (Brilho passando) */
+    animation: gradient-shift 5s ease infinite;
 }
 
-/* Cria uma linha decorativa com uma "setinha" abaixo do texto */
-.page-guia .titulo-flutuante .portfolio-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%); /* Centraliza perfeitamente */
-    
-    /* O desenho da linha */
-    width: 60px;
-    height: 4px;
-    background-color: #FFCC80; /* Laranja pastel */
-    border-radius: 2px;
+/* Animação das Cores */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* A Classe que o JS vai criar para cada letra */
+.letra-flutuante {
+    display: inline-block;
+    position: relative;
+    /* A animação 'wave' fará a letra subir e descer */
+    animation: wave 2.5s ease-in-out infinite;
+    /* O delay será injetado pelo JS via variável CSS var(--i) */
+    animation-delay: calc(0.1s * var(--i));
+}
+
+/* O movimento da onda */
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px); /* Sobe 8px */
+    }
+}
+
+/* Ajuste para Mobile (reduz a fonte e o movimento) */
+@media (max-width: 768px) {
+    .page-guia .titulo-flutuante .portfolio-title {
+        font-size: 1.5rem;
+    }
+    @keyframes wave {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+    }
 }
 /* 4. Janela com Botão (Guia Diário / CTA) */
 .page-guia .caixa-cta {
