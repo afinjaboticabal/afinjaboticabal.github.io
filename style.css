@@ -2163,25 +2163,26 @@ textarea.form-obs-area.area-col {
 
 }
 /* ===================================================================
-   4. JANELA COM BOTÃO (GUIA DIÁRIO / CTA) - VERSÃO FINAL LOOP INFINITO
+   4. JANELA COM BOTÃO (GUIA DIÁRIO / CTA) - VERSÃO FINAL AJUSTADA
    =================================================================== */
 
-/* A CAIXA (Corrigindo a borda com prioridade total) */
-.page-guia .caixa-cta {
-    /* O !important garante que esta regra vença qualquer outra */
-    border: 4px solid #FFCC80 !important; 
+/* A CAIXA - REFORÇADA */
+/* Usamos um seletor bem específico para garantir que a borda apareça */
+.page-guia div.portfolio-text-box.caixa-cta {
+    border: 4px solid #FFCC80 !important; /* Borda Laranja Forçada */
     border-radius: 12px;
     background-color: #fff;
     position: relative;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 10; /* Garante que fique acima de elementos decorativos */
+    z-index: 5; /* Garante que fique acima do fundo */
+    overflow: visible; /* Garante que a borda não seja cortada */
 }
 
-/* O BOTÃO (Novo Design: Laranja Claro + Preto) */
+/* O BOTÃO - NOVO DESIGN */
 .page-guia .caixa-cta .cta-button {
-    background-color: #FFE0B2; /* Laranja Pastel Fundo */
+    background-color: #FFE0B2; /* Laranja Pastel */
     color: #000000;            /* Texto Preto */
-    font-weight: 800;          /* Negrito Extra */
+    font-weight: 800;
     text-transform: uppercase; 
     font-size: 0.95rem;
     
@@ -2191,37 +2192,37 @@ textarea.form-obs-area.area-col {
     
     display: inline-block;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: transform 0.2s ease;
     
-    /* Garante que o botão tenha o tamanho certo */
+    /* Importante para a máscara funcionar */
     overflow: hidden; 
 }
 
-/* O EFEITO DE LUZ INFINITA (Corrigido para Loop Perfeito) */
+/* O EFEITO DE LUZ INFINITA (LOOP PERFEITO + LENTO) */
 .page-guia .caixa-cta .cta-button::before {
     content: "";
     position: absolute;
-    inset: 0;              /* Ocupa todo o botão */
+    inset: 0;              
     border-radius: 12px;
     padding: 4px;          /* Espessura da Luz */
     
-    /* GRADIENTE CICLICO: Começa e termina com a MESMA cor (Bronze) */
+    /* GRADIENTE CÍCLICO (Bronze -> Ouro -> Claro -> Ouro -> Bronze) */
     background: linear-gradient(90deg, 
-        #B8860B, /* Inicio: Bronze */
-        #FFD700, /* Ouro */
-        #FFF8DC, /* Brilho Claro */
-        #FFD700, /* Ouro */
-        #B8860B  /* Fim: Bronze (Igual ao inicio) */
+        #B8860B 0%, 
+        #FFD700 25%, 
+        #FFF8DC 50%, 
+        #FFD700 75%, 
+        #B8860B 100%
     );
     
-    /* Tamanho 200%: O gradiente é esticado para dar espaço para rolar */
-    background-size: 200% 100%;
+    background-size: 200% 100%; /* O fundo é 2x maior que o botão */
+    background-repeat: repeat-x; /* Garante que ele se repita infinitamente */
     
-    /* A ANIMAÇÃO CORRIGIDA */
-    animation: gold-seamless-loop 2s linear infinite;
+    /* ANIMAÇÃO MAIS LENTA (6s) */
+    animation: gold-seamless-loop 6s linear infinite;
     
     /* MÁSCARA: Deixa apenas a borda visível */
     -webkit-mask: 
@@ -2233,20 +2234,21 @@ textarea.form-obs-area.area-col {
     pointer-events: none;
 }
 
-/* Keyframes corrigidos: Move de 0 a -200% (uma volta completa exata) */
+/* KEYFRAMES CORRIGIDOS */
+/* Movemos o fundo da posição 0% até -200% (uma volta completa exata) */
 @keyframes gold-seamless-loop {
     0% { 
-        background-position-x: 0%; 
+        background-position: 0% 0; 
     }
     100% { 
-        background-position-x: -200%; /* Move exatamente o tamanho do background */
+        background-position: -200% 0; 
     }
 }
 
 /* Interação ao passar o mouse */
 .page-guia .caixa-cta .cta-button:hover {
     transform: translateY(-3px);
-    background-color: #FFCC80;
+    background-color: #FFCC80; /* Fica mais escuro no hover */
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
