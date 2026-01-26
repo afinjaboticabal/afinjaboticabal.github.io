@@ -1728,6 +1728,22 @@ body {
     background-color: #FFCC80;
 }
 
+/* --- Visibilidade dos Botões da Playlist --- */
+/* Por padrão (Desktop), esconde os botões */
+.playlist-nav-mobile {
+    display: none;
+}
+
+/* No Mobile, mostra os botões centralizados */
+@media (max-width: 768px) {
+    .playlist-nav-mobile {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        padding-bottom: 20px; /* Um espaço extra no final da página */
+    }
+}
+
 /* --- Responsividade do Slider --- */
 @media (max-width: 768px) {
     .topicos-window {
