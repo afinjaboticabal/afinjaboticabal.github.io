@@ -2041,3 +2041,73 @@ textarea.form-obs-area.area-col {
     object-fit: cover; /* Mantém o enquadramento correto sem deformar */
     image-rendering: -webkit-optimize-contrast;
 }
+
+/* ===================================================================
+   NOVO DESIGN ESPECÍFICO PARA O GUIA INTERATIVO (JANELAS)
+   =================================================================== */
+
+/* 1. Janela Principal (Título do Topo) */
+.page-guia .guia-title {
+    border-top: 6px solid #FFCC80; /* Laranja Pastel */
+    /* O resto do design original (sombra, fundo branco) é mantido */
+}
+
+/* 2. Janelas Divididas (Entendendo Emoções / Próximos Passos) */
+.page-guia .colunas-container .portfolio-text-box {
+    border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
+}
+
+/* 3. Título Flutuante (Clique nos Cards...) */
+/* Removemos o fundo branco e a sombra da caixa */
+.page-guia .titulo-flutuante {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important; /* Remove o espaçamento interno */
+}
+/* Adicionamos a sombra no texto para ler em cima do fundo animado */
+.page-guia .titulo-flutuante .portfolio-title {
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), 
+                 0px 0px 10px rgba(255, 255, 255, 0.5);
+    margin-bottom: 20px; /* Ajuste de espaço */
+}
+
+/* 4. Janela com Botão (Guia Diário / CTA) */
+.page-guia .caixa-cta {
+    border: 2px solid #FFCC80; /* Borda fina total */
+    /* Mantém o fundo branco original */
+}
+
+/* 5. As 4 Janelas Finais (Grid Colorido) */
+/* Removemos a borda padrão cinza e adicionamos cores de fundo */
+
+/* Item 1: Autocuidado (Azul Claro) */
+.page-guia .grid-item:nth-child(1) {
+    background-color: #E3F2FD; /* Azul Pastel */
+    border: 1px solid #BBDEFB; /* Borda sutil combinando */
+}
+
+/* Item 2: Comunicação (Verde Claro) */
+.page-guia .grid-item:nth-child(2) {
+    background-color: #E8F5E9; /* Verde Pastel */
+    border: 1px solid #C8E6C9;
+}
+
+/* Item 3: Navegação (Amarelo Claro) */
+.page-guia .grid-item:nth-child(3) {
+    background-color: #FFFDE7; /* Amarelo Pastel */
+    border: 1px solid #FFF9C4;
+}
+
+/* Item 4: Poder da Escolha (Laranja Claro) */
+.page-guia .grid-item:nth-child(4) {
+    background-color: #FFF3E0; /* Laranja Pastel */
+    border: 1px solid #FFE0B2;
+}
+
+/* Ajuste opcional para o texto dentro dos cards coloridos ficar bem legível */
+.page-guia .grid-item h4 {
+    color: #333; /* Cinza escuro */
+}
+.page-guia .grid-item p {
+    color: #444;
+}
