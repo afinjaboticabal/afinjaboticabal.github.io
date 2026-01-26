@@ -773,7 +773,31 @@ if (document.getElementById('form-wrapper')) { // Verifica se o novo container e
         salvarBtn.addEventListener('click', gerarPDFGuiaDiarioExato);
     }
     
-    // NÃO PRECISAMOS MAIS DA FUNÇÃO paginarGuiaDiario()
-    // porque o HTML já está dividido em duas folhas.
 }
+    // =================================================================
+    //   Bloco 13: ANIMAÇÃO DE TEXTO "WAVE" (TÍTULO FLUTUANTE)
+    // =================================================================
+    const tituloFlutuante = document.querySelector('.page-guia .titulo-flutuante .portfolio-title');
+    
+    if (tituloFlutuante) {
+        // 1. Pega o texto original
+        const textoOriginal = tituloFlutuante.innerText;
+        
+        // 2. Limpa o elemento
+        tituloFlutuante.innerHTML = '';
+        
+        // 3. Reconstrói letra por letra
+        // O split('') separa cada caractere. O map cria os spans.
+        const letrasHTML = textoOriginal.split('').map((letra, index) => {
+            // Se for um espaço vazio, precisamos de um caractere HTML (&nbsp;) ou manter o espaço
+            if (letra === ' ') {
+                return `<span class="letra-flutuante" style="--i:${index};">&nbsp;</span>`;
+            }
+            // Retorna a letra envolvida no span com o índice (index) para o delay
+            return `<span class="letra-flutuante" style="--i:${index};">${letra}</span>`;
+        }).join(''); // Junta tudo de volta numa string
+        
+        // 4. Insere o novo HTML
+        tituloFlutuante.innerHTML = letrasHTML;
+    }
 });
