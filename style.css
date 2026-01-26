@@ -1672,35 +1672,37 @@ body {
 }
 
 /* --- Botões do Slider (Mobile) - Estilo Dourado/Laranja --- */
-.slider-nav-mobile .slider-btn-mobile {
-    background-color: #FFE0B2; /* Laranja Pastel (Igual ao Guia Diário) */
-    color: #000000;            /* Texto Preto */
+/* --- Botões Dourados (Slider E Playlist Mobile) --- */
+.slider-nav-mobile .slider-btn-mobile,
+.playlist-nav-mobile .playlist-btn-mobile { /* <--- ADICIONEI ESTA LINHA */
+    background-color: #FFE0B2; 
+    color: #000000;            
     font-family: 'Comfortaa', sans-serif;
-    font-weight: 800;          /* Negrito extra */
-    text-transform: uppercase; /* Letras maiúsculas */
-    font-size: 0.85rem;        /* Levemente menor para caber no celular */
+    font-weight: 800;          
+    text-transform: uppercase; 
+    font-size: 0.85rem;        
     
     border: none;
     border-radius: 12px;
-    padding: 12px 20px;        /* Espaçamento ajustado */
+    padding: 12px 20px;        
     margin: 0 5px;
     
-    position: relative;        /* Necessário para o efeito */
-    overflow: hidden;          /* Necessário para a borda brilhar */
+    position: relative;        
+    overflow: hidden;          
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: transform 0.2s ease;
 }
 
-/* O EFEITO DE BRILHO DOURADO (Igual ao do Guia Diário) */
-.slider-nav-mobile .slider-btn-mobile::before {
+/* O EFEITO DE BRILHO DOURADO (Para ambos) */
+.slider-nav-mobile .slider-btn-mobile::before,
+.playlist-nav-mobile .playlist-btn-mobile::before { /* <--- ADICIONEI ESTA LINHA */
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 12px;
-    padding: 4px; /* Espessura do brilho */
+    padding: 4px; 
     
-    /* O mesmo gradiente dourado */
     background: linear-gradient(90deg, 
         #B8860B 0%, 
         #FFD700 25%, 
@@ -1711,38 +1713,19 @@ body {
     
     background-size: 200% 100%;
     background-repeat: repeat-x;
-    
-    /* A mesma animação */
     animation: gold-seamless-loop 6s linear infinite;
     
-    /* Máscara para deixar só a borda */
-    -webkit-mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    
     pointer-events: none;
 }
 
-/* Estado Hover (Ao tocar/passar o mouse) */
-.slider-nav-mobile .slider-btn-mobile:hover {
+/* Hover (Para ambos) */
+.slider-nav-mobile .slider-btn-mobile:hover,
+.playlist-nav-mobile .playlist-btn-mobile:hover {
     transform: translateY(-2px);
     background-color: #FFCC80;
-}
-
-/* Estado Desabilitado (Quando não tem mais para onde ir) */
-.slider-nav-mobile .slider-btn-mobile:disabled {
-    background-color: #e0e0e0;
-    color: #a0a0a0;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
-
-/* Remove o brilho dourado quando o botão está desabilitado */
-.slider-nav-mobile .slider-btn-mobile:disabled::before {
-    display: none;
 }
 
 /* --- Responsividade do Slider --- */
