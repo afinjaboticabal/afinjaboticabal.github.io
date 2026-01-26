@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (VERSÃO FINAL "OURO SUAVE" + SOMBRA FORTE) */
+/* 3. Título Flutuante (VERSÃO FINAL "GOLD SHADOW" + SLOW MOTION) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2081,57 +2081,54 @@ textarea.form-obs-area.area-col {
 .page-guia .titulo-flutuante .portfolio-title {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 900; 
-    
-    /* Desktop: Tamanho fixo grande */
     font-size: 2.4rem; 
-    
     text-transform: uppercase;
     letter-spacing: 2px;
     display: block; 
     line-height: 1.5; 
-    
     background: none;
     color: inherit; 
 }
 
-/* CLASSE DA LINHA: Segura o texto em uma linha só */
+/* CLASSE DA LINHA */
 .linha-titulo {
     display: block;
     white-space: nowrap; 
     width: 100%;
 }
 
-/* A Classe de CADA LETRA - AQUI ESTÁ O AJUSTE DE COR */
+/* A Classe de CADA LETRA */
 .letra-flutuante {
     display: inline-block;
     position: relative;
     white-space: pre; 
 
-    /* === 1. O EFEITO DE OURO MAIS SUAVE === */
+    /* === 1. O EFEITO DE OURO SUAVE (Mantido) === */
     background: linear-gradient(
         180deg,
-        #E6B325 10%,   /* Topo: Ouro Rico (reduzi o brilho excessivo do amarelo) */
-        #FDB931 45%,   /* Meio: Laranja Ouro */
-        #FFE082 50%,   /* O BRILHO: Agora é um "Amarelo Creme", não mais branco puro */
-        #FDB931 55%,   /* Meio: Volta para Laranja Ouro */
-        #9A7D0A 90%    /* Base: Bronze mais fechado para dar peso */
+        #E6B325 10%,   
+        #FDB931 45%,   
+        #FFE082 50%,   
+        #FDB931 55%,   
+        #9A7D0A 90%    
     );
 
-    /* 2. Recorta o fundo no formato da letra */
     -webkit-background-clip: text;
     background-clip: text;
-
-    /* 3. Texto transparente */
     -webkit-text-fill-color: transparent;
     color: transparent;
 
-    /* === 2. A SOMBRA MAIS FORTE (DESTAQUE) === */
-    /* Aumentei a opacidade para 0.6 (60%) e o deslocamento para 3px */
-    filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.6));
+    /* === 2. SOMBRA DOURADA MÉDIA (AJUSTADO) === */
+    /* Trocamos o preto por #8B6508 (DarkGoldenRod) */
+    /* 3px de distância e 1px de desfoque para ficar nítido */
+    filter: drop-shadow(3px 3px 1px #8B6508);
 
-    /* Velocidade da onda */
-    animation: wave 5s ease-in-out infinite;
-    animation-delay: calc(0.15s * var(--i));
+    /* === 3. VELOCIDADE MAIS LENTA (AJUSTADO) === */
+    /* Aumentei para 8s (era 5s). Quanto maior, mais lento. */
+    animation: wave 8s ease-in-out infinite;
+    
+    /* Ajuste proporcional no delay para a onda não ficar "quebrada" */
+    animation-delay: calc(0.2s * var(--i));
 }
 
 @keyframes wave {
