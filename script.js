@@ -775,27 +775,43 @@ if (document.getElementById('form-wrapper')) { // Verifica se o novo container e
     
 }
 // =================================================================
-    //   Bloco 13: ANIMAÇÃO DE TEXTO "WAVE" (TÍTULO FLUTUANTE)
+    //   Bloco 13: ANIMAÇÃO DE TEXTO "WAVE" (2 LINHAS FORÇADAS)
     // =================================================================
     const tituloFlutuante = document.querySelector('.page-guia .titulo-flutuante .portfolio-title');
     
     if (tituloFlutuante) {
-        // 1. Pega o texto original
-        const textoOriginal = tituloFlutuante.innerText;
-        
-        // 2. Limpa o elemento
+        // Definimos EXATAMENTE o que vai em cada linha
+        const linha1Texto = "CLIQUE NOS CARDS ABAIXO PARA";
+        const linha2Texto = "ENTENDER MAIS CADA ASSUNTO!";
+
+        // Limpa o conteúdo atual
         tituloFlutuante.innerHTML = '';
         
-        // 3. Reconstrói letra por letra
-        const letrasHTML = textoOriginal.split('').map((letra, index) => {
-            // CORREÇÃO: Usamos um espaço normal " " em vez de &nbsp;
-            if (letra === ' ') {
-                return `<span class="letra-flutuante" style="--i:${index};"> </span>`;
-            }
-            return `<span class="letra-flutuante" style="--i:${index};">${letra}</span>`;
-        }).join(''); 
-        
-        // 4. Insere o novo HTML
-        tituloFlutuante.innerHTML = letrasHTML;
+        // Função auxiliar para criar os spans de uma linha
+        // 'startIndex' serve para a animação da 2ª linha não começar do zero, 
+        // mas sim continuar a onda da 1ª linha
+        function criarLinha(texto, startIndex) {
+            const divLinha = document.createElement('div');
+            divLinha.classList.add('linha-titulo'); // Classe para travar a quebra
+            
+            const htmlLetras = texto.split('').map((letra, i) => {
+                const globalIndex = startIndex + i; // Índice global para o delay da onda
+                if (letra === ' ') {
+                    return `<span class="letra-flutuante" style="--i:${globalIndex};"> </span>`;
+                }
+                return `<span class="letra-flutuante" style="--i:${globalIndex};">${letra}</span>`;
+            }).join('');
+            
+            divLinha.innerHTML = htmlLetras;
+            return divLinha;
+        }
+
+        // Cria a Linha 1 (começa do índice 0)
+        const elementoLinha1 = criarLinha(linha1Texto, 0);
+        tituloFlutuante.appendChild(elementoLinha1);
+
+        // Cria a Linha 2 (começa do índice onde a linha 1 parou)
+        const elementoLinha2 = criarLinha(linha2Texto, linha1Texto.length);
+        tituloFlutuante.appendChild(elementoLinha2);
     }
 });
