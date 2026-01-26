@@ -2163,83 +2163,90 @@ textarea.form-obs-area.area-col {
 
 }
 /* ===================================================================
-   4. JANELA COM BOTÃO (GUIA DIÁRIO / CTA) - VERSÃO GOLD LOOP
+   4. JANELA COM BOTÃO (GUIA DIÁRIO / CTA) - VERSÃO FINAL LOOP INFINITO
    =================================================================== */
 
-/* A CAIXA (Corrigindo a borda que sumiu) */
+/* A CAIXA (Corrigindo a borda com prioridade total) */
 .page-guia .caixa-cta {
-    /* Forçamos a borda com !important para garantir que nada sobrescreva */
-    border: 3px solid #FFCC80 !important; 
+    /* O !important garante que esta regra vença qualquer outra */
+    border: 4px solid #FFCC80 !important; 
     border-radius: 12px;
     background-color: #fff;
     position: relative;
-    /* Garante que a sombra da caixa não suma */
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 10; /* Garante que fique acima de elementos decorativos */
 }
 
 /* O BOTÃO (Novo Design: Laranja Claro + Preto) */
 .page-guia .caixa-cta .cta-button {
-    background-color: #FFE0B2; /* Laranja bem clarinho */
-    color: #000000;            /* Texto Preto para leitura fácil */
+    background-color: #FFE0B2; /* Laranja Pastel Fundo */
+    color: #000000;            /* Texto Preto */
     font-weight: 800;          /* Negrito Extra */
-    text-transform: uppercase; /* Letras maiúsculas para destaque */
+    text-transform: uppercase; 
     font-size: 0.95rem;
     
-    border: none;              /* Removemos bordas antigas */
+    border: none;
     border-radius: 12px;
     padding: 15px 35px;
     
     display: inline-block;
     position: relative;
-    z-index: 1;                /* O texto fica acima do efeito */
+    z-index: 1;
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: transform 0.2s ease;
+    
+    /* Garante que o botão tenha o tamanho certo */
+    overflow: hidden; 
 }
 
-/* O EFEITO DE LUZ INFINITA (Borda Dourada Animada) */
+/* O EFEITO DE LUZ INFINITA (Corrigido para Loop Perfeito) */
 .page-guia .caixa-cta .cta-button::before {
     content: "";
     position: absolute;
     inset: 0;              /* Ocupa todo o botão */
-    border-radius: 12px;   /* Segue a curva do botão */
-    padding: 4px;          /* Espessura da "Luz" */
+    border-radius: 12px;
+    padding: 4px;          /* Espessura da Luz */
     
-    /* GRADIENTE DOURADO (Claro e Escuro apenas) */
+    /* GRADIENTE CICLICO: Começa e termina com a MESMA cor (Bronze) */
     background: linear-gradient(90deg, 
-        #B8860B, /* Ouro Escuro (Bronze) */
-        #FFD700, /* Ouro Amarelo Brilhante */
-        #FFF8DC, /* Ouro Quase Branco (Brilho) */
-        #FFD700, /* Ouro Amarelo */
-        #B8860B  /* Volta pro Escuro */
+        #B8860B, /* Inicio: Bronze */
+        #FFD700, /* Ouro */
+        #FFF8DC, /* Brilho Claro */
+        #FFD700, /* Ouro */
+        #B8860B  /* Fim: Bronze (Igual ao inicio) */
     );
     
-    background-size: 300% 100%; /* Estica o gradiente para a animação correr */
+    /* Tamanho 200%: O gradiente é esticado para dar espaço para rolar */
+    background-size: 200% 100%;
     
-    /* A ANIMAÇÃO EM LOOP (Sem precisar passar o mouse) */
-    animation: gold-loop 3s linear infinite;
+    /* A ANIMAÇÃO CORRIGIDA */
+    animation: gold-seamless-loop 2s linear infinite;
     
-    /* MÁSCARA MÁGICA: */
-    /* Isso recorta o centro, deixando apenas a borda visível sobre o botão */
+    /* MÁSCARA: Deixa apenas a borda visível */
     -webkit-mask: 
        linear-gradient(#fff 0 0) content-box, 
        linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     
-    pointer-events: none; /* O clique passa através da luz */
+    pointer-events: none;
 }
 
-/* Animação que faz o dourado girar para sempre */
-@keyframes gold-loop {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+/* Keyframes corrigidos: Move de 0 a -200% (uma volta completa exata) */
+@keyframes gold-seamless-loop {
+    0% { 
+        background-position-x: 0%; 
+    }
+    100% { 
+        background-position-x: -200%; /* Move exatamente o tamanho do background */
+    }
 }
 
-/* Interação ao passar o mouse (apenas levanta o botão) */
+/* Interação ao passar o mouse */
 .page-guia .caixa-cta .cta-button:hover {
-    transform: translateY(-3px); /* Sobe um pouquinho */
-    background-color: #FFCC80;   /* Fica um pouco mais laranja */
+    transform: translateY(-3px);
+    background-color: #FFCC80;
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
