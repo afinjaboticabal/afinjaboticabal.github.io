@@ -1734,6 +1734,22 @@ body {
     display: none;
 }
 
+/* --- Estilo para Botões Desativados (Cinza) --- */
+.slider-nav-mobile .slider-btn-mobile:disabled,
+.playlist-nav-mobile .playlist-btn-mobile:disabled {
+    background-color: #e0e0e0; /* Fundo Cinza */
+    color: #a0a0a0;            /* Texto Cinza Escuro */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Remove o brilho dourado quando desativado */
+.slider-nav-mobile .slider-btn-mobile:disabled::before,
+.playlist-nav-mobile .playlist-btn-mobile:disabled::before {
+    display: none;
+}
+
 /* No Mobile, mostra os botões centralizados */
 @media (max-width: 768px) {
     .playlist-nav-mobile {
