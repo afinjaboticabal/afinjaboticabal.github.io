@@ -2169,13 +2169,17 @@ textarea.form-obs-area.area-col {
 /* A CAIXA - REFORÇADA */
 /* Usamos um seletor bem específico para garantir que a borda apareça */
 .page-guia div.portfolio-text-box.caixa-cta {
-    border: 2px solid #FFCC80 !important; /* Borda Laranja Forçada */
     border-radius: 12px;
     background-color: #fff;
     position: relative;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     z-index: 5; /* Garante que fique acima do fundo */
     overflow: visible; /* Garante que a borda não seja cortada */
+}
+
+/* Borda para a janela do Guia Diário */
+.page-guia .caixa-cta {
+    border: 2px solid #FFCC80;
 }
 
 /* 1. Cria a borda para a janela "Conversas que Acolhem" */
