@@ -2046,10 +2046,16 @@ textarea.form-obs-area.area-col {
    NOVO DESIGN ESPECÍFICO PARA O GUIA INTERATIVO (JANELAS)
    =================================================================== */
 
-/* 1. Janela Principal (Título do Topo) */
+/* 1. Janela Principal (Título do Topo) - ATUALIZADO */
 .page-guia .guia-title {
-    border-top: 6px solid #FFCC80; /* Laranja Pastel */
-    /* O resto do design original (sombra, fundo branco) é mantido */
+    border-top: 6px solid #FFCC80;    /* Borda Laranja em Cima */
+    border-bottom: 6px solid #FFCC80; /* Borda Laranja em Baixo (Novo) */
+    /* O resto do design original é mantido */
+}
+
+/* NOVA REGRA: Texto de Introdução (Sabemos que este momento...) */
+.page-guia .caixa-intro {
+    border: 2px solid #FFCC80; /* Borda fina total em toda a volta */
 }
 
 /* 2. Janelas Divididas (Entendendo Emoções / Próximos Passos) */
