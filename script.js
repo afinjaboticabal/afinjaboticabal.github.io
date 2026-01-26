@@ -814,4 +814,24 @@ if (document.getElementById('form-wrapper')) { // Verifica se o novo container e
         const elementoLinha2 = criarLinha(linha2Texto, linha1Texto.length);
         tituloFlutuante.appendChild(elementoLinha2);
     }
+    // ===============================================
+    //   Bloco 14: BOTÕES DE NAVEGAÇÃO DA PLAYLIST (MOBILE)
+    // ===============================================
+    const playlistContainer = document.querySelector('.custom-playlist-container');
+    const btnPrevPlaylist = document.getElementById('playlist-prev-mobile');
+    const btnNextPlaylist = document.getElementById('playlist-next-mobile');
+
+    if (playlistContainer && btnPrevPlaylist && btnNextPlaylist) {
+        
+        // Define quanto vai rolar (tamanho aproximado de um item)
+        const scrollAmount = 180; 
+
+        btnNextPlaylist.addEventListener('click', () => {
+            playlistContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        btnPrevPlaylist.addEventListener('click', () => {
+            playlistContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+    }
 });
