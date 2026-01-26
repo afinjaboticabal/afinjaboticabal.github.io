@@ -2162,10 +2162,85 @@ textarea.form-obs-area.area-col {
 }
 
 }
-/* 4. Janela com Botão (Guia Diário / CTA) */
+/* ===================================================================
+   4. JANELA COM BOTÃO (GUIA DIÁRIO / CTA) - VERSÃO GOLD LOOP
+   =================================================================== */
+
+/* A CAIXA (Corrigindo a borda que sumiu) */
 .page-guia .caixa-cta {
-    border: 2px solid #FFCC80; /* Borda fina total */
-    /* Mantém o fundo branco original */
+    /* Forçamos a borda com !important para garantir que nada sobrescreva */
+    border: 3px solid #FFCC80 !important; 
+    border-radius: 12px;
+    background-color: #fff;
+    position: relative;
+    /* Garante que a sombra da caixa não suma */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* O BOTÃO (Novo Design: Laranja Claro + Preto) */
+.page-guia .caixa-cta .cta-button {
+    background-color: #FFE0B2; /* Laranja bem clarinho */
+    color: #000000;            /* Texto Preto para leitura fácil */
+    font-weight: 800;          /* Negrito Extra */
+    text-transform: uppercase; /* Letras maiúsculas para destaque */
+    font-size: 0.95rem;
+    
+    border: none;              /* Removemos bordas antigas */
+    border-radius: 12px;
+    padding: 15px 35px;
+    
+    display: inline-block;
+    position: relative;
+    z-index: 1;                /* O texto fica acima do efeito */
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+/* O EFEITO DE LUZ INFINITA (Borda Dourada Animada) */
+.page-guia .caixa-cta .cta-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;              /* Ocupa todo o botão */
+    border-radius: 12px;   /* Segue a curva do botão */
+    padding: 4px;          /* Espessura da "Luz" */
+    
+    /* GRADIENTE DOURADO (Claro e Escuro apenas) */
+    background: linear-gradient(90deg, 
+        #B8860B, /* Ouro Escuro (Bronze) */
+        #FFD700, /* Ouro Amarelo Brilhante */
+        #FFF8DC, /* Ouro Quase Branco (Brilho) */
+        #FFD700, /* Ouro Amarelo */
+        #B8860B  /* Volta pro Escuro */
+    );
+    
+    background-size: 300% 100%; /* Estica o gradiente para a animação correr */
+    
+    /* A ANIMAÇÃO EM LOOP (Sem precisar passar o mouse) */
+    animation: gold-loop 3s linear infinite;
+    
+    /* MÁSCARA MÁGICA: */
+    /* Isso recorta o centro, deixando apenas a borda visível sobre o botão */
+    -webkit-mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    
+    pointer-events: none; /* O clique passa através da luz */
+}
+
+/* Animação que faz o dourado girar para sempre */
+@keyframes gold-loop {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* Interação ao passar o mouse (apenas levanta o botão) */
+.page-guia .caixa-cta .cta-button:hover {
+    transform: translateY(-3px); /* Sobe um pouquinho */
+    background-color: #FFCC80;   /* Fica um pouco mais laranja */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 /* 5. As 4 Janelas Finais (Grid Colorido) */
