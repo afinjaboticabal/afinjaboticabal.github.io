@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (VERSÃO FINAL GOLD EDITION - EFEITO METÁLICO/VIDRO) */
+/* 3. Título Flutuante (VERSÃO FINAL "OURO SUAVE" + SOMBRA FORTE) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2074,7 +2074,6 @@ textarea.form-obs-area.area-col {
     margin-top: 40px;
     margin-bottom: 20px;
     perspective: 1000px;
-    /* Desktop: Comportamento padrão */
     width: 100%;
 }
 
@@ -2091,7 +2090,6 @@ textarea.form-obs-area.area-col {
     display: block; 
     line-height: 1.5; 
     
-    /* Removemos background e cor base daqui */
     background: none;
     color: inherit; 
 }
@@ -2099,39 +2097,37 @@ textarea.form-obs-area.area-col {
 /* CLASSE DA LINHA: Segura o texto em uma linha só */
 .linha-titulo {
     display: block;
-    white-space: nowrap; /* Proíbe quebra de linha */
+    white-space: nowrap; 
     width: 100%;
 }
 
-/* A Classe de CADA LETRA - AQUI ESTÁ O BRILHO */
+/* A Classe de CADA LETRA - AQUI ESTÁ O AJUSTE DE COR */
 .letra-flutuante {
     display: inline-block;
     position: relative;
     white-space: pre; 
 
-    /* === O EFEITO DE OURO METÁLICO/VIDRO === */
-    
-    /* 1. O Gradiente "Sanduíche" */
+    /* === 1. O EFEITO DE OURO MAIS SUAVE === */
     background: linear-gradient(
         180deg,
-        #FFD700 10%,   /* Topo: Ouro Amarelo Brilhante */
-        #FDB931 45%,   /* Meio: Laranja Ouro Rico */
-        #FFFFF0 50%,   /* O REFLEXO: Uma linha quase branca no meio (efeito vidro) */
+        #E6B325 10%,   /* Topo: Ouro Rico (reduzi o brilho excessivo do amarelo) */
+        #FDB931 45%,   /* Meio: Laranja Ouro */
+        #FFE082 50%,   /* O BRILHO: Agora é um "Amarelo Creme", não mais branco puro */
         #FDB931 55%,   /* Meio: Volta para Laranja Ouro */
-        #C49102 90%    /* Base: Bronze/Ouro Escuro para dar peso */
+        #9A7D0A 90%    /* Base: Bronze mais fechado para dar peso */
     );
 
     /* 2. Recorta o fundo no formato da letra */
     -webkit-background-clip: text;
     background-clip: text;
 
-    /* 3. Deixa o texto transparente para mostrar o gradiente */
+    /* 3. Texto transparente */
     -webkit-text-fill-color: transparent;
     color: transparent;
 
-    /* 4. Sombra realista para destacar o "objeto de metal" do fundo */
-    /* Usamos filter: drop-shadow pois funciona melhor com o preenchimento transparente */
-    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+    /* === 2. A SOMBRA MAIS FORTE (DESTAQUE) === */
+    /* Aumentei a opacidade para 0.6 (60%) e o deslocamento para 3px */
+    filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.6));
 
     /* Velocidade da onda */
     animation: wave 5s ease-in-out infinite;
@@ -2143,7 +2139,7 @@ textarea.form-obs-area.area-col {
     50% { transform: translateY(-8px); }
 }
 
-/* === AJUSTE FINO PARA MOBILE (Mantido da versão anterior) === */
+/* === AJUSTE FINO PARA MOBILE === */
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante {
         width: calc(100% + 40px);
