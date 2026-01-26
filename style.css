@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (VERSÃO FINAL 3.0 - 2 LINHAS TRAVADAS) */
+/* 3. Título Flutuante (VERSÃO 4.0 - TELA CHEIA "FULL WIDTH") */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2074,7 +2074,9 @@ textarea.form-obs-area.area-col {
     margin-top: 40px;
     margin-bottom: 20px;
     perspective: 1000px;
-    width: 100%; /* Garante largura total */
+    
+    /* Garante que o container ocupe 100% */
+    width: 100%;
 }
 
 /* O Texto (Container das letras) */
@@ -2082,24 +2084,22 @@ textarea.form-obs-area.area-col {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 900; 
     
-    /* TAMANHO DA FONTE RESPONSIVO */
-    /* No Desktop: 2.2rem. No Mobile: diminui proporcionalmente (vw) para não estourar a tela */
-    font-size: clamp(0.9rem, 2.5vw, 2.4rem); 
+    /* DESKTOP: Mantém o tamanho grande fixo */
+    font-size: 2.4rem; 
     
     text-transform: uppercase;
     letter-spacing: 2px;
-    display: block; /* Ocupa a linha toda */
-    
-    line-height: 1.5; /* Espaço entre a linha de cima e a de baixo */
+    display: block; 
+    line-height: 1.5; 
     
     background: none;
     color: inherit; 
 }
 
-/* NOVA CLASSE: Controla cada linha separadamente */
+/* CLASSE DA LINHA: Segura o texto em uma linha só */
 .linha-titulo {
-    display: block;       /* Força uma linha em cima da outra */
-    white-space: nowrap;  /* PROÍBE quebrar a frase no meio. Nunca vai acontecer "ENTE-NDER" */
+    display: block;
+    white-space: nowrap; /* Proíbe quebra de linha */
     width: 100%;
 }
 
@@ -2107,16 +2107,9 @@ textarea.form-obs-area.area-col {
 .letra-flutuante {
     display: inline-block;
     position: relative;
-    
-    /* Preserva a largura do espaço vazio */
     white-space: pre; 
-    
-    /* Cor Ouro Amarelo Rico */
     color: #E6B325; 
-    
-    /* Sombra para volume */
     text-shadow: 1px 1px 0px #9A7D0A, 2px 2px 5px rgba(0, 0, 0, 0.25);
-
     -webkit-background-clip: border-box;
     background-clip: border-box;
     -webkit-text-fill-color: initial;
@@ -2126,26 +2119,41 @@ textarea.form-obs-area.area-col {
     animation-delay: calc(0.15s * var(--i));
 }
 
-/* O movimento da onda */
 @keyframes wave {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
 }
 
-/* Ajuste Fino para Mobile */
+/* === AJUSTE AGRESSIVO PARA MOBILE === */
 @media (max-width: 768px) {
+    /* 1. Quebra as margens laterais da página */
+    .page-guia .titulo-flutuante {
+        width: 100vw; /* Força largura total da tela */
+        margin-left: -20px; /* Anula o padding de 20px da section esquerda */
+        margin-right: -20px; /* Anula o padding da direita */
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%); /* Garante centralização perfeita */
+    }
+
     .page-guia .titulo-flutuante .portfolio-title {
-        /* No celular, reduzimos o espaçamento entre letras para caber mais texto */
-        letter-spacing: 1px; 
+        /* 2. Aumenta MUITO a fonte baseada na largura da tela (VW) */
+        /* 5.5vw significa que cada letra ocupa 5.5% da largura. */
+        /* Isso faz o texto crescer até encostar nas bordas. */
+        font-size: 5.5vw; 
         
-        /* Aumentamos um pouco a altura da linha para a onda não bater na linha de cima */
-        line-height: 1.8;
+        /* 3. Reduz espaço entre letras para caber mais texto grande */
+        letter-spacing: 0px; 
+        
+        line-height: 1.4;
     }
     
     @keyframes wave {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-4px); }
     }
+}
+
 }
 /* 4. Janela com Botão (Guia Diário / CTA) */
 .page-guia .caixa-cta {
