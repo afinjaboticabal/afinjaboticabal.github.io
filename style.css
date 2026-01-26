@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (VERSÃO FINAL 2.0 - QUEBRA DE LINHA CORRIGIDA) */
+/* 3. Título Flutuante (VERSÃO FINAL 3.0 - 2 LINHAS TRAVADAS) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2074,26 +2074,33 @@ textarea.form-obs-area.area-col {
     margin-top: 40px;
     margin-bottom: 20px;
     perspective: 1000px;
+    width: 100%; /* Garante largura total */
 }
 
 /* O Texto (Container das letras) */
 .page-guia .titulo-flutuante .portfolio-title {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 900; 
-    font-size: 2.4rem; 
+    
+    /* TAMANHO DA FONTE RESPONSIVO */
+    /* No Desktop: 2.2rem. No Mobile: diminui proporcionalmente (vw) para não estourar a tela */
+    font-size: clamp(0.9rem, 2.5vw, 2.4rem); 
+    
     text-transform: uppercase;
     letter-spacing: 2px;
-    display: inline-block;
+    display: block; /* Ocupa a linha toda */
     
-    /* CORREÇÃO DE QUEBRA: */
-    word-break: normal;      /* Permite quebra normal de palavras */
-    line-height: 1.4;
-    
-    /* Aumentei para 24em para caber "PARA" na primeira linha */
-    max-width: 24em;         
+    line-height: 1.5; /* Espaço entre a linha de cima e a de baixo */
     
     background: none;
     color: inherit; 
+}
+
+/* NOVA CLASSE: Controla cada linha separadamente */
+.linha-titulo {
+    display: block;       /* Força uma linha em cima da outra */
+    white-space: nowrap;  /* PROÍBE quebrar a frase no meio. Nunca vai acontecer "ENTE-NDER" */
+    width: 100%;
 }
 
 /* A Classe de CADA LETRA */
@@ -2101,7 +2108,7 @@ textarea.form-obs-area.area-col {
     display: inline-block;
     position: relative;
     
-    /* CORREÇÃO IMPORTANTE: Preserva a largura do espaço vazio */
+    /* Preserva a largura do espaço vazio */
     white-space: pre; 
     
     /* Cor Ouro Amarelo Rico */
@@ -2125,12 +2132,16 @@ textarea.form-obs-area.area-col {
     50% { transform: translateY(-8px); }
 }
 
-/* Ajuste para Mobile */
+/* Ajuste Fino para Mobile */
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante .portfolio-title {
-        font-size: 1.6rem;
-        max-width: 100%; /* No celular, usa a largura total */
+        /* No celular, reduzimos o espaçamento entre letras para caber mais texto */
+        letter-spacing: 1px; 
+        
+        /* Aumentamos um pouco a altura da linha para a onda não bater na linha de cima */
+        line-height: 1.8;
     }
+    
     @keyframes wave {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-4px); }
