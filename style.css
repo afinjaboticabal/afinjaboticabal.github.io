@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (VERSÃO 4.0 - TELA CHEIA "FULL WIDTH") */
+/* 3. Título Flutuante (VERSÃO 5.0 - AJUSTE MATEMÁTICO PERFEITO) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2075,7 +2075,7 @@ textarea.form-obs-area.area-col {
     margin-bottom: 20px;
     perspective: 1000px;
     
-    /* Garante que o container ocupe 100% */
+    /* Desktop: Comportamento padrão */
     width: 100%;
 }
 
@@ -2084,7 +2084,7 @@ textarea.form-obs-area.area-col {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 900; 
     
-    /* DESKTOP: Mantém o tamanho grande fixo */
+    /* Desktop: Tamanho fixo grande */
     font-size: 2.4rem; 
     
     text-transform: uppercase;
@@ -2124,28 +2124,38 @@ textarea.form-obs-area.area-col {
     50% { transform: translateY(-8px); }
 }
 
-/* === AJUSTE AGRESSIVO PARA MOBILE === */
+/* === AJUSTE FINO PARA MOBILE === */
 @media (max-width: 768px) {
-    /* 1. Quebra as margens laterais da página */
     .page-guia .titulo-flutuante {
-        width: 100vw; /* Força largura total da tela */
-        margin-left: -20px; /* Anula o padding de 20px da section esquerda */
-        margin-right: -20px; /* Anula o padding da direita */
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%); /* Garante centralização perfeita */
+        /* TRUQUE MATEMÁTICO:
+           O container pai tem 20px de padding de cada lado.
+           Então a largura total disponível é 100% + 40px. */
+        width: calc(100% + 40px);
+        
+        /* Puxamos 20px para a esquerda para "encaixar" nas bordas da tela */
+        margin-left: -20px;
+        margin-right: -20px;
+        
+        /* Removemos posicionamentos absolutos que causavam o desalinhamento */
+        position: static;
+        transform: none;
+        left: auto;
     }
 
     .page-guia .titulo-flutuante .portfolio-title {
-        /* 2. Aumenta MUITO a fonte baseada na largura da tela (VW) */
-        /* 5.5vw significa que cada letra ocupa 5.5% da largura. */
-        /* Isso faz o texto crescer até encostar nas bordas. */
-        font-size: 5.5vw; 
+        /* AJUSTE DE FONTE:
+           4.5vw é o "número mágico" para a Comfortaa.
+           Garante que a frase longa caiba sem cortar as bordas. */
+        font-size: 4.5vw; 
         
-        /* 3. Reduz espaço entre letras para caber mais texto grande */
+        /* Remove espaçamento extra para ganhar espaço */
         letter-spacing: 0px; 
         
         line-height: 1.4;
+        
+        /* Adiciona um micro padding invisível para a letra não colar no pixel da borda */
+        padding-left: 2px;
+        padding-right: 2px;
     }
     
     @keyframes wave {
