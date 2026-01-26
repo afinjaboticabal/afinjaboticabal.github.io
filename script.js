@@ -814,8 +814,9 @@ if (document.getElementById('form-wrapper')) { // Verifica se o novo container e
         const elementoLinha2 = criarLinha(linha2Texto, linha1Texto.length);
         tituloFlutuante.appendChild(elementoLinha2);
     }
-    // ===============================================
-    //   Bloco 14: BOTÕES DE NAVEGAÇÃO DA PLAYLIST (MOBILE)
+    
+// ===============================================
+    //   Bloco 14: BOTÕES DE NAVEGAÇÃO DA PLAYLIST (MOBILE) - COM LÓGICA DE BLOQUEIO
     // ===============================================
     const playlistContainer = document.querySelector('.custom-playlist-container');
     const btnPrevPlaylist = document.getElementById('playlist-prev-mobile');
@@ -823,15 +824,36 @@ if (document.getElementById('form-wrapper')) { // Verifica se o novo container e
 
     if (playlistContainer && btnPrevPlaylist && btnNextPlaylist) {
         
-        // Define quanto vai rolar (tamanho aproximado de um item)
-        const scrollAmount = 180; 
+        const scrollAmount = 180; // Quanto rola a cada clique
 
+        // Função que verifica se deve bloquear ou desbloquear os botões
+        function atualizarBotoesPlaylist() {
+            const scrollLeft = playlistContainer.scrollLeft;
+            // scrollWidth é a largura total do conteúdo / clientWidth é a largura visível
+            const maxScroll = playlistContainer.scrollWidth - playlistContainer.clientWidth;
+            const tolerance = 5; // Pequena margem de erro
+
+            // Se estiver no começo (0), desativa o botão "Anterior"
+            btnPrevPlaylist.disabled = scrollLeft < tolerance;
+
+            // Se estiver no fim, desativa o botão "Próximo"
+            btnNextPlaylist.disabled = scrollLeft > (maxScroll - tolerance);
+        }
+
+        // 1. Clique no botão PRÓXIMO
         btnNextPlaylist.addEventListener('click', () => {
             playlistContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         });
 
+        // 2. Clique no botão ANTERIOR
         btnPrevPlaylist.addEventListener('click', () => {
             playlistContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         });
+
+        // 3. Ouve a rolagem (seja pelo botão ou pelo dedo) para atualizar o estado
+        playlistContainer.addEventListener('scroll', atualizarBotoesPlaylist);
+
+        // 4. Executa uma vez ao carregar para garantir o estado inicial
+        atualizarBotoesPlaylist();
     }
 });
