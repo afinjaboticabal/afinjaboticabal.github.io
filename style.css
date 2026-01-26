@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (DESIGNER STYLE - JS WAVE) - CORRIGIDO */
+/* 3. Título Flutuante (FONTE GROSSA + DOURADO SÓLIDO + LENTO) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2078,39 +2078,45 @@ textarea.form-obs-area.area-col {
 
 /* O Texto (Container das letras) */
 .page-guia .titulo-flutuante .portfolio-title {
-    font-size: 2.2rem; 
-    font-weight: 800;  
+    /* MUDANÇA 1: Fonte */
+    /* Mantém a Comfortaa, mas força o peso máximo e aumenta o tamanho */
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 900; /* Peso extra-negrito */
+    font-size: 2.4rem; /* Aumentei um pouco para parecer mais "cheia" */
+    
     text-transform: uppercase;
     letter-spacing: 2px;
     display: inline-block;
-    /* Removemos o background daqui para não bugar */
+    
+    /* Removemos qualquer background conflitante */
     background: none;
     color: inherit; 
 }
 
-/* A Classe de CADA LETRA (Onde a mágica acontece) */
+/* A Classe de CADA LETRA */
 .letra-flutuante {
     display: inline-block;
     position: relative;
     
-    /* 1. O Efeito de Cor (Aplicado letra por letra agora) */
-    /* Degradê vertical: Laranja -> Ouro -> Vermelho Alaranjado */
-    background: linear-gradient(180deg, #FF8C00 0%, #FFD700 50%, #FF4500 100%);
+    /* MUDANÇA 2: Cor Única Dourado Escuro */
+    /* Usamos cor sólida em vez de gradiente */
+    color: #B8860B; /* DarkGoldenRod (Dourado Escuro) */
     
-    /* 2. Recorta o fundo no formato da letra */
-    -webkit-background-clip: text;
-    background-clip: text;
-    
-    /* 3. Deixa a letra transparente para o fundo aparecer */
-    color: transparent;
-    -webkit-text-fill-color: transparent; /* Garante compatibilidade */
+    /* Truque para "engrossar" a fonte visualmente:
+       Uma sombra na mesma cor levemente deslocada + sombra suave preta */
+    text-shadow: 1px 1px 0px #8B6508, 2px 2px 4px rgba(0, 0, 0, 0.3);
 
-    /* 4. A Animação de Onda */
-    animation: wave 2.5s ease-in-out infinite;
-    animation-delay: calc(0.1s * var(--i));
+    /* Removemos as propriedades de recorte (clip) para evitar o texto invisível */
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: initial;
+
+    /* MUDANÇA 3: Velocidade Lenta */
+    /* Aumentei para 5s (era 2.5s) para ficar bem suave */
+    animation: wave 5s ease-in-out infinite;
     
-    /* Sombra suave atrás para destacar do fundo bege (opcional) */
-    filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.5));
+    /* O delay define a "forma" da onda. 0.15s cria uma curva bonita */
+    animation-delay: calc(0.15s * var(--i));
 }
 
 /* O movimento da onda */
@@ -2119,14 +2125,14 @@ textarea.form-obs-area.area-col {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-8px); /* Sobe 8px */
+        transform: translateY(-8px); /* A altura que ela sobe */
     }
 }
 
 /* Ajuste para Mobile */
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante .portfolio-title {
-        font-size: 1.5rem;
+        font-size: 1.6rem; /* Reduz um pouco no celular */
     }
     @keyframes wave {
         0%, 100% { transform: translateY(0); }
