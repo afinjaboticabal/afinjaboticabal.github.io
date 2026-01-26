@@ -774,7 +774,7 @@ if (document.getElementById('form-wrapper')) { // Verifica se o novo container e
     }
     
 }
-    // =================================================================
+// =================================================================
     //   Bloco 13: ANIMAÇÃO DE TEXTO "WAVE" (TÍTULO FLUTUANTE)
     // =================================================================
     const tituloFlutuante = document.querySelector('.page-guia .titulo-flutuante .portfolio-title');
@@ -787,15 +787,13 @@ if (document.getElementById('form-wrapper')) { // Verifica se o novo container e
         tituloFlutuante.innerHTML = '';
         
         // 3. Reconstrói letra por letra
-        // O split('') separa cada caractere. O map cria os spans.
         const letrasHTML = textoOriginal.split('').map((letra, index) => {
-            // Se for um espaço vazio, precisamos de um caractere HTML (&nbsp;) ou manter o espaço
+            // CORREÇÃO: Usamos um espaço normal " " em vez de &nbsp;
             if (letra === ' ') {
-                return `<span class="letra-flutuante" style="--i:${index};">&nbsp;</span>`;
+                return `<span class="letra-flutuante" style="--i:${index};"> </span>`;
             }
-            // Retorna a letra envolvida no span com o índice (index) para o delay
             return `<span class="letra-flutuante" style="--i:${index};">${letra}</span>`;
-        }).join(''); // Junta tudo de volta numa string
+        }).join(''); 
         
         // 4. Insere o novo HTML
         tituloFlutuante.innerHTML = letrasHTML;
