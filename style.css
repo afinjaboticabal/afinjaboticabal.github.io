@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (VERSÃO FINAL: OURO VIBRANTE + QUEBRA CORRETA) */
+/* 3. Título Flutuante (VERSÃO FINAL 2.0 - QUEBRA DE LINHA CORRIGIDA) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2085,11 +2085,12 @@ textarea.form-obs-area.area-col {
     letter-spacing: 2px;
     display: inline-block;
     
-    /* AJUSTE 2: CORREÇÃO DA QUEBRA DE LINHA */
-    word-break: keep-all;    /* Proíbe quebrar palavras no meio (ENTE-NDER nunca mais!) */
-    overflow-wrap: break-word; 
-    line-height: 1.4;        /* Dá mais espaço entre a linha de cima e a de baixo */
-    max-width: 18em;         /* Força a quebra de linha visualmente após "PARA" */
+    /* CORREÇÃO DE QUEBRA: */
+    word-break: normal;      /* Permite quebra normal de palavras */
+    line-height: 1.4;
+    
+    /* Aumentei para 24em para caber "PARA" na primeira linha */
+    max-width: 24em;         
     
     background: none;
     color: inherit; 
@@ -2100,10 +2101,13 @@ textarea.form-obs-area.area-col {
     display: inline-block;
     position: relative;
     
-    /* AJUSTE 1: COR OURO MAIS AMARELADO/VIBRANTE */
-    color: #E6B325; /* Um tom de Ouro Amarelo Rico (muito mais vivo que o marrom) */
+    /* CORREÇÃO IMPORTANTE: Preserva a largura do espaço vazio */
+    white-space: pre; 
     
-    /* Mantemos a sombra para dar volume e contraste contra o fundo */
+    /* Cor Ouro Amarelo Rico */
+    color: #E6B325; 
+    
+    /* Sombra para volume */
     text-shadow: 1px 1px 0px #9A7D0A, 2px 2px 5px rgba(0, 0, 0, 0.25);
 
     -webkit-background-clip: border-box;
@@ -2125,8 +2129,7 @@ textarea.form-obs-area.area-col {
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante .portfolio-title {
         font-size: 1.6rem;
-        max-width: 100%; /* No celular, deixa ocupar a largura toda */
-        line-height: 1.3;
+        max-width: 100%; /* No celular, usa a largura total */
     }
     @keyframes wave {
         0%, 100% { transform: translateY(0); }
