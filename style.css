@@ -2063,7 +2063,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Flutuante (FONTE GROSSA + DOURADO SÓLIDO + LENTO) */
+/* 3. Título Flutuante (VERSÃO FINAL: OURO VIBRANTE + QUEBRA CORRETA) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2078,17 +2078,19 @@ textarea.form-obs-area.area-col {
 
 /* O Texto (Container das letras) */
 .page-guia .titulo-flutuante .portfolio-title {
-    /* MUDANÇA 1: Fonte */
-    /* Mantém a Comfortaa, mas força o peso máximo e aumenta o tamanho */
     font-family: 'Comfortaa', sans-serif;
-    font-weight: 900; /* Peso extra-negrito */
-    font-size: 2.4rem; /* Aumentei um pouco para parecer mais "cheia" */
-    
+    font-weight: 900; 
+    font-size: 2.4rem; 
     text-transform: uppercase;
     letter-spacing: 2px;
     display: inline-block;
     
-    /* Removemos qualquer background conflitante */
+    /* AJUSTE 2: CORREÇÃO DA QUEBRA DE LINHA */
+    word-break: keep-all;    /* Proíbe quebrar palavras no meio (ENTE-NDER nunca mais!) */
+    overflow-wrap: break-word; 
+    line-height: 1.4;        /* Dá mais espaço entre a linha de cima e a de baixo */
+    max-width: 18em;         /* Força a quebra de linha visualmente após "PARA" */
+    
     background: none;
     color: inherit; 
 }
@@ -2098,41 +2100,33 @@ textarea.form-obs-area.area-col {
     display: inline-block;
     position: relative;
     
-    /* MUDANÇA 2: Cor Única Dourado Escuro */
-    /* Usamos cor sólida em vez de gradiente */
-    color: #B8860B; /* DarkGoldenRod (Dourado Escuro) */
+    /* AJUSTE 1: COR OURO MAIS AMARELADO/VIBRANTE */
+    color: #E6B325; /* Um tom de Ouro Amarelo Rico (muito mais vivo que o marrom) */
     
-    /* Truque para "engrossar" a fonte visualmente:
-       Uma sombra na mesma cor levemente deslocada + sombra suave preta */
-    text-shadow: 1px 1px 0px #8B6508, 2px 2px 4px rgba(0, 0, 0, 0.3);
+    /* Mantemos a sombra para dar volume e contraste contra o fundo */
+    text-shadow: 1px 1px 0px #9A7D0A, 2px 2px 5px rgba(0, 0, 0, 0.25);
 
-    /* Removemos as propriedades de recorte (clip) para evitar o texto invisível */
     -webkit-background-clip: border-box;
     background-clip: border-box;
     -webkit-text-fill-color: initial;
 
-    /* MUDANÇA 3: Velocidade Lenta */
-    /* Aumentei para 5s (era 2.5s) para ficar bem suave */
+    /* Velocidade da onda */
     animation: wave 5s ease-in-out infinite;
-    
-    /* O delay define a "forma" da onda. 0.15s cria uma curva bonita */
     animation-delay: calc(0.15s * var(--i));
 }
 
 /* O movimento da onda */
 @keyframes wave {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-8px); /* A altura que ela sobe */
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
 }
 
 /* Ajuste para Mobile */
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante .portfolio-title {
-        font-size: 1.6rem; /* Reduz um pouco no celular */
+        font-size: 1.6rem;
+        max-width: 100%; /* No celular, deixa ocupar a largura toda */
+        line-height: 1.3;
     }
     @keyframes wave {
         0%, 100% { transform: translateY(0); }
