@@ -2400,3 +2400,28 @@ textarea.form-obs-area.area-col {
 .grid-item p:last-child {
     margin-bottom: 0 !important;
 }
+
+/* ===================================================================
+   FORÇAR MODO DESKTOP NA PÁGINA GUIA DIÁRIO
+   =================================================================== */
+
+/* Garante que a folha tenha SEMPRE 210mm e não encolha */
+.page-guia-diario .form-a4 {
+    width: 210mm !important;
+    max-width: none !important; /* Remove o limite de 90% que espremia a folha */
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Ajusta o container para permitir que a folha larga exista */
+.page-guia-diario #form-wrapper {
+    width: 100% !important;
+    min-width: 1024px; /* Garante que o fundo acompanhe o zoom */
+    overflow-x: hidden; /* Evita rolagem lateral desnecessária */
+}
+
+/* (Opcional) Ajusta o menu sticky para não ficar minúsculo demais */
+.page-guia-diario .sticky-menu {
+    width: 1024px; /* Faz a barra do menu ocupar a largura simulada total */
+    min-width: 100%;
+}
