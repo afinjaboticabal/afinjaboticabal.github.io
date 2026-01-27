@@ -2147,7 +2147,7 @@ textarea.form-obs-area.area-col {
     border-left: 6px solid #FFCC80; /* Laranja Pastel na lateral */
 }
 
-/* 3. Título Estático (ESTILO "I AM SANS" - DOURADO) */
+/* 3. Título Estático (ESTILO "I AM SANS" - DOURADO CORRIGIDO) */
 
 /* O Container Principal */
 .page-guia .titulo-flutuante {
@@ -2160,18 +2160,18 @@ textarea.form-obs-area.area-col {
     width: 100%;
 }
 
-/* O Texto (Agora com fonte Montserrat ExtraBold) */
+/* O Texto (Montserrat ExtraBold com Degradê por Linha) */
 .page-guia .titulo-flutuante .portfolio-title {
-    /* Fonte Nova: Montserrat (mais quadrada e grossa, igual à imagem) */
     font-family: 'Montserrat', sans-serif;
-    font-weight: 900; /* Peso máximo para ficar bem grossa */
-    font-size: 2.2rem; 
+    font-weight: 900;
+    font-size: 2.2rem;
     
     text-transform: uppercase;
-    letter-spacing: 1px; /* Um pouco menos de espaço para ficar compacta */
-    line-height: 1.3; 
+    letter-spacing: 1px;
     
-    /* EFEITO DE OURO (Aplicado no texto todo de uma vez) */
+    /* TRUQUE PARA O DEGRADÊ REPETIR EM CADA LINHA */
+    line-height: 1.3em; /* Define a altura de cada linha */
+    
     background: linear-gradient(
         180deg,
         #E6B325 10%,   
@@ -2180,20 +2180,27 @@ textarea.form-obs-area.area-col {
         #FDB931 55%,   
         #9A7D0A 90%    
     );
+    
+    /* Diz para o fundo ter a largura total (100%) e a altura EXATA da linha (1.3em) */
+    background-size: 100% 1.3em; 
+    background-repeat: repeat-y; /* Faz o degradê repetir verticalmente */
+    
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
 
-    /* Sombra Dourada para manter a legibilidade */
     filter: drop-shadow(2px 2px 0px #8B6508);
 }
 
 /* Ajuste para Celular */
 @media (max-width: 768px) {
     .page-guia .titulo-flutuante .portfolio-title {
-        font-size: 1.6rem; /* Tamanho ajustado para mobile */
+        font-size: 1.6rem;
         padding: 0 10px;
+        /* No celular a linha pode precisar ser um pouco maior para leitura */
+        line-height: 1.4em; 
+        background-size: 100% 1.4em; /* Acompanha o line-height do mobile */
     }
 }
 /* ===================================================================
