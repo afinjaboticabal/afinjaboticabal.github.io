@@ -2544,3 +2544,51 @@ textarea.form-obs-area.area-col {
         z-index: 500; 
     }
 }
+
+/* --- BOTÃO ESPECIAL: GUIA AFIN (DOURADO) --- */
+
+/* Sobrescrevemos o "before" (a borda) apenas para este botão.
+   Mantemos a máscara e o formato, mudamos apenas a cor e a animação.
+*/
+.menu a.special-gold-btn::before {
+    /* Degradê Dourado: Bronze -> Ouro -> Creme -> Ouro -> Bronze 
+       (Essa sequência garante que o loop seja invisível) */
+    background: linear-gradient(90deg, 
+        #B8860B 0%, 
+        #FFD700 25%, 
+        #FFF8DC 50%, 
+        #FFD700 75%, 
+        #B8860B 100%
+    );
+    
+    background-size: 200% 100%; /* O fundo é 2x maior que o botão para poder rodar */
+    
+    /* AQUI ESTÁ A MÁGICA:
+       animation define que ele roda direto.
+       'infinite' faz ele nunca parar.
+       'linear' mantém a velocidade constante.
+    */
+    animation: gold-seamless-loop 4s linear infinite;
+}
+
+/* Definimos uma animação exclusiva para o dourado para controlar 
+   a velocidade e o brilho separadamente dos outros botões.
+*/
+@keyframes gold-seamless-loop {
+    0% { 
+        background-position: 0% 50%; 
+    }
+    100% { 
+        background-position: -200% 50%; 
+    }
+}
+
+/* Opcional: Efeito ao passar o mouse no botão Dourado
+   (Ele dá o pulinho igual aos outros, mas podemos intensificar o brilho se quiser) 
+*/
+.menu a.special-gold-btn:hover {
+    /* Mantém o comportamento padrão de subir um pouco */
+    transform: translateY(-2px);
+    /* Adiciona uma sombra dourada suave */
+    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+}
