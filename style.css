@@ -2431,3 +2431,15 @@ textarea.form-obs-area.area-col {
     font-size: 2rem; /* Ajusta o tamanho do ícone */
     padding-bottom: 5px; /* Ajuste fino para o X ficar no meio */
 }
+
+/* ===================================================================
+   REMOVER ESPAÇO EXTRA NO FINAL DOS TEXTOS (INTRO, COLUNAS E CARDS)
+   =================================================================== */
+
+/* Seleciona o último parágrafo dentro das caixas de texto principais (.portfolio-text-box) 
+   e dos cards coloridos (.grid-item) e remove a margem inferior */
+
+.portfolio-text-box p:last-child,
+.grid-item p:last-child {
+    margin-bottom: 0 !important;
+}
