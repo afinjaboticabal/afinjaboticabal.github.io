@@ -2425,3 +2425,31 @@ textarea.form-obs-area.area-col {
     width: 1024px; /* Faz a barra do menu ocupar a largura simulada total */
     min-width: 100%;
 }
+
+/* ===================================================================
+   CONTROLE DE TEXTO ESPECÍFICO PARA CELULAR (QUEBRAS DE LINHA)
+   =================================================================== */
+
+@media (max-width: 768px) {
+    
+    /* 1. Faz cada <span> pular para uma nova linha no celular */
+    .txt-mobile {
+        display: block;  /* Comporta-se como um bloco, forçando a quebra */
+        width: 100%;     /* Garante que ocupe a largura toda */
+    }
+
+    /* 2. Ajuste específico para o título "Focando no Futuro" */
+    .titulo-quebra-especial .txt-mobile {
+        line-height: 1.3;  /* Dá um respiro melhor entre as 3 linhas */
+        margin-bottom: 5px; /* Um pequeno espaço entre as frases */
+    }
+
+    /* 3. Força o título da Playlist a ficar em UMA ÚNICA linha */
+    .titulo-uma-linha {
+        white-space: nowrap !important; /* Proíbe quebra de linha */
+        
+        /* Reduz um pouquinho a fonte só no celular para garantir que 
+           "Conversas que Acolhem" caiba na tela sem cortar */
+        font-size: 1.3rem !important; 
+    }
+}
