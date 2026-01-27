@@ -2460,7 +2460,7 @@ textarea.form-obs-area.area-col {
     }
 }
 
-/* --- ESTILOS DO MENU DROPDOWN (Atualizado) --- */
+/* --- ESTILOS DO MENU DROPDOWN (Versão Sutil) --- */
 
 .dropdown-container {
     position: relative;
@@ -2472,20 +2472,19 @@ textarea.form-obs-area.area-col {
 /* Conteúdo da lista (O menu que abre) */
 .dropdown-content {
     display: none;
-    position: absolute; /* ISSO GARANTE QUE FLUTUE POR CIMA EM TODOS OS DISPOSITIVOS */
+    position: absolute;
     background-color: #ffffff;
-    min-width: 240px; /* Aumentei um pouco para caber melhor no celular */
+    min-width: 240px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1000;
     border-radius: 12px;
     top: 105%;
     left: 50%;
-    transform: translateX(-50%); /* Centraliza perfeitamente */
+    transform: translateX(-50%);
     padding: 10px 0;
     border: 1px solid #eee;
 }
 
-/* Mostra o menu ao passar o mouse ou clicar (mobile simula hover ao clicar) */
 .dropdown-container:hover .dropdown-content {
     display: block;
 }
@@ -2494,53 +2493,54 @@ textarea.form-obs-area.area-col {
 .menu .dropdown-content a {
     display: block;
     text-align: left;
-    color: #333;
-    padding: 14px 16px; /* Aumentei um pouco a área de clique */
+    color: #333; /* Cor original do texto (preto/cinza escuro) */
+    padding: 14px 16px;
     text-decoration: none;
-    background: none;
+    background-color: #ffffff; /* Fundo padrão branco */
     box-shadow: none;
     margin: 0;
     width: 100%;
     font-size: 0.9rem;
     border-radius: 0;
-    font-family: 'Comfortaa', sans-serif; /* Garante a fonte certa */
+    font-family: 'Comfortaa', sans-serif;
+    transition: color 0.2s ease; /* Transição suave apenas na cor */
 }
 
 .menu .dropdown-content a::before {
     display: none;
 }
 
+/* --- HOVER GERAL (Sutil) --- */
+/* Ao passar o mouse, apenas o texto fica azul. O fundo continua branco. */
 .menu .dropdown-content a:hover {
-    background-color: #007bff;
-    color: white; /* Fica branco com fundo azul no hover */
+    background-color: #ffffff; 
+    color: #007bff; 
     transform: none;
 }
 
-/* --- AJUSTE 3: Cor de fundo no segundo item --- */
-/* Pega apenas o segundo link (nth-child(2)) dentro da lista */
+/* --- ITEM DO MEIO (Destaque Fixo) --- */
+/* O segundo item tem fundo cinza claro fixo */
 .menu .dropdown-content a:nth-child(2) {
-    background-color: #f2f2f2; /* Um cinza bem clarinho */
+    background-color: #f2f2f2;
 }
 
-/* Garante que se passar o mouse no item cinza, ele fique azul também */
+/* --- HOVER DO ITEM DO MEIO --- */
+/* Ao passar o mouse no item cinza, o fundo PERMANECE cinza (não fica azul/branco) */
 .menu .dropdown-content a:nth-child(2):hover {
-    background-color: #007bff;
-    color: white;
+    background-color: #f2f2f2; 
+    color: #007bff;
 }
 
 .menu .dropdown-container .dropbtn {
-    cursor: pointer; /* Garante que pareça clicável */
+    cursor: pointer;
 }
 
 /* --- Ajuste Mobile --- */
-/* Removi a parte que tornava o menu relativo. 
-   Mantive apenas o ajuste de largura para garantir o clique. */
 @media (max-width: 768px) {
     .dropdown-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* No celular, o container pode precisar de z-index alto */
         z-index: 500; 
     }
 }
