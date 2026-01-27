@@ -2379,3 +2379,36 @@ textarea.form-obs-area.area-col {
 .page-guia .grid-item p {
     color: #444;
 }
+
+/* ===================================================================
+   AJUSTE DE ZOOM NO MODAL APENAS PARA CELULAR
+   =================================================================== */
+@media (max-width: 768px) {
+
+    /* 1. Ajusta a caixa que segura a imagem no celular */
+    .modal-conteudo {
+        width: 100%;       /* Ocupa toda a largura disponível */
+        height: 90vh;      /* Define a altura fixa da caixa */
+        overflow: hidden;  /* O MAIS IMPORTANTE: Esconde o que vazar nas laterais */
+        display: flex;
+        justify-content: center; /* Garante que o corte seja centralizado */
+        align-items: center;
+    }
+
+    /* 2. Ajusta a imagem dentro da caixa no celular */
+    .modal-conteudo img {
+        /* Força a imagem a ter exatamente a altura da caixa (90% da tela) */
+        height: 100% !important; 
+        
+        /* Deixa a largura se ajustar para não distorcer a imagem.
+           Como sua imagem tem laterais sobrando, ela ficará mais larga que a tela */
+        width: auto !important; 
+        
+        /* Remove o limite que impedia a imagem de estourar a largura */
+        max-width: none !important; 
+        max-height: none !important;
+        
+        /* Garante que o navegador não tente espremer a imagem */
+        object-fit: fill; /* ou 'cover', mas 'fill' com height 100% e width auto funciona bem aqui */
+    }
+}
